@@ -1,0 +1,59 @@
+
+import Spacing from 'material-ui/styles/spacing';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+import {
+    blue100,
+    blue500,
+    blue700,
+    grey100,
+    grey200,
+    grey300,
+    grey400,
+    grey800,
+    orange500,
+    orangeA200,
+    darkBlack,
+    white,
+} from 'material-ui/styles/colors';
+import { fade } from 'material-ui/utils/colorManipulator';
+
+const theme = {
+    spacing: Spacing,
+    fontFamily: 'Roboto, sans-serif',
+    palette: {
+        primary1Color: blue500,
+        primary2Color: blue700,
+        primary3Color: blue100,
+        accent1Color: orange500,
+        accent2Color: grey100,
+        accent3Color: orangeA200,
+        textColor: darkBlack,
+        alternateTextColor: white,
+        canvasColor: white,
+        borderColor: grey400,
+        disabledColor: fade(darkBlack, 0.3),
+    },
+    tabs:{backgroundColor:grey300,
+        selectedTextColor:grey800,
+        textColor:grey800
+        },
+    settingOptions:{
+        blocked:grey200,
+        read:grey400,
+        write:grey800,
+        
+    }
+};
+
+const muiTheme = getMuiTheme(theme);
+
+export default Object.assign({}, muiTheme, {
+    forms: {
+        minWidth: 350,
+        maxWidth: 750,
+    },
+    formInput: {
+        fontWeight: 100,
+    },
+});

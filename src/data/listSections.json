@@ -1,0 +1,205 @@
+{
+    "sections": [
+        {
+            "key": "dataElement",
+            "resource": "dataElements",
+            "label": "OBJ_DATAELEMENT",
+            "group": "dataElementGroups",
+            "groupName": "OBJ_DATAELEMENTGROUP",
+            "list": 1
+        },
+        {
+            "key": "dataElementGroup",
+            "resource": "dataElementGroups",
+            "group": "dataElementGroupSets",
+            "label": "OBJ_DATAELEMENTGROUP",
+            "list": 1
+        },
+        {
+            "key": "dataElementGroupSet",
+            "resource": "dataElementGroupSets",
+            "group": "",
+            "label": "OBJ_DATAELEMENTGROUPSETS",
+            "list": 1
+        },
+        {
+            "key": "category",
+            "resource": "categories",
+            "group": "",
+            "label": "OBJ_CATEGORIES",
+            "list": 1
+        },
+        {
+            "key": "categoryOption",
+            "resource": "categoryOptions",
+            "group": "categories",
+            "groupName": "OBJ_CATEGORIES",
+            "label": "OBJ_CATEGORYOPTIONS",
+            "list": 1
+        },
+        {
+            "key": "categoryCombo",
+            "resource": "categoryCombos",
+            "group": "",
+            "label": "OBJ_CATEGORYCOMBO",
+            "list": 1
+        },
+        {
+            "key": "categoryOptionGroup",
+            "resource": "categoryOptionGroups",
+            "group": "categoryOptionGroupSets",
+            "groupName": "OBJ_CATEGORYOPTIONGROUPSETS",
+            "label": "OBJ_CATEGORYOPTIONGROUPS",
+            "list": 1
+        },
+        {
+            "key": "categoryOptionGroupSet",
+            "resource": "categoryOptionGroupSets",
+            "group": "",
+            "label": "OBJ_CATEGORYOPTIONGROUPSETS",
+            "list": 2
+        },
+        {
+            "key": "indicator",
+            "resource": "indicators",
+            "group": "indicatorGroups",
+            "groupName": "OBJ_INDICATORSGROUPS",
+            "label": "OBJ_INDICATORS",
+            "list": 2
+        },
+        {
+            "key": "indicatorGroup",
+            "resource": "indicatorGroups",
+            "group": "",
+            "label": "OBJ_INDICATORSGROUPS",
+            "list": 2
+        },
+        {
+            "key": "dataSet",
+            "resource": "dataSets",
+            "group": "",
+            "label": "OBJ_DATASETS",
+            "list": 2
+        },
+        {
+            "key": "organisationUnitGroup",
+            "resource": "organisationUnitGroups",
+            "group": "organisationUnitGroupSets",
+            "groupName": "OBJ_ORGANISATIONUNITGROUPSSETS",
+            "label": "OBJ_ORGANISATIONUNITGROUPS",
+            "list": 2
+        },
+        {
+            "key": "organisationUnitGroupSet",
+            "resource": "organisationUnitGroupSets",
+            "group": "",
+            "label": "OBJ_ORGANISATIONUNITGROUPSSETS",
+            "list": 2
+        },
+        {
+            "key": "optionSet",
+            "resource": "optionSets",
+            "group": "",
+            "label": "OBJ_OPTIONSETS",
+            "list": 2
+        },
+        {
+            "key": "userGroup",
+            "resource": "userGroups",
+            "group": "",
+            "label": "OBJ_USERGROUPS",
+            "list": 3
+        },
+        {
+            "key": "userRole",
+            "resource": "userRoles",
+            "group": "",
+            "label": "OBJ_USERROLES",
+            "list": 3
+        },
+        {
+            "key": "legendSet",
+            "resource": "legendSets",
+            "group": "",
+            "label": "OBJ_LEGENDSETS",
+            "list": 3
+        },
+        {
+            "key": "constant",
+            "resource": "constants",
+            "group": "",
+            "label": "OBJ_CONSTANTS",
+            "list": 3
+        },
+        {
+            "key": "trackedEntityAttribute",
+            "resource": "trackedEntityAttributes",
+            "group": "",
+            "label": "OBJ_TRKATTRIBUTES",
+            "list": 3
+        },
+        {
+            "key": "program",
+            "resource": "programs",
+            "group": "",
+            "label": "OBJ_PROGRAMS",
+            "list": 3
+        },
+        {
+            "key": "programIndicator",
+            "resource": "programIndicators",
+            "group": "",
+            "label": "OBJ_PROGRAMINDOCATORS",
+            "list": 3
+        },
+        {
+            "key": "dashboard",
+            "resource": "dashboards",
+            "group": "",
+            "label": "OBJ_DASHBOARDS",
+            "list": 4
+        },
+        {
+            "key": "map",
+            "resource": "maps",
+            "group": "",
+            "label": "OBJ_MAPS",
+            "list": 4
+        },
+        {
+            "key": "eventReport",
+            "resource": "eventReports",
+            "group": "",
+            "label": "OBJ_EVENTREPORTS",
+            "list": 4
+        },
+        {
+            "key": "eventChart",
+            "resource": "eventCharts",
+            "group": "",
+            "label": "OBJ_EVENTCHARTS",
+            "list": 4
+        },
+        {
+            "key": "reportTable",
+            "resource": "reportTables",
+            "group": "",
+            "label": "OBJ_REPORTTABLES",
+            "list": 4
+        },
+        {
+            "key": "chart",
+            "resource": "charts",
+            "group": "",
+            "label": "OBJ_CHARTS",
+            "list": 4
+        },
+        {
+            "key": "sqlView",
+            "resource": "sqlViews",
+            "group": "",
+            "label": "OBJ_SQLVIEWS",
+            "list": 4
+        }
+    ]
+}
