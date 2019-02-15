@@ -7,9 +7,10 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
-import ListSelect from 'd2-ui/lib/list-select/ListSelect.component';
 import ArrowUpward from 'material-ui/svg-icons/navigation/arrow-upward';
 import ArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
+
+import ListSelect from './ListSelect.component';
 
 import appTheme from '../theme';
 
@@ -21,7 +22,8 @@ const styles={
         height:"250px",
         minHeight:"50px",
         outline:"none",
-        width:"100%"
+        width:"100%",
+        overflowX: 'auto'
     },
     containterList: {
         display: 'grid',
@@ -78,6 +80,29 @@ class EditMode extends React.Component {
       this.setState({stepIndex: stepIndex - 1});
     }
   };
+  handleRemoveAll(){
+    let aList=this.state.objectAvailable;    
+    for (var k =0; k < aList.length; k++){        
+            aList[k].visible=true;        
+    }
+     this.setState(
+        {
+            objectAvailable:aList,
+            objectSelected:[]
+        });
+  }
+  handleSelectAll(){
+
+    let aList=this.state.objectAvailable;    
+    for (var k =0; k < aList.length; k++){        
+            aList[k].visible=false;        
+    }
+     this.setState(
+        {
+            objectAvailable:aList,
+            objectSelected:this.state.objectAvailable
+        });
+  }
   handleList(val){
       let obSelected={
         label:this.props.listObject[val].displayName,
@@ -94,7 +119,7 @@ class EditMode extends React.Component {
     let aList=this.state.objectAvailable;    
     for (var k =0; k < aList.length; k++){
         if (aList[k].value === val) {
-            aList.splice(k,1);
+            aList[k].visible=false;
         }
     }
      this.setState(
@@ -103,12 +128,41 @@ class EditMode extends React.Component {
         });
 
   }
+  handleDesSelect(val){
+    let obSelected={
+      label:this.props.listObject[val].displayName,
+      value:this.props.listObject[val].id
+  };
+  //Add Object Selected
+  let nList=this.state.objectAvailable;    
+    for (var k =0; k < nList.length; k++){
+        if (nList[k].value === val) {
+            nList[k].visible=true;
+        }
+    }
+     this.setState(
+        {
+            objectAvailable:nList
+        });
+  //Remove Object Selected
+  let aList=this.state.objectSelected;    
+  for (var k =0; k < aList.length; k++){
+      if (aList[k].value === val) {
+          aList.splice(k,1);
+      }
+  }
+   this.setState(
+      {
+        objectSelected:aList
+      });
+
+}
  fillListObject(listObject){
      //convert object to array
      const rowRaw = Object.values(listObject);
      return rowRaw.map((row)=> {
          return(  
-            {label:row.displayName,value:row.id} 
+            {label:row.displayName,value:row.id,visible:true} 
          )
      })
     
@@ -126,14 +180,14 @@ componentDidUpdate(prevProps,prevState){
                 <div style={styles.containterList}>
             
                     <div style={styles.ItemsList}>
-                        <ListSelect source={this.state.objectAvailable} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10}/>
+                        <ListSelect source={this.state.objectAvailable.filter((obj)=>obj.visible==true)} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10} />
                     </div>
                     <div style={styles.ItemMiddleButton}>
                         <RaisedButton label="→" style={styles.ButtonSelect} />
                         <RaisedButton label="←" labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}/>
                     </div>
                     <div style={styles.ItemsList}>
-                        <ListSelect source={this.state.objectSelected} onItemDoubleClick={this.handleList} listStyle={styles.list} size={10}/>
+                        <ListSelect source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10}/>
                     </div>
                     <div style={styles.ItemMiddleButton}>
                         <IconButton tooltip="SVG Icon">
@@ -146,14 +200,14 @@ componentDidUpdate(prevProps,prevState){
                 <div style={styles.containterList}>
             
                     <div style={styles.ButtonLeftAling}>
-                         <RaisedButton label={d2.i18n.getTranslation("BTN_ASIGN_ALL")+"→"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}/>
+                         <RaisedButton onClick={this.handleSelectAll.bind(this)} label={d2.i18n.getTranslation("BTN_ASIGN_ALL")+"→"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}/>
                     </div>
                     <div style={styles.ItemMiddleButton}>  </div>
                     <div style={styles.ButtonRightAling}>
-                        <RaisedButton label={d2.i18n.getTranslation("BTN_REMOVE_ALL")+"←"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}/>
+                        <RaisedButton onClick={this.handleRemoveAll.bind(this)} label={d2.i18n.getTranslation("BTN_REMOVE_ALL")+"←"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}/>
                     </div>
                     <div style={styles.ItemMiddleButton}></div>
-                    </div>
+                   </div>
                 
             </div>
             )
