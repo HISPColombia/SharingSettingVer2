@@ -6,12 +6,7 @@ import {
 } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import IconButton from 'material-ui/IconButton';
-import ArrowUpward from 'material-ui/svg-icons/navigation/arrow-upward';
-import ArrowDownward from 'material-ui/svg-icons/navigation/arrow-downward';
-
 import ListSelect from './ListSelect.component';
-
 import appTheme from '../theme';
 
 const styles={
@@ -157,6 +152,13 @@ class EditMode extends React.Component {
       });
 
 }
+
+handleListSelected(list,CallBackFnSelected){
+  const listSelected=document.getElementById(list).selectedOptions;
+    for(var option=0;option<listSelected.length;option++){
+      CallBackFnSelected(listSelected[option].value)    
+    }
+}
  fillListObject(listObject){
      //convert object to array
      const rowRaw = Object.values(listObject);
@@ -180,20 +182,16 @@ componentDidUpdate(prevProps,prevState){
                 <div style={styles.containterList}>
             
                     <div style={styles.ItemsList}>
-                        <ListSelect source={this.state.objectAvailable.filter((obj)=>obj.visible==true)} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10} />
+                        <ListSelect id={"ListAvailable"} source={this.state.objectAvailable.filter((obj)=>obj.visible==true)} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10} />
                     </div>
                     <div style={styles.ItemMiddleButton}>
-                        <RaisedButton label="→" style={styles.ButtonSelect} />
-                        <RaisedButton label="←" labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}/>
+                        <RaisedButton onClick={()=>this.handleListSelected('ListAvailable',this.handleList.bind(this))} label="→" style={styles.ButtonSelect} />
+                        <RaisedButton onClick={()=>this.handleListSelected('ListSelected',this.handleDesSelect.bind(this))} label="←" labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}/>
                     </div>
                     <div style={styles.ItemsList}>
-                        <ListSelect source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10}/>
+                        <ListSelect id={"ListSelected"} source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10}/>
                     </div>
                     <div style={styles.ItemMiddleButton}>
-                        <IconButton tooltip="SVG Icon">
-                            <ArrowUpward />
-                            <ArrowDownward/>  
-                        </IconButton>
                     </div>
                                 
                 </div>

@@ -7,7 +7,6 @@ node_modules
 build
 coverage
 manifest.webapp
-.babelrc
 .eslintignore
 .eslintrc
 .scss-lint.yml

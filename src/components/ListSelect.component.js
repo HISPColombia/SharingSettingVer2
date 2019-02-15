@@ -9,7 +9,6 @@ export default function ListSelect(props) {
             props.onItemDoubleClick(clickedItemValue);
         }
     }
-
     var options = props.source.map(function (item) {
         return React.createElement(
             'option',
@@ -28,7 +27,7 @@ export default function ListSelect(props) {
         { className: 'list-select' },
         React.createElement(
             'select',
-            {multiple:"multiple", size: props.size || 15, style: Object.assign({ overflowX: 'auto' }, props.listStyle) },
+            {id:props.id,multiple:"multiple", size: props.size || 15, style: Object.assign({ overflowX: 'auto' }, props.listStyle)},
             options
         )
     );
@@ -40,5 +39,6 @@ ListSelect.propTypes = {
     })).isRequired,
     onItemDoubleClick: PropTypes.func.isRequired,
     listStyle: PropTypes.object,
-    size: PropTypes.number
+    size: PropTypes.number,
+    id:PropTypes.string
 };
