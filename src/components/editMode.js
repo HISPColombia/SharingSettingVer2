@@ -8,7 +8,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import ListSelect from './ListSelect.component';
 import appTheme from '../theme';
-
+import ListGroups from './ListGroups';
 const styles={
     list:{
         border:"none",
@@ -210,7 +210,9 @@ componentDidUpdate(prevProps,prevState){
             </div>
             )
       case 1:
-        return  d2.i18n.getTranslation("STEP_2");
+        return  (
+          <ListGroups d2={d2}/>
+        )
             
       case 2:
         return d2.i18n.getTranslation("STEP_3");
@@ -252,7 +254,7 @@ componentDidUpdate(prevProps,prevState){
           ) : (
             <div>
               {this.getStepContent(stepIndex)}
-              <div style={{marginTop: 12}}>
+              <div style={{marginTop: 12,textAlign:'center'}}>
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}
