@@ -1,6 +1,5 @@
 
 import React from 'react';
-import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import None from 'material-ui/svg-icons/av/not-interested'; 
 import ActionDone from 'material-ui/svg-icons/action/done';

@@ -45,7 +45,7 @@ class Content extends React.Component {
     }
     return result;
   }
-  // life cycle
+   // life cycle
   componentDidUpdate(prevProps,prevState) {
 
     if ((this.props.title != prevProps.title || this.state.currentPage != prevState.currentPage) && this.props.informationResource.resource != undefined){
@@ -66,11 +66,18 @@ class Content extends React.Component {
     }
   }
 
+  
+
   getChildContext() {
     return {
       d2: this.props.d2,
       muiTheme: appTheme
     };
+  }
+
+   //methods
+   updateParams(currentPage){
+    this.setState({currentPage});
   }
 //Handles
 
@@ -98,7 +105,7 @@ class Content extends React.Component {
               onChange={this.handleChangeTabs.bind(this)}
             >
               <Tab label={d2.i18n.getTranslation("TAB_VIEW_MODE")} value="view">
-               <ViewMode Enabledchecked={false} d2={d2} listObject={this.state.listObject} pager={this.state.pager} />
+               <ViewMode Enabledchecked={false} d2={d2} listObject={this.state.listObject} pager={this.state.pager} currentPage={this.state.currentPage} updateParams={this.updateParams.bind(this)} />
               </Tab>
               <Tab label={d2.i18n.getTranslation("TAB_EDIT_MODE")} value="edit">
                 <EditMode d2={d2} listObject={this.state.listObject} pager={this.state.pager} />
