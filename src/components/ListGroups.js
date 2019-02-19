@@ -19,12 +19,21 @@ import Group from 'material-ui/svg-icons/social/group';
 
 const styles = {
   paper: {
-    height: 10,
+    height: 260,
+    overflow:'auto',
     width: '90%',
     margin: 20,
     textAlign: 'center',
     display: 'inline-block',
-  }
+  },
+  columnForEditButton:{
+    width:'25%'
+  },
+  columnIcon:{
+    width:10
+  },
+  iconColor:appTheme.settingOptions.icon
+  
 
 }
 
@@ -106,9 +115,10 @@ class ListGroups extends React.Component {
 
             <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
-                <TableHeaderColumn>{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableHeaderColumn>
-                <TableHeaderColumn>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableHeaderColumn>
-                <TableHeaderColumn>{d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableHeaderColumn>
+                
+                <TableHeaderColumn columnNumber={2}>{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableHeaderColumn>
+                <TableHeaderColumn style={styles.columnForEditButton}>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableHeaderColumn>
+                <TableHeaderColumn style={styles.columnForEditButton}> {d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false} showRowHover={true}>
@@ -116,10 +126,11 @@ class ListGroups extends React.Component {
                 this.state.sharingOption.userAccesses.map(function(option) {
                   return(
                     <TableRow>
-                    <TableRowColumn><User/>{option.displayName}</TableRowColumn>
-                    <TableRowColumn> <SpecialButton /></TableRowColumn>
-                    <TableRowColumn>
-                      <SpecialButton />
+                    <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor}/></TableRowColumn>
+                    <TableRowColumn><span style={{textColor:styles.iconColor}}>{option.displayName}</span></TableRowColumn>
+                    <TableRowColumn  style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
+                    <TableRowColumn  style={styles.columnForEditButton}>
+                    <SpecialButton color={styles.iconColor} />
                     </TableRowColumn>
                   </TableRow>
                   )
@@ -128,6 +139,7 @@ class ListGroups extends React.Component {
             </TableBody>
           </Table>
         </div>
+        <TextField/>
       </div>
     );
   }

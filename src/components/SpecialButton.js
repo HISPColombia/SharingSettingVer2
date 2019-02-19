@@ -27,13 +27,14 @@ class SpecialButton extends React.Component {
       render() {
         return (
             <div>
-                <FlatButton label="Label before" onClick={()=>this.handleClickButton()} icon={this.state.value==0? <None/>: this.state.value==1?<ActionDone/>: <ActionDoneAll/>} />
+                <FlatButton onClick={()=>this.handleClickButton()} icon={this.state.value==0? <None color={this.props.color}/>: this.state.value==1?<ActionDone color={this.props.color}/>: <ActionDoneAll color={this.props.color}/>} />
             </div>
         )
     }
 }
 SpecialButton.propTypes = {
     value: React.PropTypes.number,
+    color: React.PropTypes.string,
   };
   
   

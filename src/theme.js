@@ -7,9 +7,9 @@ import {
     blue500,
     blue700,
     grey100,
-    grey200,
     grey300,
     grey400,
+    grey600,
     grey800,
     orange500,
     orangeA200,
@@ -39,9 +39,8 @@ const theme = {
         textColor:grey800
         },
     settingOptions:{
-        blocked:grey200,
-        read:grey400,
-        write:grey800,
+        icon:grey600
+
         
     }
 };
