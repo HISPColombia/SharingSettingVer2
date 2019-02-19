@@ -1,9 +1,9 @@
 import React from 'react';
 
 //Material UI
-import TextField from 'material-ui/TextField';
+import SearchTextBox from './SearchTextBox';
 import appTheme from '../theme';
-import SpecialButton from './SpecialButton'
+import SpecialButton from './SpecialButton';
 import {
   Table,
   TableBody,
@@ -20,20 +20,20 @@ import Group from 'material-ui/svg-icons/social/group';
 const styles = {
   paper: {
     height: 260,
-    overflow:'auto',
+    overflow: 'auto',
     width: '90%',
     margin: 20,
     textAlign: 'center',
     display: 'inline-block',
   },
-  columnForEditButton:{
-    width:'25%'
+  columnForEditButton: {
+    width: '25%'
   },
-  columnIcon:{
-    width:10
+  columnIcon: {
+    width: 10
   },
-  iconColor:appTheme.settingOptions.icon
-  
+  iconColor: appTheme.settingOptions.icon
+
 
 }
 
@@ -83,6 +83,20 @@ class ListGroups extends React.Component {
             id: "MZNoYkLK5iN",
             name: "Helder Castrillon",
           }
+        ],
+        userGroupAccesses: [{
+          access: "rwrw----",
+          displayName: "Administradores",
+          id: "ru4VJJxdozy",
+          name: "Administradores"
+        },
+        {
+          access: "r-rw----",
+          displayName: "Digitadores Mitú",
+          id: "z95T3H2sy2e",
+          name: "Digitadores Mitú"
+        }
+
         ]
       }
     };
@@ -90,20 +104,21 @@ class ListGroups extends React.Component {
   //API Query
 
   //query resource Selected
-  async getResourceSelected(urlAPI, page) {
+  async getResourceSelected(urlAPI) {
     const d2 = this.props.d2;
     const api = d2.Api.getApi();
     let result = {};
     try {
-      let res = await api.get('/api/29/sharing/search?key=Marko' + urlAPI);
-      if (res.hasOwnProperty(urlAPI)) {
-        return res;
-      }
+      let res = await api.get(urlAPI);
+      return res;      
     }
     catch (e) {
       console.error('Could not access to API Resource');
     }
     return result;
+  }
+  async searchUserGroups(valuetoSearch){
+      return  getResourceSelected("29/sharing/search?key="+valuetoSearch)
   }
 
   render() {
@@ -115,7 +130,7 @@ class ListGroups extends React.Component {
 
             <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
-                
+
                 <TableHeaderColumn columnNumber={2}>{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableHeaderColumn>
                 <TableHeaderColumn style={styles.columnForEditButton}>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableHeaderColumn>
                 <TableHeaderColumn style={styles.columnForEditButton}> {d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableHeaderColumn>
@@ -123,23 +138,36 @@ class ListGroups extends React.Component {
             </TableHeader>
             <TableBody displayRowCheckbox={false} showRowHover={true}>
               {
-                this.state.sharingOption.userAccesses.map(function(option) {
-                  return(
+                this.state.sharingOption.userAccesses.map(function (option) {
+                  return (
                     <TableRow>
-                    <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor}/></TableRowColumn>
-                    <TableRowColumn><span style={{textColor:styles.iconColor}}>{option.displayName}</span></TableRowColumn>
-                    <TableRowColumn  style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
-                    <TableRowColumn  style={styles.columnForEditButton}>
-                    <SpecialButton color={styles.iconColor} />
-                    </TableRowColumn>
-                  </TableRow>
+                      <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor} /></TableRowColumn>
+                      <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}>
+                        <SpecialButton color={styles.iconColor} />
+                      </TableRowColumn>
+                    </TableRow>
                   )
-              })}
-
+                })}
+ 
+               {
+                this.state.sharingOption.userGroupAccesses.map(function (option) {
+                  return (
+                    <TableRow>
+                      <TableRowColumn style={styles.columnIcon}><Group color={styles.iconColor} /></TableRowColumn>
+                      <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}>
+                        <SpecialButton color={styles.iconColor} />
+                      </TableRowColumn>
+                    </TableRow>
+                  )
+                })}
             </TableBody>
           </Table>
-        </div>
-        <TextField/>
+          </div>
+        <SearchTextBox source={()=>this.searchUserGroups} />
       </div>
     );
   }
