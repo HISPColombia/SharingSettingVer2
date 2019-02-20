@@ -97,7 +97,6 @@ class ViewObjects extends React.Component {
     }
   }
   renderResultInTable() {
-    let rows = "";
     let keysCount = 0;
     //convert object to array
     const rowRaw = Object.values(this.props.listObject);
@@ -119,13 +118,13 @@ class ViewObjects extends React.Component {
 
       return (<TableRow key={keysCount}>
         <TableRowColumn style={styles.tablerow}>{row.displayName}</TableRowColumn>
-        <TableRowColumn style={styles.tablerow}>{d2.i18n.getTranslation(funResolvMessage(row.publicAccess, "metadata"))}</TableRowColumn>
-        <TableRowColumn style={styles.tablerow}>{row.externalAccess ? <Check /> : <Remove />}</TableRowColumn>
+        <TableRowColumn style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata")=="CAN_EDIT"?<ActionDoneAll />:funResolvMessage(row.publicAccess, "metadata")=="CAN_VIEW"?<ActionDone /> : <None />}</TableRowColumn>
+        <TableRowColumn style={styles.tablerow}>{row.externalAccess ? <ActionDone /> : <None />}</TableRowColumn>
         <TableRowColumn style={styles.tablerow}>
 
           {row.userGroupAccesses.map(function (ug) {
             return (
-              <div style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(ug.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(ug.access, "data"))}>
+              <div  key={ug.id+"_"+keysCount}  style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(ug.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(ug.access, "data"))}>
                 <div>
                 {ug.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
                 {ug.access[3] == "w" ? <ActionDoneAll /> : ug.access[2] == "r" ? <ActionDone /> : <None />}
@@ -138,7 +137,7 @@ class ViewObjects extends React.Component {
         <TableRowColumn style={styles.tablerow}>
           {row.userAccesses.map(function (us) {
             return (
-              <div style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(us.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(us.access, "data"))}>
+              <div key={us.id+"_"+keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(us.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(us.access, "data"))}>
                 <div>
                   {us.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
                   {us.access[3] == "w" ? <ActionDoneAll /> : us.access[2] == "r" ? <ActionDone /> : <None />}

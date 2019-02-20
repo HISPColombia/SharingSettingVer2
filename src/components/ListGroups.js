@@ -46,58 +46,8 @@ class ListGroups extends React.Component {
     super(props);
     this.state = {
       sharingOption: {
-        userAccesses: [
-          {
-            access: "r-------",
-            displayName: "Marko David Garcia 1",
-            id: "hKNKkzXw92v",
-            name: "Marko David Garcia"
-          },
-          {
-            access: "r-------",
-            displayName: "Helder Castrillon 1",
-            id: "MZNoYkLK5iN",
-            name: "Helder Castrillon",
-          },
-          {
-            access: "r-------",
-            displayName: "Marko David Garcia 2",
-            id: "hKNKkzXw92v",
-            name: "Marko David Garcia"
-          },
-          {
-            access: "r-------",
-            displayName: "Helder Castrillon 2",
-            id: "MZNoYkLK5iN",
-            name: "Helder Castrillon",
-          },
-          {
-            access: "r-------",
-            displayName: "Marko David Garcia 3",
-            id: "hKNKkzXw92v",
-            name: "Marko David Garcia"
-          },
-          {
-            access: "r-------",
-            displayName: "Helder Castrillon 3",
-            id: "MZNoYkLK5iN",
-            name: "Helder Castrillon",
-          }
-        ],
-        userGroupAccesses: [{
-          access: "rwrw----",
-          displayName: "Administradores",
-          id: "ru4VJJxdozy",
-          name: "Administradores"
-        },
-        {
-          access: "r-rw----",
-          displayName: "Digitadores Mitú",
-          id: "z95T3H2sy2e",
-          name: "Digitadores Mitú"
-        }
-
-        ]
+        userAccesses: [],
+        userGroupAccesses: []
       }
     };
   }
@@ -118,13 +68,51 @@ class ListGroups extends React.Component {
     return result;
   }
   async searchUserGroups(valuetoSearch){
-      return  getResourceSelected("29/sharing/search?key="+valuetoSearch)
+     return this.getResourceSelected("29/sharing/search?key="+valuetoSearch).then(res => {
+       let user=res.users.map(function(user){
+          return({
+            id:user.id,
+            displayName:user.displayName,
+            data:{type:'user'}
+          })
+       })
+       let groups=res.userGroups.map(function(group){
+        return({
+          id:group.id,
+          displayName:group.displayName,
+          data:{type:'group'}
+        })
+     })
+      let response=user.concat(groups);
+       return response;
+     })
   }
-
+  SelectUserOrGroup(valueSelected){
+    if(valueSelected.data.type=='user')
+      this.state.sharingOption.userAccesses.push(
+        {
+          access: "--------",
+          displayName: valueSelected.displayName,
+          id: valueSelected.id,
+          name: valueSelected.displayName
+        }
+      )
+    else
+      this.state.sharingOption.userGroupAccesses.push(
+        {
+          access: "--------",
+          displayName: valueSelected.displayName,
+          id: valueSelected.id,
+          name: valueSelected.displayName
+        }
+      )
+      this.setState({sharingOption:this.state.sharingOption})
+  }
   render() {
     const d2 = this.props.d2;
+    var keyCount=0;
     return (
-      <div >
+      <div style={{position: 'relative'}} >
         <div style={styles.paper}>
           <Table>
 
@@ -139,8 +127,9 @@ class ListGroups extends React.Component {
             <TableBody displayRowCheckbox={false} showRowHover={true}>
               {
                 this.state.sharingOption.userAccesses.map(function (option) {
+                  keyCount++;
                   return (
-                    <TableRow>
+                    <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
@@ -154,7 +143,7 @@ class ListGroups extends React.Component {
                {
                 this.state.sharingOption.userGroupAccesses.map(function (option) {
                   return (
-                    <TableRow>
+                    <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><Group color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
@@ -167,7 +156,7 @@ class ListGroups extends React.Component {
             </TableBody>
           </Table>
           </div>
-        <SearchTextBox source={()=>this.searchUserGroups} />
+        <SearchTextBox source={this.searchUserGroups.bind(this)} title={d2.i18n.getTranslation("TITLE_SEARCH_GROUP")} callBackSelected={this.SelectUserOrGroup.bind(this)} />
       </div>
     );
   }
