@@ -2,8 +2,6 @@ import React from 'react';
 import NaviateNext from 'material-ui/svg-icons/image/navigate-next';
 import NaviateBefore from 'material-ui/svg-icons/image/navigate-before';
 import IconButton from 'material-ui/IconButton';
-import Check from 'material-ui/svg-icons/navigation/check'
-import Remove from 'material-ui/svg-icons/content/remove'
 import None from 'material-ui/svg-icons/av/not-interested';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';

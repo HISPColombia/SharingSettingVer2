@@ -47,7 +47,7 @@ class Content extends React.Component {
   }
    // life cycle
   componentDidUpdate(prevProps,prevState) {
-
+    try{
     if ((this.props.title != prevProps.title || this.state.currentPage != prevState.currentPage) && this.props.informationResource.resource != undefined){
       //reset count of pages
       if(this.props.title != prevProps.title){
@@ -64,6 +64,10 @@ class Content extends React.Component {
         });
       });
     }
+    }catch(err){
+      console.log(err);
+    }
+
   }
 
   

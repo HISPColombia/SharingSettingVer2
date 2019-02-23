@@ -39,7 +39,8 @@ const theme = {
         textColor:grey800
         },
     settingOptions:{
-        icon:grey600
+        icon:grey600,
+        title:grey400
 
         
     }

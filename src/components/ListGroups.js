@@ -1,7 +1,7 @@
 import React from 'react';
 
 //Material UI
-import SearchTextBox from './SearchTextBox';
+
 import appTheme from '../theme';
 import SpecialButton from './SpecialButton';
 import {
@@ -16,7 +16,8 @@ import User from 'material-ui/svg-icons/social/person';
 import Group from 'material-ui/svg-icons/social/group';
 
 //Component
-
+import SearchTextBox from './SearchTextBox';
+//
 const styles = {
   paper: {
     height: 260,
@@ -156,7 +157,7 @@ class ListGroups extends React.Component {
             </TableBody>
           </Table>
           </div>
-        <SearchTextBox source={this.searchUserGroups.bind(this)} title={d2.i18n.getTranslation("TITLE_SEARCH_GROUP")} callBackSelected={this.SelectUserOrGroup.bind(this)} />
+        <SearchTextBox source={this.searchUserGroups.bind(this)} title={d2.i18n.getTranslation("TITLE_SEARCH_GROUP")} callBackSelected={this.SelectUserOrGroup.bind(this)} color={styles.iconColor} />
       </div>
     );
   }

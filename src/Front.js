@@ -31,7 +31,8 @@ class AppFront extends React.Component {
       showSnackbar: false,
       formValidator: undefined,
       sectionToRender: '',
-      informationResource:{}
+      informationResource:{},
+      textSearch:""
     };
 
     this.changeSectionHandler = this.changeSectionHandler.bind(this);
@@ -45,7 +46,7 @@ class AppFront extends React.Component {
     if (key !== 'search' && sidebarRef) {
       sidebarRef.clearSearchBox();
     }
-    this.setState({ sectionToRender: currentSection });
+
     this.setResourceSelected(currentSection);
   }
 
@@ -54,18 +55,17 @@ class AppFront extends React.Component {
     let resourceSelected=ListSection.sections.find(function(resource){
       return resource.label===keySelected;
     });
-    this.setState({ informationResource: resourceSelected });
+    this.setState(
+      { 
+        informationResource: resourceSelected,
+        sectionToRender: currentSection,
+        textSearch:"" 
+      });
   }
-  changeSearchTextHandler(searchText) {
-    if (searchText.toString().trim().length > 0) {
-      if (currentSection !== 'search') {
-        lastSection = currentSection;
-      }
-      this.changeSectionHandler('search', searchText);
-    } else {
-      this.changeSectionHandler(lastSection);
-    }
+  changeSearchTextHandler(searchText){
+    this.setState({textSearch:searchText});
   }
+
   componentDidMount() {
      this.setState({ sectionToRender: ListSection.sections[0].label , informationResource:ListSection.sections[0]});
   }
@@ -94,13 +94,18 @@ class AppFront extends React.Component {
       <MuiThemeProvider muiTheme={appTheme}>
         <div className="app-wrapper">
         <HeaderBar />
+        <br/>
         <Sidebar
-            sections={ListSection.sections.map(function(section){
+            sections={
+              ListSection.sections.map((section)=>{
                 let obj={};
                 let label=d2.i18n.getTranslation(section.label);
                 let key=section.label
-                return({key,label,icon: <FontIcon className="material-icons" >folder_open</FontIcon>})
-            })}            
+               return({key,label,icon: <FontIcon className="material-icons" >folder_open</FontIcon>})
+
+            }).filter(section=>section.label.includes(this.state.textSearch)==true || this.state.textSearch=="")
+            }
+                      
             onChangeSection={this.changeSectionHandler}
             currentSection={this.props.currentSection}
             showSearchField
@@ -108,7 +113,7 @@ class AppFront extends React.Component {
             onChangeSearchText={this.changeSearchTextHandler}
             ref={this.storeRef}
           />
-		  
+  
 		  <Content
                 title={this.state.sectionToRender}
                 d2={d2}

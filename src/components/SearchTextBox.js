@@ -19,6 +19,7 @@ const styles={
     }
 
 
+
     
 }
 class SearchTextBox extends React.Component {
@@ -28,10 +29,11 @@ class SearchTextBox extends React.Component {
      };
     
     handleChangeValue(event) {
+        this.setState({textValue:event.target.value});
         if(event.target.value==""){
             this.setState({value:[]});
         }
-        else{
+        else{            
             this.props.source(event.target.value).then(res=>{
                 this.setState({value:res});
             })
@@ -46,8 +48,10 @@ class SearchTextBox extends React.Component {
     render() {
         var keycount=0;
         return (
-            <div style={styles.content}>
-                <label>{this.props.title}</label>
+            <div >
+                
+                <label style={{color:this.props.color}}>{this.props.title}</label>
+     
                 <TextField id={"valueSearch"} fullWidth={true}
                         multiLine={true}
                         onChange={this.handleChangeValue.bind(this)}
@@ -63,6 +67,7 @@ class SearchTextBox extends React.Component {
                     </List>
                 </Paper> 
                 </div>
+      
             </div>
         )
     }

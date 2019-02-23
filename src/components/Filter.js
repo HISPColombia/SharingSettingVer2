@@ -7,27 +7,23 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 //Component
-
-import FilterLIst from './FilterList'
+import SearchTextBox from './SearchTextBox';
+//
 
 const styles = {
   container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, 250px)',
+    gridTemplateColumns: '20% 20% 40% 20%',
   },
   item:{
     padding: 5,
     //border: '1px solid red'
 
-  }
+  },
+  titleColor: appTheme.settingOptions.title
 }
 
 const optionFilter=[
-  {
-    code:null,
-    value:null,
-    default:false
-  },
   {
     code:'LABEL_SEARCHDATASET',
     value:'dataset',
@@ -69,8 +65,20 @@ class Filter extends React.Component {
               key={option.value}
             />
   )}
+  searchOption(){
+    return({
+      id:"1",
+      displayName:"Prueba",
+      data:{}
+    })
+  }
+
+  selectOption(){
+    console.log("seleccionado")
+  }
 
   render() {
+    const d2= this.props.d2
     return (
       <section  style={styles.container}>
          <div style={styles.item}>
@@ -91,7 +99,15 @@ class Filter extends React.Component {
           </SelectField>
          </div>
          <div style={styles.item}>
-         <FilterLIst d2={this.props.d2} label={'Grupo'}/>
+         <SearchTextBox 
+            source={this.searchOption.bind(this)} 
+            title={d2.i18n.getTranslation("TITLE_SEARCH_GROUP")} 
+            callBackSelected={this.selectOption.bind(this)} 
+            color={styles.titleColor} 
+         />
+
+         </div>
+         <div style={styles.item}>
          </div>
          
       </section>
