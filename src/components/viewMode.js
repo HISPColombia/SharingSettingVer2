@@ -1,7 +1,4 @@
 import React from 'react';
-import NaviateNext from 'material-ui/svg-icons/image/navigate-next';
-import NaviateBefore from 'material-ui/svg-icons/image/navigate-before';
-import IconButton from 'material-ui/IconButton';
 import None from 'material-ui/svg-icons/av/not-interested';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
@@ -46,6 +43,10 @@ const styles = {
   },
   buttonGroup: {
     textAlign: 'center'
+  },
+  divConcentTable:{
+    height: 600,
+    overflow: 'auto'
   }
 
 };
@@ -57,27 +58,14 @@ class ViewObjects extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0, searchByName: "" }
+    this.state = { currentPage: 0, searchByName: "",filterString:""}
   }
 
   componentDidMount() {
-    this.state = { currentPage: this.props.currentPage,searchByName:""};
+    this.state = { currentPage: this.props.currentPage,searchByName:"",filterString:""};
   }
-  //handler
-  //pagernextHandle
-  handleNextPage() {
-    this.props.updateParams(this.state.currentPage + 1);
-    this.setState({ currentPage: this.state.currentPage + 1 })
 
-  }
-  handleBeforePage() {
-    if (this.state.currentPage > 1) {
-      this.props.updateParams(this.state.currentPage - 1);
-      this.setState({ currentPage: this.state.currentPage - 1 })
 
-    }
-
-  }
   //methods
   resolveAccessMessage(access, type) {
     const publicAccessStatus = {
@@ -94,9 +82,16 @@ class ViewObjects extends React.Component {
       return publicAccessStatus[metaDataAccess];
     }
   }
+    //handler
   handlefilterTextChange(textSearch) {
     this.setState({ searchByName: textSearch });
 
+  }
+  getFilterSelected(filterValue){
+    if(Object.keys(filterValue).length!=0)
+      this.setState({filterString:JSON.stringify(filterValue)})
+    else  
+      this.setState({filterString:""})
   }
   renderResultInTable() {
     let keysCount = 0;
@@ -117,8 +112,8 @@ class ViewObjects extends React.Component {
         var lastUS = row.userAccesses[row.userAccesses.length - 1].id;
       else
         var lastUS = "";
-        //filter by name
-      if (row.displayName.includes(this.state.searchByName) == true || this.state.searchByName == "") 
+        //filter by name ir by filter selected
+      if (((row.displayName.includes(this.state.searchByName) == true) && (this.state.filterString.includes(row.id)==true || this.state.filterString=="")))
         return (<TableRow key={keysCount}>
           <TableRowColumn style={styles.tablerow}>{row.displayName}</TableRowColumn>
           <TableRowColumn style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "CAN_EDIT" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "CAN_VIEW" ? <ActionDone /> : <None />}</TableRowColumn>
@@ -162,7 +157,13 @@ class ViewObjects extends React.Component {
     const d2 = this.props.d2;
     return (
       <div>
-        <Filter d2={d2} handlefilterTextChange={this.handlefilterTextChange.bind(this)} />
+        <Filter 
+        d2={d2} 
+        handlefilterTextChange={this.handlefilterTextChange.bind(this)} 
+        handleReturnFilterSelected={this.getFilterSelected.bind(this)}
+        filterAvailable={this.props.resource}
+        />
+        <div style={styles.divConcentTable}>
         <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
             <TableRow>
@@ -174,23 +175,11 @@ class ViewObjects extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={this.props.Enabledchecked} showRowHover={true}>
+         
             {Object.keys(this.props.listObject).length > 0 ? this.renderResultInTable() : ""}
           </TableBody>
+
         </Table>
-        <br />
-        <div style={styles.containterfooter}>
-          <div style={styles.ItemFooter}></div>
-          <div style={styles.ItemFooter}>
-            {1 + 50 * (this.props.pager.page - 1)} - {50 * this.props.pager.page} of {this.props.pager.total}
-          </div>
-          <div style={styles.ItemFooter}>
-            <IconButton disabled={this.props.pager.page == 1 ? true : false}>
-              <NaviateBefore onClick={() => this.handleBeforePage()} />
-            </IconButton>
-            <IconButton disabled={this.props.pager.page == this.props.pager.pageCount ? true : false}>
-              <NaviateNext onClick={() => this.handleNextPage()} />
-            </IconButton>
-          </div>
         </div>
       </div>
     )
@@ -204,6 +193,7 @@ ViewObjects.propTypes = {
   pager: React.PropTypes.object,
   Enabledchecked: React.PropTypes.bool,
   updateParams: React.PropTypes.func,
-  currentPage: React.PropTypes.number
+  currentPage: React.PropTypes.number,
+  resource: React.PropTypes.object
 };
 export default ViewObjects;

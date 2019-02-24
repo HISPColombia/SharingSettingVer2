@@ -4,202 +4,175 @@
             "key": "dataElement",
             "resource": "dataElements",
             "label": "OBJ_DATAELEMENT",
-            "group": "dataElementGroups",
-            "groupName": "OBJ_DATAELEMENTGROUP",
-            "list": 1
+            "filters": "programs,programStages,dataElementGroups,programIndicators"
         },
         {
             "key": "dataElementGroup",
             "resource": "dataElementGroups",
-            "group": "dataElementGroupSets",
-            "label": "OBJ_DATAELEMENTGROUP",
-            "list": 1
+            "filters": "dataElementGroupSets",
+            "label": "OBJ_DATAELEMENTGROUP"
         },
         {
             "key": "dataElementGroupSet",
             "resource": "dataElementGroupSets",
-            "group": "",
-            "label": "OBJ_DATAELEMENTGROUPSETS",
-            "list": 1
+            "filters": "",
+            "label": "OBJ_DATAELEMENTGROUPSETS"
         },
         {
             "key": "category",
             "resource": "categories",
-            "group": "",
-            "label": "OBJ_CATEGORIES",
-            "list": 1
+            "filters": "categoryCombo",
+            "label": "OBJ_CATEGORIES"
         },
         {
             "key": "categoryOption",
             "resource": "categoryOptions",
-            "group": "categories",
-            "groupName": "OBJ_CATEGORIES",
-            "label": "OBJ_CATEGORYOPTIONS",
-            "list": 1
+            "filters": "categories,categoryOptionGroup",
+            "label": "OBJ_CATEGORYOPTIONS"
         },
         {
             "key": "categoryCombo",
             "resource": "categoryCombos",
-            "group": "",
-            "label": "OBJ_CATEGORYCOMBO",
-            "list": 1
+            "filters": "",
+            "label": "OBJ_CATEGORYCOMBO"
         },
         {
             "key": "categoryOptionGroup",
             "resource": "categoryOptionGroups",
-            "group": "categoryOptionGroupSets",
-            "groupName": "OBJ_CATEGORYOPTIONGROUPSETS",
-            "label": "OBJ_CATEGORYOPTIONGROUPS",
-            "list": 1
+            "filters": "categoryOptionGroupSets",
+            "label": "OBJ_CATEGORYOPTIONGROUPS"
         },
         {
             "key": "categoryOptionGroupSet",
             "resource": "categoryOptionGroupSets",
-            "group": "",
-            "label": "OBJ_CATEGORYOPTIONGROUPSETS",
-            "list": 2
+            "filters": "",
+            "label": "OBJ_CATEGORYOPTIONGROUPSETS"
         },
         {
             "key": "indicator",
             "resource": "indicators",
-            "group": "indicatorGroups",
-            "groupName": "OBJ_INDICATORSGROUPS",
-            "label": "OBJ_INDICATORS",
-            "list": 2
+            "filters": "indicatorGroups",
+            "label": "OBJ_INDICATORS"
         },
         {
             "key": "indicatorGroup",
             "resource": "indicatorGroups",
-            "group": "",
-            "label": "OBJ_INDICATORSGROUPS",
-            "list": 2
+            "filters": "",
+            "label": "OBJ_INDICATORSGROUPS"
         },
         {
             "key": "dataSet",
             "resource": "dataSets",
-            "group": "",
-            "label": "OBJ_DATASETS",
-            "list": 2
+            "filters": "",
+            "label": "OBJ_DATASETS"
         },
         {
             "key": "organisationUnitGroup",
             "resource": "organisationUnitGroups",
-            "group": "organisationUnitGroupSets",
-            "groupName": "OBJ_ORGANISATIONUNITGROUPSSETS",
-            "label": "OBJ_ORGANISATIONUNITGROUPS",
-            "list": 2
+            "filters": "organisationUnitGroupSets",
+            "label": "OBJ_ORGANISATIONUNITGROUPS"
         },
         {
             "key": "organisationUnitGroupSet",
             "resource": "organisationUnitGroupSets",
-            "group": "",
-            "label": "OBJ_ORGANISATIONUNITGROUPSSETS",
-            "list": 2
+            "filters": "",
+            "label": "OBJ_ORGANISATIONUNITGROUPSSETS"
         },
         {
             "key": "optionSet",
             "resource": "optionSets",
-            "group": "",
-            "label": "OBJ_OPTIONSETS",
-            "list": 2
+            "filters": "",
+            "label": "OBJ_OPTIONSETS"
         },
         {
             "key": "userGroup",
             "resource": "userGroups",
-            "group": "",
-            "label": "OBJ_USERGROUPS",
-            "list": 3
+            "filters": "",
+            "label": "OBJ_USERGROUPS"
         },
         {
             "key": "userRole",
             "resource": "userRoles",
-            "group": "",
-            "label": "OBJ_USERROLES",
-            "list": 3
+            "filters": "",
+            "label": "OBJ_USERROLES"
         },
         {
             "key": "legendSet",
             "resource": "legendSets",
-            "group": "",
-            "label": "OBJ_LEGENDSETS",
-            "list": 3
+            "filters": "",
+            "label": "OBJ_LEGENDSETS"
         },
         {
             "key": "constant",
             "resource": "constants",
-            "group": "",
-            "label": "OBJ_CONSTANTS",
-            "list": 3
+            "filters": "",
+            "label": "OBJ_CONSTANTS"
         },
         {
             "key": "trackedEntityAttribute",
             "resource": "trackedEntityAttributes",
-            "group": "",
-            "label": "OBJ_TRKATTRIBUTES",
-            "list": 3
+            "filters": "programs",
+            "label": "OBJ_TRKATTRIBUTES"
         },
         {
             "key": "program",
             "resource": "programs",
-            "group": "",
-            "label": "OBJ_PROGRAMS",
-            "list": 3
+            "filters": "",
+            "label": "OBJ_PROGRAMS"
+        },
+        {
+            "key": "programStage",
+            "resource": "programStages",
+            "filters": "programs",
+            "label": "OBJ_PROGRAMSTAGE"
         },
         {
             "key": "programIndicator",
             "resource": "programIndicators",
-            "group": "",
-            "label": "OBJ_PROGRAMINDOCATORS",
-            "list": 3
+            "filters": "programs",
+            "label": "OBJ_PROGRAMINDOCATORS"
         },
         {
             "key": "dashboard",
             "resource": "dashboards",
-            "group": "",
-            "label": "OBJ_DASHBOARDS",
-            "list": 4
+            "filters": "",
+            "label": "OBJ_DASHBOARDS"
         },
         {
             "key": "map",
             "resource": "maps",
-            "group": "",
-            "label": "OBJ_MAPS",
-            "list": 4
+            "filters": "",
+            "label": "OBJ_MAPS"
         },
         {
             "key": "eventReport",
             "resource": "eventReports",
-            "group": "",
-            "label": "OBJ_EVENTREPORTS",
-            "list": 4
+            "filters": "",
+            "label": "OBJ_EVENTREPORTS"
         },
         {
             "key": "eventChart",
             "resource": "eventCharts",
-            "group": "",
-            "label": "OBJ_EVENTCHARTS",
-            "list": 4
+            "filters": "",
+            "label": "OBJ_EVENTCHARTS"
         },
         {
             "key": "reportTable",
             "resource": "reportTables",
-            "group": "",
-            "label": "OBJ_REPORTTABLES",
-            "list": 4
+            "filters": "",
+            "label": "OBJ_REPORTTABLES"
         },
         {
             "key": "chart",
             "resource": "charts",
-            "group": "",
-            "label": "OBJ_CHARTS",
-            "list": 4
+            "filters": "",
+            "label": "OBJ_CHARTS"
         },
         {
             "key": "sqlView",
             "resource": "sqlViews",
-            "group": "",
-            "label": "OBJ_SQLVIEWS",
-            "list": 4
+            "filters": "",
+            "label": "OBJ_SQLVIEWS"
         }
     ]
 }

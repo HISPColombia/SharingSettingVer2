@@ -61,7 +61,7 @@ class SearchTextBox extends React.Component {
                         fullWidth={true}
                         multiLine={true}
                         onChange={this.handleChangeValue.bind(this)}
-                        value={this.state.textValue}
+                        value={this.props.disabled?"":this.state.textValue}
                         floatingLabelText={this.props.title}
                         disabled={this.props.disabled}
                 />

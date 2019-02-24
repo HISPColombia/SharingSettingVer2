@@ -30,12 +30,12 @@ class Content extends React.Component {
   //API Query
 
   //query resource Selected
-  async getResourceSelected(urlAPI, page) {
+  async getResourceSelected(urlAPI) {
     const d2 = this.props.d2;
     const api = d2.Api.getApi();
     let result = {};
     try {
-      let res = await api.get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&page="+page);
+      let res = await api.get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&paging=false&page=");
       if (res.hasOwnProperty(urlAPI)) {
         return res;
       }
@@ -53,7 +53,7 @@ class Content extends React.Component {
       if(this.props.title != prevProps.title){
         this.setState({currentPage:1})
       }    
-    this.getResourceSelected(this.props.informationResource.resource,this.state.currentPage).then(res => {
+    this.getResourceSelected(this.props.informationResource.resource).then(res => {
         let dataResult = {}
         for (let g of res[this.props.informationResource.resource]) {
           dataResult[g.id] = g;
@@ -109,10 +109,10 @@ class Content extends React.Component {
               onChange={this.handleChangeTabs.bind(this)}
             >
               <Tab label={d2.i18n.getTranslation("TAB_VIEW_MODE")} value="view">
-               <ViewMode Enabledchecked={false} d2={d2} listObject={this.state.listObject} pager={this.state.pager} currentPage={this.state.currentPage} updateParams={this.updateParams.bind(this)} />
+               <ViewMode resource={this.props.informationResource} Enabledchecked={false} d2={d2} listObject={this.state.listObject} pager={this.state.pager} currentPage={this.state.currentPage} updateParams={this.updateParams.bind(this)} />
               </Tab>
               <Tab label={d2.i18n.getTranslation("TAB_EDIT_MODE")} value="edit">
-                <EditMode d2={d2} listObject={this.state.listObject} pager={this.state.pager} />
+                <EditMode resource={this.props.informationResource} d2={d2} listObject={this.state.listObject} pager={this.state.pager} />
               </Tab>
             </Tabs>
           </div>
