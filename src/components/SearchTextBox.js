@@ -11,6 +11,7 @@ const styles={
     },
     contentList:{
         position:'absolute',
+        zIndex: 1,
         backgroundColor:appTheme.palette.canvasColor,
         width: '35%'
     },
@@ -42,7 +43,11 @@ class SearchTextBox extends React.Component {
     handleSelectOption(valueSelected){
         this.props.callBackSelected(valueSelected);
         this.setState({ value: []});
-        this.setState({ textValue: ''});
+        if(this.props.showValueSelected==false)
+            this.setState({ textValue: ''});
+        else 
+            this.setState({ textValue: valueSelected.displayName});
+
     }
 
     render() {
@@ -50,12 +55,15 @@ class SearchTextBox extends React.Component {
         return (
             <div >
                 
-                <label style={{color:this.props.color}}>{this.props.title}</label>
-     
-                <TextField id={"valueSearch"} fullWidth={true}
+    
+                <TextField 
+                        id={"valueSearch"} 
+                        fullWidth={true}
                         multiLine={true}
                         onChange={this.handleChangeValue.bind(this)}
                         value={this.state.textValue}
+                        floatingLabelText={this.props.title}
+                        disabled={this.props.disabled}
                 />
                 <div style={this.state.value.length==0?styles.hideList:styles.contentList}>
                 <Paper>
@@ -77,7 +85,8 @@ SearchTextBox.propTypes = {
     source:React.PropTypes.func,
     title: React.PropTypes.string,
     callBackSelected:React.PropTypes.func,
-
+    showValueSelected:React.PropTypes.bool,
+    disabled:React.PropTypes.bool
 };
 
 

@@ -57,11 +57,11 @@ class ViewObjects extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0 }
+    this.state = { currentPage: 0, searchByName: "" }
   }
 
   componentDidMount() {
-    this.state = { currentPage: this.props.currentPage };
+    this.state = { currentPage: this.props.currentPage,searchByName:""};
   }
   //handler
   //pagernextHandle
@@ -94,66 +94,75 @@ class ViewObjects extends React.Component {
       return publicAccessStatus[metaDataAccess];
     }
   }
+  handlefilterTextChange(textSearch) {
+    this.setState({ searchByName: textSearch });
+
+  }
   renderResultInTable() {
     let keysCount = 0;
     //convert object to array
-    const rowRaw = Object.values(this.props.listObject);
+    let rowRaw = Object.values(this.props.listObject);
     //
     const d2 = this.props.d2;
     const funResolvMessage = this.resolveAccessMessage;
     return rowRaw.map((row) => {
       keysCount++;
       //handle last separator
-      if(row.userGroupAccesses.length>0)
-        var lastUG=row.userGroupAccesses[row.userGroupAccesses.length-1].id;
-      else 
-        var lastUG="";
+      if (row.userGroupAccesses.length > 0)
+        var lastUG = row.userGroupAccesses[row.userGroupAccesses.length - 1].id;
+      else
+        var lastUG = "";
 
-      if(row.userAccesses.length>0)
-        var lastUS=row.userAccesses[row.userAccesses.length-1].id;
-      else 
-        var lastUS="";
+      if (row.userAccesses.length > 0)
+        var lastUS = row.userAccesses[row.userAccesses.length - 1].id;
+      else
+        var lastUS = "";
+        //filter by name
+      if (row.displayName.includes(this.state.searchByName) == true || this.state.searchByName == "") 
+        return (<TableRow key={keysCount}>
+          <TableRowColumn style={styles.tablerow}>{row.displayName}</TableRowColumn>
+          <TableRowColumn style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "CAN_EDIT" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "CAN_VIEW" ? <ActionDone /> : <None />}</TableRowColumn>
+          <TableRowColumn style={styles.tablerow}>{row.externalAccess ? <ActionDone /> : <None />}</TableRowColumn>
+          <TableRowColumn style={styles.tablerow}>
 
-      return (<TableRow key={keysCount}>
-        <TableRowColumn style={styles.tablerow}>{row.displayName}</TableRowColumn>
-        <TableRowColumn style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata")=="CAN_EDIT"?<ActionDoneAll />:funResolvMessage(row.publicAccess, "metadata")=="CAN_VIEW"?<ActionDone /> : <None />}</TableRowColumn>
-        <TableRowColumn style={styles.tablerow}>{row.externalAccess ? <ActionDone /> : <None />}</TableRowColumn>
-        <TableRowColumn style={styles.tablerow}>
+            {row.userGroupAccesses.map((ug) => {
+              return (
+                <div key={ug.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(ug.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(ug.access, "data"))}>
+                  <div>
+                    {ug.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
+                    {ug.access[3] == "w" ? <ActionDoneAll /> : ug.access[2] == "r" ? <ActionDone /> : <None />}
+                  </div>
+                  <div>{ug.displayName}</div>
+                  {lastUG != ug.id ? <Divider /> : ""}
+                </div>)
+            })
+            }
+          </TableRowColumn>
+          <TableRowColumn style={styles.tablerow}>
+            {row.userAccesses.map((us) => {
+              return (
+                <div key={us.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(us.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(us.access, "data"))}>
+                  <div>
+                    {us.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
+                    {us.access[3] == "w" ? <ActionDoneAll /> : us.access[2] == "r" ? <ActionDone /> : <None />}
+                  </div>
+                  <div>{us.displayName}</div>
+                  {lastUS != us.id ? <Divider /> : ""}
+                </div>)
 
-          {row.userGroupAccesses.map(function (ug) {
-            return (
-              <div  key={ug.id+"_"+keysCount}  style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(ug.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(ug.access, "data"))}>
-                <div>
-                {ug.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
-                {ug.access[3] == "w" ? <ActionDoneAll /> : ug.access[2] == "r" ? <ActionDone /> : <None />}
-                </div>
-                <div>{ug.displayName}</div>
-                {lastUG!=ug.id?<Divider />:""}
-              </div>)
-          })}
-        </TableRowColumn>
-        <TableRowColumn style={styles.tablerow}>
-          {row.userAccesses.map(function (us) {
-            return (
-              <div key={us.id+"_"+keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(us.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(us.access, "data"))}>
-                <div>
-                  {us.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
-                  {us.access[3] == "w" ? <ActionDoneAll /> : us.access[2] == "r" ? <ActionDone /> : <None />}
-                </div>
-                <div>{us.displayName}</div>
-                {lastUS!=us.id?<Divider />:""}
-              </div>)
-          })}
-        </TableRowColumn>
-      </TableRow>)
-    })
+            })
+            }
+          </TableRowColumn>
+        </TableRow>)
+      })
+
 
   }
   render() {
     const d2 = this.props.d2;
     return (
       <div>
-        <Filter d2={d2} />
+        <Filter d2={d2} handlefilterTextChange={this.handlefilterTextChange.bind(this)} />
         <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
             <TableRow>
