@@ -2,6 +2,7 @@ import React from 'react';
 import None from 'material-ui/svg-icons/av/not-interested';
 import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
+import LinearProgress from 'material-ui/LinearProgress';
 import Divider from 'material-ui/Divider';
 import Filter from './Filter'
 import appTheme from '../theme';
@@ -50,7 +51,7 @@ const styles = {
   }
 
 };
-
+const showWaiting=false;
 
 class ViewObjects extends React.Component {
 
@@ -65,7 +66,13 @@ class ViewObjects extends React.Component {
     this.state = { currentPage: this.props.currentPage,searchByName:"",filterString:""};
   }
 
-
+  waiting(showWaiting){
+    return (
+       <TableRow>
+      <TableRowColumn style={styles.tablerow}><LinearProgress mode="indeterminate" /></TableRowColumn>
+      </TableRow>
+    )
+  }
   //methods
   resolveAccessMessage(access, type) {
     const publicAccessStatus = {
@@ -164,6 +171,7 @@ class ViewObjects extends React.Component {
         filterAvailable={this.props.resource}
         />
         <div style={styles.divConcentTable}>
+        
         <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
             <TableRow>
@@ -175,8 +183,7 @@ class ViewObjects extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={this.props.Enabledchecked} showRowHover={true}>
-         
-            {Object.keys(this.props.listObject).length > 0 ? this.renderResultInTable() : ""}
+            {Object.keys(this.props.listObject).length > 0 ? this.renderResultInTable() :this.waiting(false)}
           </TableBody>
 
         </Table>
