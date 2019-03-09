@@ -27,6 +27,11 @@ const styles = {
     textAlign: 'center',
     display: 'inline-block',
   },
+  textBox:{
+    width: '90%',
+    background:appTheme.rawTheme.palette.canvasColor,
+    margin: 20,
+  },
   columnForEditButton: {
     width: '25%'
   },
@@ -157,7 +162,7 @@ class ListGroups extends React.Component {
             </TableBody>
           </Table>
           </div>
-          <div>
+          <div style={styles.textBox}>
         <SearchTextBox 
         source={this.searchUserGroups.bind(this)} 
         title={d2.i18n.getTranslation("TITLE_SEARCH_GROUP")} 

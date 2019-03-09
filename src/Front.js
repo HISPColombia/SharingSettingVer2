@@ -10,6 +10,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FontIcon from 'material-ui/FontIcon';
 import appTheme from './theme';
 
+
 //Components
 import ListSection from './data/listSections.json'
 import Content from './components/Content'
@@ -20,6 +21,16 @@ let currentSection;
 let lastSection;
 let sidebarRef;
 
+const stylesLocal={
+  hidde:{
+    background:'gray',
+    width: 290,
+    height: '100%',
+    position:'absolute',
+    opacity:'0.3',
+    zIndex:100
+  }
+}
 
 class AppFront extends React.Component {
 
@@ -32,7 +43,8 @@ class AppFront extends React.Component {
       formValidator: undefined,
       sectionToRender: '',
       informationResource:{},
-      textSearch:""
+      textSearch:"",
+      hiddenSlide:true
     };
 
     this.changeSectionHandler = this.changeSectionHandler.bind(this);
@@ -82,7 +94,14 @@ class AppFront extends React.Component {
     };
   }
 
- 
+ disableSlide(mode){
+   if(mode=='edit'){
+     this.setState({hiddenSlide:false})
+   }
+   else{
+    this.setState({hiddenSlide:true})
+   }
+ }
   render() {
     const d2 = this.props.d2;
     const iconStyles = {
@@ -93,8 +112,16 @@ class AppFront extends React.Component {
 
       <MuiThemeProvider muiTheme={appTheme}>
         <div className="app-wrapper">
-        <HeaderBar />
+         <HeaderBar />
         <br/>
+        
+        
+        {
+          this.state.hiddenSlide
+          ?""
+          :<div style={stylesLocal.hidde} ></div>
+          
+        }
         <Sidebar
             sections={
               ListSection.sections.map((section)=>{
@@ -111,13 +138,14 @@ class AppFront extends React.Component {
             showSearchField
             searchFieldLabel="Search"
             onChangeSearchText={this.changeSearchTextHandler}
-            ref={this.storeRef}
+            ref={this.storeRef}         
           />
-  
+    
 		  <Content
                 title={this.state.sectionToRender}
                 d2={d2}
                 informationResource={this.state.informationResource}
+                disableSlide={this.disableSlide.bind(this)}
               />
 
         </div>

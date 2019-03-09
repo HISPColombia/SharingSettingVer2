@@ -256,13 +256,13 @@ componentDidUpdate(prevProps,prevState){
               {this.getStepContent(stepIndex)}
               <div style={{marginTop: 12,textAlign:'center'}}>
                 <FlatButton
-                  label="Back"
+                  label={d2.i18n.getTranslation("BTN_BACK")}
                   disabled={stepIndex === 0}
                   onClick={this.handlePrev.bind(this)}
                   style={{marginRight: 12}}
                 />
                 <RaisedButton
-                  label={stepIndex === 2 ? 'Finish' : 'Next'}
+                  label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_FINISH") :d2.i18n.getTranslation("BTN_NEXT")}
                   primary={true}
                   onClick={this.handleNext.bind(this)}
                 />

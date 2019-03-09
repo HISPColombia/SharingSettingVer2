@@ -14,7 +14,6 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
 const styles = {
   header: {
     fontSize: 24,
@@ -51,8 +50,6 @@ const styles = {
   }
 
 };
-const showWaiting=false;
-
 class ViewObjects extends React.Component {
 
 
@@ -66,11 +63,14 @@ class ViewObjects extends React.Component {
     this.state = { currentPage: this.props.currentPage,searchByName:"",filterString:""};
   }
 
-  waiting(showWaiting){
-    return (
-       <TableRow>
-      <TableRowColumn style={styles.tablerow}><LinearProgress mode="indeterminate" /></TableRowColumn>
-      </TableRow>
+
+ waiting(){
+   var hide=true;
+    setTimeout(()=>{hide=true},5000)
+     return (
+      <div style={hide?{display: "none"}:{}}>
+          <LinearProgress mode="indeterminate" />
+      </div>
     )
   }
   //methods
@@ -171,7 +171,9 @@ class ViewObjects extends React.Component {
         filterAvailable={this.props.resource}
         />
         <div style={styles.divConcentTable}>
-        
+        {
+          //this.waiting()
+        }
         <Table>
           <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
             <TableRow>
@@ -183,7 +185,7 @@ class ViewObjects extends React.Component {
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={this.props.Enabledchecked} showRowHover={true}>
-            {Object.keys(this.props.listObject).length > 0 ? this.renderResultInTable() :this.waiting(false)}
+            {Object.keys(this.props.listObject).length > 0 ? this.renderResultInTable() :""}
           </TableBody>
 
         </Table>
@@ -197,7 +199,6 @@ class ViewObjects extends React.Component {
 ViewObjects.propTypes = {
   d2: React.PropTypes.object.isRequired,
   listObject: React.PropTypes.object,
-  pager: React.PropTypes.object,
   Enabledchecked: React.PropTypes.bool,
   updateParams: React.PropTypes.func,
   currentPage: React.PropTypes.number,
