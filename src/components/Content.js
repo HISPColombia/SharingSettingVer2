@@ -2,7 +2,7 @@ import React from 'react';
 import appTheme from '../theme';
 import ViewMode from './viewMode';
 import EditMode from './editMode';
-
+import Filter from './Filter'
 //Material UI 
 
 import { Tab, Tabs } from 'material-ui/Tabs';
@@ -37,7 +37,7 @@ class Content extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { open: false, mode: 'view', listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, currentPage: 1 }
+    this.state = { searchByName:"",filterString:"",open: false, mode: 'view', listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, currentPage: 1 }
   }
 
   //API Query
@@ -105,6 +105,19 @@ class Content extends React.Component {
     });
     this.props.disableSlide(value)
   };
+
+  //handle filter
+    //handler
+    handlefilterTextChange(textSearch) {
+      this.setState({ searchByName: textSearch });
+  
+    }
+    getFilterSelected(filterValue){
+      if(Object.keys(filterValue).length!=0)
+        this.setState({filterString:JSON.stringify(filterValue)})
+      else  
+        this.setState({filterString:""})
+    }
   //handle Modal
 
   handleOpen(){
@@ -181,16 +194,37 @@ class Content extends React.Component {
 
 
           </div>
+          <Filter 
+        d2={d2} 
+        handlefilterTextChange={this.handlefilterTextChange.bind(this)} 
+        handleReturnFilterSelected={this.getFilterSelected.bind(this)}
+        filterAvailable={this.props.informationResource}
+        />
 
           <Tabs
             value={this.state.mode}
             onChange={this.handleChangeTabs.bind(this)}
           >
             <Tab label={d2.i18n.getTranslation("TAB_VIEW_MODE")} value="view">
-              <ViewMode resource={this.props.informationResource} Enabledchecked={false} d2={d2} listObject={this.state.listObject} currentPage={this.state.currentPage} updateParams={this.updateParams.bind(this)} />
+              <ViewMode 
+              Enabledchecked={false}
+              d2={d2} 
+              listObject={this.state.listObject}
+              currentPage={this.state.currentPage}
+              updateParams={this.updateParams.bind(this)}
+              searchByName={this.state.searchByName}
+              filterString={this.state.filterString}
+              />
             </Tab>
             <Tab label={d2.i18n.getTranslation("TAB_EDIT_MODE")} value="edit">
-              <EditMode resource={this.props.informationResource} d2={d2} listObject={this.state.listObject} pager={this.state.pager} />
+              <EditMode 
+              resource={this.props.informationResource} 
+              d2={d2}
+              listObject={this.state.listObject}
+              pager={this.state.pager}
+              searchByName={this.state.searchByName}
+              filterString={this.state.filterString}
+              />
             </Tab>
           </Tabs>
         </div>

@@ -10,16 +10,17 @@ export default function ListSelect(props) {
         }
     }
     var options = props.source.map(function (item) {
-        return React.createElement(
-            'option',
-            {
-                key: item.value,
-                style: { padding: '.25rem' },
-                onDoubleClick: listItemDoubleClicked,
-                value: item.value
-            },
-            item.label
-        );
+        if (((item.label.includes(props.searchByName) == true) && (props.filterString.includes(item.value)==true || props.filterString=="")))
+            return React.createElement(
+                'option',
+                {
+                    key: item.value,
+                    style: { padding: '.25rem' },
+                    onDoubleClick: listItemDoubleClicked,
+                    value: item.value
+                },
+                item.label
+            );
     });
 
     return React.createElement(

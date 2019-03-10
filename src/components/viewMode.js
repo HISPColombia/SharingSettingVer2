@@ -4,7 +4,7 @@ import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import LinearProgress from 'material-ui/LinearProgress';
 import Divider from 'material-ui/Divider';
-import Filter from './Filter'
+
 import appTheme from '../theme';
 import {
   Table,
@@ -56,11 +56,11 @@ class ViewObjects extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0, searchByName: "",filterString:""}
+    this.state = { currentPage: 0}
   }
 
   componentDidMount() {
-    this.state = { currentPage: this.props.currentPage,searchByName:"",filterString:""};
+    this.state = { currentPage: this.props.currentPage};
   }
 
 
@@ -89,17 +89,6 @@ class ViewObjects extends React.Component {
       return publicAccessStatus[metaDataAccess];
     }
   }
-    //handler
-  handlefilterTextChange(textSearch) {
-    this.setState({ searchByName: textSearch });
-
-  }
-  getFilterSelected(filterValue){
-    if(Object.keys(filterValue).length!=0)
-      this.setState({filterString:JSON.stringify(filterValue)})
-    else  
-      this.setState({filterString:""})
-  }
   renderResultInTable() {
     let keysCount = 0;
     //convert object to array
@@ -120,7 +109,7 @@ class ViewObjects extends React.Component {
       else
         var lastUS = "";
         //filter by name ir by filter selected
-      if (((row.displayName.includes(this.state.searchByName) == true) && (this.state.filterString.includes(row.id)==true || this.state.filterString=="")))
+      if (((row.displayName.includes(this.props.searchByName) == true) && (this.props.filterString.includes(row.id)==true || this.props.filterString=="")))
         return (<TableRow key={keysCount}>
           <TableRowColumn style={styles.tablerow}>{row.displayName}</TableRowColumn>
           <TableRowColumn style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "CAN_EDIT" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "CAN_VIEW" ? <ActionDone /> : <None />}</TableRowColumn>
@@ -164,12 +153,7 @@ class ViewObjects extends React.Component {
     const d2 = this.props.d2;
     return (
       <div>
-        <Filter 
-        d2={d2} 
-        handlefilterTextChange={this.handlefilterTextChange.bind(this)} 
-        handleReturnFilterSelected={this.getFilterSelected.bind(this)}
-        filterAvailable={this.props.resource}
-        />
+
         <div style={styles.divConcentTable}>
         {
           //this.waiting()
@@ -202,6 +186,7 @@ ViewObjects.propTypes = {
   Enabledchecked: React.PropTypes.bool,
   updateParams: React.PropTypes.func,
   currentPage: React.PropTypes.number,
-  resource: React.PropTypes.object
+  searchByName:React.PropTypes.string,
+  filterString:React.PropTypes.string
 };
 export default ViewObjects;
