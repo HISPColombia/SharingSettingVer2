@@ -97,16 +97,23 @@ class EditMode extends React.Component {
       stepIndex: 0,
       objectAvailable: [],
       objectSelected: [],
-      togSelected: "overwrite"
+      togSelected: "overwrite",
+      messajeError:""
     }
   };
 
   handleNext() {
-    const { stepIndex } = this.state;
-    this.setState({
-      stepIndex: stepIndex + 1,
-      finished: stepIndex >= 2,
-    });
+    if(this.state.objectSelected.length>0){
+      const { stepIndex } = this.state;
+      this.setState({
+        stepIndex: stepIndex + 1,
+        finished: stepIndex >= 2,
+        messajeError:""
+      });
+    }
+    else{
+      this.setState({messajeError:"Debe Seleccionar un"});
+    }
   };
 
   handlePrev() {
@@ -223,6 +230,10 @@ class EditMode extends React.Component {
     this.setState({ togSelected: event })
 
   }
+
+  GroupSelected(selected){
+    console.log(selected);
+  }
   getStepContent(stepIndex) {
     const d2 = this.props.d2;
     switch (stepIndex) {
@@ -261,7 +272,7 @@ class EditMode extends React.Component {
         )
       case 1:
         return (
-          <ListGroups d2={d2} />
+          <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} />
         )
 
       case 2:
@@ -343,6 +354,9 @@ class EditMode extends React.Component {
           ) : (
               <div>
                 {this.getStepContent(stepIndex)}
+                <div style={{ marginTop: 12, textAlign: 'center', color:"Red" }}>
+                  <p>{this.state.messajeError}</p>
+                </div>
                 <div style={{ marginTop: 12, textAlign: 'center' }}>
                   <FlatButton
                     label={d2.i18n.getTranslation("BTN_BACK")}
@@ -350,6 +364,7 @@ class EditMode extends React.Component {
                     onClick={this.handlePrev.bind(this)}
                     style={{ marginRight: 12 }}
                   />
+
                   <RaisedButton
                     label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_FINISH") : d2.i18n.getTranslation("BTN_NEXT")}
                     primary={true}

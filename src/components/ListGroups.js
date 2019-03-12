@@ -93,6 +93,9 @@ class ListGroups extends React.Component {
        return response;
      })
   }
+  returnGroupSelected(){
+    this.props.GroupSelected(this.state.sharingOption);
+  }
   SelectUserOrGroup(valueSelected){
     if(valueSelected.data.type=='user')
       this.state.sharingOption.userAccesses.push(
@@ -179,6 +182,7 @@ class ListGroups extends React.Component {
 
 ListGroups.propTypes = {
   d2: React.PropTypes.object.isRequired,
+  GroupSelected:React.PropTypes.func
 };
 
 
