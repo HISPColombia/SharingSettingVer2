@@ -112,7 +112,7 @@ class EditMode extends React.Component {
       });
     }
     else{
-      this.setState({messajeError:"Debe Seleccionar un"});
+      this.setState({messajeError:this.props.d2.i18n.getTranslation("MESSAGE_ERROR_SELECT_OBJECT")});
     }
   };
 
@@ -142,7 +142,8 @@ class EditMode extends React.Component {
     this.setState(
       {
         objectAvailable: aList,
-        objectSelected: this.state.objectAvailable
+        objectSelected: this.state.objectAvailable,
+        messajeError:""
       });
   }
   handleList(val) {
@@ -155,7 +156,8 @@ class EditMode extends React.Component {
     nList.push(obSelected);
     this.setState(
       {
-        objectSelected: nList
+        objectSelected: nList,
+        messajeError:""
       });
     //Remove Object Selected
     let aList = this.state.objectAvailable;
@@ -184,7 +186,9 @@ class EditMode extends React.Component {
     }
     this.setState(
       {
-        objectAvailable: nList
+        objectAvailable: nList,
+        messajeError:""
+
       });
     //Remove Object Selected
     let aList = this.state.objectSelected;
