@@ -22,6 +22,7 @@ class SpecialButton extends React.Component {
                 this.setState({value:0})
                 break;
           }
+          this.props.callBackHandleClick({data:{id:this.props.id,value:this.state.value}});
       }
    
       render() {
@@ -35,6 +36,8 @@ class SpecialButton extends React.Component {
 SpecialButton.propTypes = {
     value: React.PropTypes.number,
     color: React.PropTypes.string,
+    callBackHandleClick:React.PropTypes.func,
+    id: React.PropTypes.string,
   };
   
   

@@ -39,8 +39,6 @@ const styles = {
     width: 10
   },
   iconColor: appTheme.settingOptions.icon
-
-
 }
 
 
@@ -57,6 +55,8 @@ class ListGroups extends React.Component {
       }
     };
   }
+
+  
   //API Query
 
   //query resource Selected
@@ -92,6 +92,24 @@ class ListGroups extends React.Component {
       let response=user.concat(groups);
        return response;
      })
+  }
+  //handle
+  HandleClickButton(data){
+    let access={0:"--",1:"r_",2:"rw"}
+    let userAccesses=this.state.sharingOption.userAccesses.map((user)=>{
+      if(user.id==data.id){
+          user.access=access+"------"
+      }
+      return user
+    })
+    let userGroupAccesses=this.state.sharingOption.userGroupAccesses.map((group)=>{
+      if(group.id==data.id){
+        group.access=access+"------"
+      }
+      return group
+    })
+    this.setState({sharingOption:{userAccesses,userGroupAccesses}})
+    this.props.GroupSelected(this.state.sharingOption);
   }
   SelectUserOrGroup(valueSelected){
     if(valueSelected.data.type=='user')
@@ -133,13 +151,13 @@ class ListGroups extends React.Component {
             </TableHeader>
             <TableBody displayRowCheckbox={false} showRowHover={true}>
               {
-                this.state.sharingOption.userAccesses.map(function (option) {
+                this.state.sharingOption.userAccesses.map((option)=> {
                   keyCount++;
                   return (
                     <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
                         <SpecialButton color={styles.iconColor} />
                       </TableRowColumn>
@@ -148,12 +166,12 @@ class ListGroups extends React.Component {
                 })}
  
                {
-                this.state.sharingOption.userGroupAccesses.map(function (option) {
+                this.state.sharingOption.userGroupAccesses.map((option)=> {
                   return (
                     <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><Group color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton color={styles.iconColor} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
                         <SpecialButton color={styles.iconColor} />
                       </TableRowColumn>
