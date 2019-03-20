@@ -142,7 +142,7 @@ class Content extends React.Component {
       <div className="app">
         <div className='content-area'>
           <div style={styles.header}>
-            Sharing Setting for {d2.i18n.getTranslation(this.props.title)}
+            Sharing Setting for:  <span style={{"fontWeight": "bold"}}>{d2.i18n.getTranslation(this.props.title)}</span>
           </div>
           <div style={{textAlign:'right'}}>
           <FlatButton

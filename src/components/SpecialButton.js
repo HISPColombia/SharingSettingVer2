@@ -28,7 +28,9 @@ class SpecialButton extends React.Component {
                 break;
           }
       }
-   
+   componentDidMount(){
+    this.setState({value:this.props.defaultValue})
+   }
       render() {
         return (
             <div>
@@ -43,7 +45,8 @@ SpecialButton.propTypes = {
     callBackHandleClick:React.PropTypes.func,
     id: React.PropTypes.string,
     type: React.PropTypes.string,
-    enabled:React.PropTypes.bool
+    enabled:React.PropTypes.bool,
+    defaultValue:React.PropTypes.number,
   };
   
   

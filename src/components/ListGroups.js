@@ -158,6 +158,9 @@ class ListGroups extends React.Component {
       this.setState({sharingOption:this.state.sharingOption})
       this.props.GroupSelected(this.state.sharingOption);
   }
+  componentDidMount(){
+    this.setState({sharingOption:this.props.currentSelected});
+  }
   render() {
     const d2 = this.props.d2;
     var keyCount=0;
@@ -178,13 +181,17 @@ class ListGroups extends React.Component {
               {
                 this.state.sharingOption.userAccesses.map((option)=> {
                   keyCount++;
+                  let access={"--":0,"r-":1,"rw":2}
+                  let AccessMetadata=access[option.access.substring(0,2)];
+                  let AccessData=access[option.access.substring(2,4)];
+                 
                   return (
                     <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} />
                       </TableRowColumn>
                     </TableRow>
                   )
@@ -192,13 +199,16 @@ class ListGroups extends React.Component {
  
                {
                 this.state.sharingOption.userGroupAccesses.map((option)=> {
+                  let access={"--":0,"r-":1,"rw":2}
+                  let AccessMetadata=access[option.access.substring(0,2)];
+                  let AccessData=access[option.access.substring(2,4)];
                   return (
                     <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><Group color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} />
                       </TableRowColumn>
                     </TableRow>
                   )
@@ -224,7 +234,8 @@ class ListGroups extends React.Component {
 ListGroups.propTypes = {
   d2: React.PropTypes.object.isRequired,
   GroupSelected:React.PropTypes.func,
-  resource:React.PropTypes.object
+  resource:React.PropTypes.object,
+  currentSelected:React.PropTypes.object
 };
 
 

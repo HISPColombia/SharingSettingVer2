@@ -98,7 +98,11 @@ class EditMode extends React.Component {
       objectAvailable: [],
       objectSelected: [],
       togSelected: "overwrite",
-      messajeError:""
+      messajeError:"",
+      userAndGroupsSelected:  {
+        userAccesses: [],
+        userGroupAccesses: []
+      }
     }
   };
 
@@ -239,7 +243,7 @@ class EditMode extends React.Component {
   }
 
   GroupSelected(selected){
-    console.log(selected);
+    this.setState({userAndGroupsSelected:selected});
   }
   getStepContent(stepIndex) {
     const d2 = this.props.d2;
@@ -279,7 +283,7 @@ class EditMode extends React.Component {
         )
       case 1:
         return (
-          <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} />
+          <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
         )
 
       case 2:

@@ -18,7 +18,6 @@ import Content from './components/Content'
 
 const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
 let currentSection;
-let lastSection;
 let sidebarRef;
 
 const stylesLocal={
