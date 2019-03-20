@@ -210,6 +210,9 @@ class EditMode extends React.Component {
       CallBackFnSelected(listSelected[option].value)
     }
   }
+  HandleClickButton(data){
+    console.log(data);
+  }
   fillListObject(listObject) {
     //convert object to array
     const rowRaw = Object.values(listObject);
@@ -276,7 +279,7 @@ class EditMode extends React.Component {
         )
       case 1:
         return (
-          <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} />
+          <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} />
         )
 
       case 2:
@@ -311,7 +314,9 @@ class EditMode extends React.Component {
                 <div style={styles.ItemsStrategy}>
                   <div style={styles.bodypaper2}>
                    <div style={styles.ItemsStrategy}>{d2.i18n.getTranslation("OPTION_PUBLICACCESS")}</div> 
-                    <div><SpecialButton color={styles.iconColor} /></div>
+                    <div>
+                    <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} />
+                     </div>
                   </div>
                 </div>
               </Paper>
@@ -387,7 +392,8 @@ EditMode.propTypes = {
   listObject: React.PropTypes.object,
   pager: React.PropTypes.object,
   searchByName: React.PropTypes.string,
-  filterString: React.PropTypes.string
+  filterString: React.PropTypes.string,
+  resource:React.PropTypes.object
 };
 
 export default EditMode;

@@ -94,23 +94,48 @@ class ListGroups extends React.Component {
      })
   }
   //handle
+  //change access each click
   HandleClickButton(data){
-    let access={0:"--",1:"r_",2:"rw"}
-    let userAccesses=this.state.sharingOption.userAccesses.map((user)=>{
-      if(user.id==data.id){
-          user.access=access+"------"
-      }
-      return user
-    })
-    let userGroupAccesses=this.state.sharingOption.userGroupAccesses.map((group)=>{
-      if(group.id==data.id){
-        group.access=access+"------"
-      }
-      return group
-    })
+    let access={0:"--",1:"r-",2:"rw"}
+    let {userAccesses,userGroupAccesses}=this.state.sharingOption;
+    switch(data.type){
+      case "USERMETADATA":
+        userAccesses=this.state.sharingOption.userAccesses.map((user)=>{
+          if(user.id==data.id){
+              user.access=access[data.value]+user.access.substring(2, 4)+"----";
+          }
+          return user
+        })
+      break;
+      case "GROUPMETADATA":
+        userGroupAccesses=this.state.sharingOption.userGroupAccesses.map((group)=>{
+          if(group.id==data.id){
+            group.access=access[data.value]+group.access.substring(2, 4)+"----";
+          }
+          return group
+        })
+      break;
+      case "USERDATA":
+        userAccesses=this.state.sharingOption.userAccesses.map((user)=>{
+          if(user.id==data.id){
+            user.access=user.access.substring(0, 2)+access[data.value]+"----";
+          }
+          return user
+        })
+      break;
+      case "GROUPDATA":
+      userGroupAccesses=this.state.sharingOption.userGroupAccesses.map((group)=>{
+        if(group.id==data.id){
+          group.access=group.access.substring(0, 2)+access[data.value]+"----";         
+        }
+        return group
+      })
+      break;
+    }
     this.setState({sharingOption:{userAccesses,userGroupAccesses}})
     this.props.GroupSelected(this.state.sharingOption);
   }
+
   SelectUserOrGroup(valueSelected){
     if(valueSelected.data.type=='user')
       this.state.sharingOption.userAccesses.push(
@@ -157,9 +182,9 @@ class ListGroups extends React.Component {
                     <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
-                        <SpecialButton color={styles.iconColor} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} />
                       </TableRowColumn>
                     </TableRow>
                   )
@@ -171,9 +196,9 @@ class ListGroups extends React.Component {
                     <TableRow key={option.id+"_"+keyCount}>
                       <TableRowColumn style={styles.columnIcon}><Group color={styles.iconColor} /></TableRowColumn>
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} /> </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
-                        <SpecialButton color={styles.iconColor} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} />
                       </TableRowColumn>
                     </TableRow>
                   )
@@ -198,7 +223,8 @@ class ListGroups extends React.Component {
 
 ListGroups.propTypes = {
   d2: React.PropTypes.object.isRequired,
-  GroupSelected:React.PropTypes.func
+  GroupSelected:React.PropTypes.func,
+  resource:React.PropTypes.object
 };
 
 
