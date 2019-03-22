@@ -85,7 +85,10 @@ const styles = {
     gridTemplateColumns: '70% 30%',
     gridTemplateRows: 'auto',
     margin: 20
-  }
+  },
+  togleAccess: {
+    margin: 18
+  },
 
 }
 class EditMode extends React.Component {
@@ -98,25 +101,71 @@ class EditMode extends React.Component {
       objectAvailable: [],
       objectSelected: [],
       togSelected: "overwrite",
-      messajeError:"",
-      userAndGroupsSelected:  {
+      messajeError: "",
+      userAndGroupsSelected: {
         userAccesses: [],
         userGroupAccesses: []
-      }
+      },
+      PublicAccess: 0,
+      ExternalAccess: false
     }
   };
 
+  //query resource Selected
+  async setResourceSelected(urlAPI,Payload) {
+    console.log(urlAPI)
+    const d2 = this.props.d2;
+    const api = d2.Api.getApi();
+    let result = {};
+    try {
+      let res = await api.post(urlAPI,Payload);
+      return res;
+    }
+    catch (e) {
+      console.error('Could not access to API Resource');
+    }
+    return result;
+  }
+  async saveSetting() {
+    var access={0:"--",1:"r-",2:"rw"};    
+    this.state.objectSelected.forEach((obj, index) => {
+      let stringUserPublicAccess=access[this.state.PublicAccess]+"------";
+      let valToSave = {
+        meta: {
+          allowPublicAccess: (this.state.PublicAccess == 0 ? false : true),
+          allowExternalAccess: this.state.ExternalAccess
+        },
+        object: {
+          id: obj.value,
+          displayName: obj.label,
+          externalAccess: this.state.ExternalAccess,
+          name: obj.label,
+          publicAccess: stringUserPublicAccess,
+          userAccesses: this.state.userAndGroupsSelected.userAccesses,
+          userGroupAccesses: this.state.userAndGroupsSelected.userGroupAccesses
+        }
+
+      }
+      
+      this.setResourceSelected("29/sharing?type="+this.props.resource.key+"&id="+obj.value,valToSave).then(res => {
+     console.log(res);       
+    })
+
+    })
+    
+  }
+
   handleNext() {
-    if(this.state.objectSelected.length>0){
+    if (this.state.objectSelected.length > 0) {
       const { stepIndex } = this.state;
       this.setState({
         stepIndex: stepIndex + 1,
         finished: stepIndex >= 2,
-        messajeError:""
+        messajeError: ""
       });
     }
-    else{
-      this.setState({messajeError:this.props.d2.i18n.getTranslation("MESSAGE_ERROR_SELECT_OBJECT")});
+    else {
+      this.setState({ messajeError: this.props.d2.i18n.getTranslation("MESSAGE_ERROR_SELECT_OBJECT") });
     }
   };
 
@@ -147,7 +196,7 @@ class EditMode extends React.Component {
       {
         objectAvailable: aList,
         objectSelected: this.state.objectAvailable,
-        messajeError:""
+        messajeError: ""
       });
   }
   handleList(val) {
@@ -161,7 +210,7 @@ class EditMode extends React.Component {
     this.setState(
       {
         objectSelected: nList,
-        messajeError:""
+        messajeError: ""
       });
     //Remove Object Selected
     let aList = this.state.objectAvailable;
@@ -191,7 +240,7 @@ class EditMode extends React.Component {
     this.setState(
       {
         objectAvailable: nList,
-        messajeError:""
+        messajeError: ""
 
       });
     //Remove Object Selected
@@ -214,8 +263,9 @@ class EditMode extends React.Component {
       CallBackFnSelected(listSelected[option].value)
     }
   }
-  HandleClickButton(data){
-    console.log(data);
+  HandleClickButton(data) {
+    let access = { "--": 0, "r-": 1, "rw": 2 }
+    this.setState({ PublicAccess: data.value });
   }
   fillListObject(listObject) {
     //convert object to array
@@ -241,9 +291,16 @@ class EditMode extends React.Component {
     this.setState({ togSelected: event })
 
   }
+  handleExternalAccess() {
+    if (this.state.ExternalAccess)
+      this.setState({ ExternalAccess: false });
+    else
+      this.setState({ ExternalAccess: true });
 
-  GroupSelected(selected){
-    this.setState({userAndGroupsSelected:selected});
+  }
+
+  GroupSelected(selected) {
+    this.setState({ userAndGroupsSelected: selected });
   }
   getStepContent(stepIndex) {
     const d2 = this.props.d2;
@@ -317,10 +374,17 @@ class EditMode extends React.Component {
                 <Divider />
                 <div style={styles.ItemsStrategy}>
                   <div style={styles.bodypaper2}>
-                   <div style={styles.ItemsStrategy}>{d2.i18n.getTranslation("OPTION_PUBLICACCESS")}</div> 
+                    <div style={styles.ItemsStrategy}>{d2.i18n.getTranslation("OPTION_PUBLICACCESS")}</div>
                     <div>
-                    <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} />
-                     </div>
+                      <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
+                    </div>
+                    <div style={styles.togleAccess}>
+                      <Toggle
+                        label={d2.i18n.getTranslation("OPTION_EXTERNALACCESS")}
+                        onToggle={() => this.handleExternalAccess()}
+                        toggled={(this.state.ExternalAccess)}
+                      />
+                    </div>
                   </div>
                 </div>
               </Paper>
@@ -330,7 +394,7 @@ class EditMode extends React.Component {
 
         );
       default:
-        return 'You\'re a long way from home sonny jim!';
+        return 'Write to hispColombia heldersoft@gmail.com';
     }
   }
 
@@ -367,7 +431,7 @@ class EditMode extends React.Component {
           ) : (
               <div>
                 {this.getStepContent(stepIndex)}
-                <div style={{ marginTop: 12, textAlign: 'center', color:"Red" }}>
+                <div style={{ marginTop: 12, textAlign: 'center', color: "Red" }}>
                   <p>{this.state.messajeError}</p>
                 </div>
                 <div style={{ marginTop: 12, textAlign: 'center' }}>
@@ -381,7 +445,7 @@ class EditMode extends React.Component {
                   <RaisedButton
                     label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_FINISH") : d2.i18n.getTranslation("BTN_NEXT")}
                     primary={true}
-                    onClick={this.handleNext.bind(this)}
+                    onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
                   />
                 </div>
               </div>
@@ -397,7 +461,7 @@ EditMode.propTypes = {
   pager: React.PropTypes.object,
   searchByName: React.PropTypes.string,
   filterString: React.PropTypes.string,
-  resource:React.PropTypes.object
+  resource: React.PropTypes.object
 };
 
 export default EditMode;
