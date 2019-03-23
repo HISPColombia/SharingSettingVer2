@@ -39,7 +39,7 @@ const styles = {
   },
   ItemsStrategy: {
     alignSelf: 'left',
-    placeSelf: 'center'
+    placeSelf: 'left'
   },
   ItemsList: {
     alignSelf: 'center'
@@ -86,9 +86,10 @@ const styles = {
     gridTemplateRows: 'auto',
     margin: 20
   },
-  togleAccess: {
-    margin: 18
-  },
+  toggleExternal:{
+    marginRight: 50,
+    marginLeft: 20
+  }
 
 }
 class EditMode extends React.Component {
@@ -102,6 +103,7 @@ class EditMode extends React.Component {
       objectSelected: [],
       togSelected: "overwrite",
       messajeError: "",
+      messajeSucceful:{},
       userAndGroupsSelected: {
         userAccesses: [],
         userGroupAccesses: []
@@ -112,13 +114,13 @@ class EditMode extends React.Component {
   };
 
   //query resource Selected
-  async setResourceSelected(urlAPI,Payload) {
+  async setResourceSelected(urlAPI, Payload) {
     console.log(urlAPI)
     const d2 = this.props.d2;
     const api = d2.Api.getApi();
     let result = {};
     try {
-      let res = await api.post(urlAPI,Payload);
+      let res = await api.post(urlAPI, Payload);
       return res;
     }
     catch (e) {
@@ -127,9 +129,10 @@ class EditMode extends React.Component {
     return result;
   }
   async saveSetting() {
-    var access={0:"--",1:"r-",2:"rw"};    
+    var access = { 0: "--", 1: "r-", 2: "rw" };
+    var obImported="";
     this.state.objectSelected.forEach((obj, index) => {
-      let stringUserPublicAccess=access[this.state.PublicAccess]+"------";
+      let stringUserPublicAccess = access[this.state.PublicAccess] + "------";
       let valToSave = {
         meta: {
           allowPublicAccess: (this.state.PublicAccess == 0 ? false : true),
@@ -146,19 +149,27 @@ class EditMode extends React.Component {
         }
 
       }
-      
-      this.setResourceSelected("29/sharing?type="+this.props.resource.key+"&id="+obj.value,valToSave).then(res => {
-     console.log(res);       
+      obImported=obImported+obj.label;
+      this.setResourceSelected("29/sharing?type=" + this.props.resource.key + "&id=" + obj.value, valToSave).then(res => {
+        this.setState({
+          stepIndex: stepIndex + 1,
+          finished: stepIndex >= 2
+        });
+      })
+      if(index==this.state.objectSelected.length-1){
+          this.setState(messajeSucceful={
+            numImported:index,
+            obImported
+          })
+        }
     })
 
-    })
-    
   }
 
   handleNext() {
-    if (this.state.objectSelected.length > 0) {
-      const { stepIndex } = this.state;
-      this.setState({
+    const { stepIndex } = this.state;
+    if ((this.state.objectSelected.length > 0 && stepIndex==0) || (this.state.userAndGroupsSelected.userAccesses.length+this.state.userAndGroupsSelected.userGroupAccesses.length>0 && stepIndex==1)) {
+        this.setState({
         stepIndex: stepIndex + 1,
         finished: stepIndex >= 2,
         messajeError: ""
@@ -298,6 +309,20 @@ class EditMode extends React.Component {
       this.setState({ ExternalAccess: true });
 
   }
+  exitEditMode(){
+    this.setState({
+     objectSelected: [],
+      userAndGroupsSelected: {
+        userAccesses: [],
+        userGroupAccesses: []
+      },
+      PublicAccess: 0,
+      ExternalAccess: false,
+      stepIndex: 0
+    });
+    this.handleRemoveAll();
+    this.props.handleChangeTabs("view")
+  }
 
   GroupSelected(selected) {
     this.setState({ userAndGroupsSelected: selected });
@@ -375,19 +400,20 @@ class EditMode extends React.Component {
                 <div style={styles.ItemsStrategy}>
                   <div style={styles.bodypaper2}>
                     <div style={styles.ItemsStrategy}>{d2.i18n.getTranslation("OPTION_PUBLICACCESS")}</div>
-                    <div>
+                 
                       <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
                     </div>
-                    <div style={styles.togleAccess}>
-                      <Toggle
+                </div>
+                      <div style={styles.toggleExternal}>
+               
+                       <Toggle
                         label={d2.i18n.getTranslation("OPTION_EXTERNALACCESS")}
                         onToggle={() => this.handleExternalAccess()}
                         toggled={(this.state.ExternalAccess)}
                       />
+                    
                     </div>
-                  </div>
-                </div>
-              </Paper>
+               </Paper>
             </div>
 
           </div>
@@ -418,15 +444,13 @@ class EditMode extends React.Component {
         <div style={contentStyle}>
           {finished ? (
             <p>
-              <a
-                href="#"
-                onClick={(event) => {
-                  event.preventDefault();
-                  this.setState({ stepIndex: 0, finished: false });
-                }}
-              >
-                Click here
-              </a> to reset the example.
+              {this.state.messajeSucceful.numImported}
+              {this.state.messajeSucceful.obImported}
+              <RaisedButton
+                    label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_FINISH") : d2.i18n.getTranslation("BTN_NEXT")}
+                    primary={true}
+                    onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
+                  /> 
             </p>
           ) : (
               <div>
@@ -435,6 +459,11 @@ class EditMode extends React.Component {
                   <p>{this.state.messajeError}</p>
                 </div>
                 <div style={{ marginTop: 12, textAlign: 'center' }}>
+                <FlatButton
+                    label={d2.i18n.getTranslation("BTN_CANCEL")}
+                    primary={true}
+                    onClick={() => this.exitEditMode()}
+                  />
                   <FlatButton
                     label={d2.i18n.getTranslation("BTN_BACK")}
                     disabled={stepIndex === 0}
@@ -446,7 +475,7 @@ class EditMode extends React.Component {
                     label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_FINISH") : d2.i18n.getTranslation("BTN_NEXT")}
                     primary={true}
                     onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
-                  />
+                  />                  
                 </div>
               </div>
             )}
@@ -461,7 +490,8 @@ EditMode.propTypes = {
   pager: React.PropTypes.object,
   searchByName: React.PropTypes.string,
   filterString: React.PropTypes.string,
-  resource: React.PropTypes.object
+  resource: React.PropTypes.object,
+  handleChangeTabs: React.PropTypes.func
 };
 
 export default EditMode;

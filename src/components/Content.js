@@ -224,6 +224,7 @@ class Content extends React.Component {
               pager={this.state.pager}
               searchByName={this.state.searchByName}
               filterString={this.state.filterString}
+              handleChangeTabs={this.handleChangeTabs.bind(this)}
               />
             </Tab>
           </Tabs>
