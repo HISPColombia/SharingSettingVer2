@@ -14,9 +14,11 @@ import {
     orange500,
     orangeA200,
     darkBlack,
+    red400,
     white,
 } from 'material-ui/styles/colors';
 import { fade } from 'material-ui/utils/colorManipulator';
+import { red100 } from 'material-ui/styles/colors';
 
 const theme = {
     spacing: Spacing,
@@ -33,6 +35,7 @@ const theme = {
         canvasColor: white,
         borderColor: grey400,
         disabledColor: fade(darkBlack, 0.3),
+        error:red400
     },
     tabs:{backgroundColor:grey300,
         selectedTextColor:grey800,

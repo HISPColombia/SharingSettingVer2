@@ -52,8 +52,9 @@ class ListGroups extends React.Component {
     this.state = {
       sharingOption: {
         userAccesses: [],
-        userGroupAccesses: []
-      }
+        userGroupAccesses: []        
+      },
+      idSelectedforFilter:[]
     };
   }
 
@@ -76,22 +77,27 @@ class ListGroups extends React.Component {
   }
   async searchUserGroups(valuetoSearch){
      return this.getResourceSelected("29/sharing/search?key="+valuetoSearch).then(res => {
-       let user=res.users.map(function(user){
-          return({
-            id:user.id,
-            displayName:user.displayName,
-            data:{type:'user'}
-          })
+       let users=[];
+       let groups=[];
+       res.users.forEach((user)=>{
+         //filter that this object was been previously selected
+         if(!this.state.idSelectedforFilter.includes(user.id))
+              users.push({
+                  id:user.id,
+                  displayName:user.displayName,
+                  data:{type:'user'}
+                })
        })
-       let groups=res.userGroups.map(function(group){
-        return({
-          id:group.id,
-          displayName:group.displayName,
-          data:{type:'group'}
-        })
+      res.userGroups.forEach((group)=>{
+        //filter that this object was been previously selected
+        if(!this.state.idSelectedforFilter.includes(group.id))
+            groups.push({
+              id:group.id,
+              displayName:group.displayName,
+              data:{type:'group'}
+            })
      })
-      let response=user.concat(groups);
-       return response;
+      return users.concat(groups);
      })
   }
   //handle
@@ -150,10 +156,28 @@ class ListGroups extends React.Component {
     this.setState({
       sharingOption:{userAccesses,userGroupAccesses}
     })
+
+      //remove filter
+      let {idSelectedforFilter}=this.state;
+      var i = idSelectedforFilter.indexOf( id );
+      if ( i !== -1 ) {
+        idSelectedforFilter.splice( i, 1 );
+        this.setState({
+          idSelectedforFilter
+        });
+      }
+    //update state from pather component
     this.props.GroupSelected(this.state.sharingOption);
+
+
   }
 
   SelectUserOrGroup(valueSelected){
+    let {idSelectedforFilter}=this.state;
+    idSelectedforFilter.push(valueSelected.id)
+    this.setState({
+      idSelectedforFilter
+    });
     if(valueSelected.data.type=='user')
       this.state.sharingOption.userAccesses.push(
         {
@@ -177,6 +201,18 @@ class ListGroups extends React.Component {
   }
   componentDidMount(){
     this.setState({sharingOption:this.props.currentSelected});
+    //previus Selected
+    let {idSelectedforFilter}=this.state;
+    this.props.currentSelected.userAccesses.forEach((obj)=>{     
+      idSelectedforFilter.push(obj.id)     
+    })
+    this.props.currentSelected.userGroupAccesses.forEach((obj)=>{     
+      idSelectedforFilter.push(obj.id)     
+    })
+    //update state
+    this.setState({
+      idSelectedforFilter
+    });
   }
   render() {
     const d2 = this.props.d2;

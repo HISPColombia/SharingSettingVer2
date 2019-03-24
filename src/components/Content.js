@@ -100,9 +100,22 @@ class Content extends React.Component {
 
   //tabs handle
   handleChangeTabs(value) {
+    //refresh List
+    this.getResourceSelected(this.props.informationResource.resource).then(res => {
+      let dataResult = {}
+      for (let g of res[this.props.informationResource.resource]) {
+        dataResult[g.id] = g;
+      }
+      this.setState({
+        listObject: dataResult,
+        pager: res.pager
+      });
+    });
+    //update state
     this.setState({
       mode: value,
     });
+
     this.props.disableSlide(value)
   };
 
@@ -207,6 +220,7 @@ class Content extends React.Component {
           >
             <Tab label={d2.i18n.getTranslation("TAB_VIEW_MODE")} value="view">
               <ViewMode 
+              resource={this.props.informationResource} 
               Enabledchecked={false}
               d2={d2} 
               listObject={this.state.listObject}

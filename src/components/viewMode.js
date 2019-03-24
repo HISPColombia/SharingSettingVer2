@@ -4,6 +4,9 @@ import ActionDone from 'material-ui/svg-icons/action/done';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 import LinearProgress from 'material-ui/LinearProgress';
 import Divider from 'material-ui/Divider';
+import FlatButton from 'material-ui/FlatButton';
+import More from 'material-ui/svg-icons/navigation/more-vert'; 
+import Dialog from 'material-ui/Dialog';
 
 import appTheme from '../theme';
 import {
@@ -14,6 +17,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+
+import ListGroups from './ListGroups';
 const styles = {
   header: {
     fontSize: 24,
@@ -44,24 +49,81 @@ const styles = {
   buttonGroup: {
     textAlign: 'center'
   },
+  buttonMore: {
+    textAlign: 'right',
+    with:'50'
+  },
   divConcentTable:{
     height: 600,
     overflow: 'auto'
   }
 
 };
+
 class ViewObjects extends React.Component {
 
 
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0}
+    this.state = { currentPage: 0, openModal: false,userAndGroupsSelected:{},messajeError:""}
+  }
+    //query resource Selected
+    async setResourceSelected(urlAPI, Payload) {
+      console.log(urlAPI)
+      const d2 = this.props.d2;
+      const api = d2.Api.getApi();
+      let result = {};
+      try {
+        let res = await api.post(urlAPI, Payload);
+        return res;
+      }
+      catch (e) {
+        console.error('Could not access to API Resource');
+      }
+      return result;
+    }
+  SendInformationAPI(obj,userAccesses,userGroupAccesses) {
+      let valToSave = {
+        meta: {
+          allowPublicAccess: (this.state.PublicAccess == 0 ? false : true),
+          allowExternalAccess: this.state.ExternalAccess
+        },
+        object: {
+          id: obj.id,
+          displayName: obj.displayName,
+          externalAccess: obj.externalAccess,
+          name: obj.name,
+          publicAccess: obj.publicAccess,
+          userAccesses,
+          userGroupAccesses,
+        }
+
+      }
+      this.setResourceSelected("29/sharing?type=" + this.props.resource.key + "&id=" + obj.id, valToSave).then(res => {
+        if(res.status!="OK")
+          this.setState({messajeError:res.message})
+      })
+
+    
+
   }
 
+  handleOpen(data) {
+  
+    this.setState({openModal: true, userAndGroupsSelected:data});
+  };
+
+  handleClose(){
+    this.setState({openModal: false});
+  };
+  GroupSelected(selected) {
+     this.SendInformationAPI(this.state.userAndGroupsSelected,selected.userAccesses,selected.userGroupAccesses);
+
+  }  
   componentDidMount() {
-    this.state = { currentPage: this.props.currentPage};
-  }
+      this.state = { currentPage: this.props.currentPage,openModal: false,userAndGroupsSelected:{},messajeError:""};
+    }
 
 
  waiting(){
@@ -140,9 +202,12 @@ class ViewObjects extends React.Component {
                   <div>{us.displayName}</div>
                   {lastUS != us.id ? <Divider /> : ""}
                 </div>)
-
             })
             }
+         
+          </TableRowColumn>
+          <TableRowColumn style={styles.buttonMore}>
+          <FlatButton icon={<More/>}  onClick={()=>this.handleOpen(row)} />
           </TableRowColumn>
         </TableRow>)
       })
@@ -166,6 +231,7 @@ class ViewObjects extends React.Component {
               <TableHeaderColumn>{d2.i18n.getTranslation("TABLE_EXTERNALACCESS")}</TableHeaderColumn>
               <TableHeaderColumn style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGGROUP")}</TableHeaderColumn>
               <TableHeaderColumn style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGUSER")}</TableHeaderColumn>
+              <TableHeaderColumn style={styles.buttonMore}></TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody displayRowCheckbox={this.props.Enabledchecked} showRowHover={true}>
@@ -173,6 +239,23 @@ class ViewObjects extends React.Component {
           </TableBody>
 
         </Table>
+        <Dialog
+          title={d2.i18n.getTranslation("STEP_2")}
+          actions={[
+            <FlatButton
+              label={d2.i18n.getTranslation("BTN_CLOSE")}
+              primary={true}
+              onClick={this.handleClose.bind(this)}
+            />]}
+          modal={false}
+          open={this.state.openModal}
+          onRequestClose={this.handleClose.bind(this)}
+        >
+        <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
+        </Dialog>
+        <div style={{ marginTop: 12, textAlign: 'center', color: "Red" }}>
+                  <p>{this.state.messajeError}</p>
+                </div>
         </div>
       </div>
     )
@@ -187,6 +270,7 @@ ViewObjects.propTypes = {
   updateParams: React.PropTypes.func,
   currentPage: React.PropTypes.number,
   searchByName:React.PropTypes.string,
-  filterString:React.PropTypes.string
+  filterString:React.PropTypes.string,
+  resource: React.PropTypes.object
 };
 export default ViewObjects;

@@ -102,6 +102,9 @@ const styles = {
   divConcentTable: {
     height: 400,
     overflow: 'auto'
+  },
+  errorMessaje:{
+    color:appTheme.palette.error
   }
 
 }
@@ -150,6 +153,8 @@ class EditMode extends React.Component {
   SendInformationAPI() {
     var access = { 0: "--", 1: "r-", 2: "rw" };
     var obImported = [];
+    var Imported=0;
+    var noImported=0;
     var { stepIndex } = this.state;
     this.state.objectSelected.forEach((obj, index) => {
       let stringUserPublicAccess = access[this.state.PublicAccess] + "------";
@@ -168,16 +173,22 @@ class EditMode extends React.Component {
           userGroupAccesses: this.state.userAndGroupsSelected.userGroupAccesses
         }
 
-      }
-      obImported.push(obj.label);
+      }      
       this.setResourceSelected("29/sharing?type=" + this.props.resource.key + "&id=" + obj.value, valToSave).then(res => {
-
+        if(res.status=="OK"){
+            Imported++;
+        }
+        else{
+            noImported++;
+        }
+        obImported.push({label:obj.label,status:res.status,message:res.message});
         if (index == this.state.objectSelected.length - 1) {
           this.setState(
             {
               messajeSuccessful:
               {
-                numImported: index + 1,
+                numImported: Imported,
+                numNoImported:noImported,
                 obImported
               },
               stepIndex: stepIndex + 1,
@@ -224,18 +235,31 @@ class EditMode extends React.Component {
       });
   }
   handleSelectAll() {
+       //filter only visible true
+    let NewObSelected=this.state.objectAvailable.filter((obj)=>{
+      if (((obj.label.includes(this.props.searchByName) == true) && (this.props.filterString.includes(obj.value)==true || this.props.filterString=="")))
+        return true
+      else
+        return false
 
+    });
+    let currentSelected=this.state.objectSelected;
+    NewObSelected.concat(currentSelected);
     let aList = this.state.objectAvailable;
+
+    //change visible false to all object
     for (var k = 0; k < aList.length; k++) {
       aList[k].visible = false;
     }
     this.setState(
       {
+        
         objectAvailable: aList,
-        objectSelected: this.state.objectAvailable,
+        objectSelected:NewObSelected,
         messajeError: ""
       });
   }
+
   handleList(val) {
     let obSelected = {
       label: this.props.listObject[val].displayName,
@@ -482,12 +506,18 @@ class EditMode extends React.Component {
             <div>
               {d2.i18n.getTranslation("LABEL_NUMBER_OBJECT_UPDATED")} : <span style={{ "fontWeight": "bold" }}><Avatar>{this.state.messajeSuccessful.numImported}</Avatar></span>
               <br />
+              {d2.i18n.getTranslation("LABEL_NUMBER_OBJECT_NOUPDATED")} : <span style={{ "fontWeight": "bold" }}> <Avatar  backgroundColor={styles.errorMessaje.color}>{this.state.messajeSuccessful.numNoImported}</Avatar></span>
+           
+              <br />
               <div style={styles.divConcentTable}>
                 <Table> <TableBody displayRowCheckbox={false} showRowHover={false}>
                   {this.state.messajeSuccessful.obImported.map((val) => {
-                    return (<TableRow key={val}>
+                    return (<TableRow key={val.label} style={val.status=="OK"?{}:{background:styles.errorMessaje.color}}>
                       <TableRowColumn>
-                        {val}
+                        {val.label}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                    ({val.status}) {val.message}
                       </TableRowColumn>
                     </TableRow>)
                   })}
