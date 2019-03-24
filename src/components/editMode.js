@@ -7,9 +7,18 @@ import {
 import Toggle from 'material-ui/Toggle';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-
+import {
+  Table,
+  TableBody,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
+import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
+
+//Component
 import ListSelect from './ListSelect.component';
 import appTheme from '../theme';
 import ListGroups from './ListGroups';
@@ -86,9 +95,13 @@ const styles = {
     gridTemplateRows: 'auto',
     margin: 20
   },
-  toggleExternal:{
+  toggleExternal: {
     marginRight: 50,
     marginLeft: 20
+  },
+  divConcentTable: {
+    height: 400,
+    overflow: 'auto'
   }
 
 }
@@ -103,7 +116,7 @@ class EditMode extends React.Component {
       objectSelected: [],
       togSelected: "overwrite",
       messajeError: "",
-      messajeSucceful:{},
+      messajeSuccessful: {},
       userAndGroupsSelected: {
         userAccesses: [],
         userGroupAccesses: []
@@ -128,9 +141,16 @@ class EditMode extends React.Component {
     }
     return result;
   }
-  async saveSetting() {
+  saveSetting(){
+    var { stepIndex } = this.state;
+    stepIndex = stepIndex + 1;
+    this.setState({stepIndex});
+    setTimeout(()=>{ this.SendInformationAPI() }, 3000);
+  }
+  SendInformationAPI() {
     var access = { 0: "--", 1: "r-", 2: "rw" };
-    var obImported="";
+    var obImported = [];
+    var { stepIndex } = this.state;
     this.state.objectSelected.forEach((obj, index) => {
       let stringUserPublicAccess = access[this.state.PublicAccess] + "------";
       let valToSave = {
@@ -149,29 +169,35 @@ class EditMode extends React.Component {
         }
 
       }
-      obImported=obImported+obj.label;
+      obImported.push(obj.label);
       this.setResourceSelected("29/sharing?type=" + this.props.resource.key + "&id=" + obj.value, valToSave).then(res => {
-        this.setState({
-          stepIndex: stepIndex + 1,
-          finished: stepIndex >= 2
-        });
-      })
-      if(index==this.state.objectSelected.length-1){
-          this.setState(messajeSucceful={
-            numImported:index,
-            obImported
-          })
+
+        if (index == this.state.objectSelected.length - 1) {
+          this.setState(
+            {
+              messajeSuccessful:
+              {
+                numImported: index + 1,
+                obImported
+              },
+              stepIndex: stepIndex + 1,
+              finished: stepIndex >= 3
+            }
+          );
         }
+
+      })
+
     })
 
   }
 
   handleNext() {
     const { stepIndex } = this.state;
-    if ((this.state.objectSelected.length > 0 && stepIndex==0) || (this.state.userAndGroupsSelected.userAccesses.length+this.state.userAndGroupsSelected.userGroupAccesses.length>0 && stepIndex==1)) {
-        this.setState({
+    if ((this.state.objectSelected.length > 0 && stepIndex == 0) || (this.state.userAndGroupsSelected.userAccesses.length + this.state.userAndGroupsSelected.userGroupAccesses.length > 0 && stepIndex == 1)) {
+      this.setState({
         stepIndex: stepIndex + 1,
-        finished: stepIndex >= 2,
+        finished: stepIndex >= 3,
         messajeError: ""
       });
     }
@@ -309,16 +335,17 @@ class EditMode extends React.Component {
       this.setState({ ExternalAccess: true });
 
   }
-  exitEditMode(){
+  exitEditMode() {
     this.setState({
-     objectSelected: [],
+      objectSelected: [],
       userAndGroupsSelected: {
         userAccesses: [],
         userGroupAccesses: []
       },
       PublicAccess: 0,
       ExternalAccess: false,
-      stepIndex: 0
+      stepIndex: 0,
+      finished: false
     });
     this.handleRemoveAll();
     this.props.handleChangeTabs("view")
@@ -400,25 +427,31 @@ class EditMode extends React.Component {
                 <div style={styles.ItemsStrategy}>
                   <div style={styles.bodypaper2}>
                     <div style={styles.ItemsStrategy}>{d2.i18n.getTranslation("OPTION_PUBLICACCESS")}</div>
-                 
-                      <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
-                    </div>
+
+                    <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
+                  </div>
                 </div>
-                      <div style={styles.toggleExternal}>
-               
-                       <Toggle
-                        label={d2.i18n.getTranslation("OPTION_EXTERNALACCESS")}
-                        onToggle={() => this.handleExternalAccess()}
-                        toggled={(this.state.ExternalAccess)}
-                      />
-                    
-                    </div>
-               </Paper>
+                <div style={styles.toggleExternal}>
+
+                  <Toggle
+                    label={d2.i18n.getTranslation("OPTION_EXTERNALACCESS")}
+                    onToggle={() => this.handleExternalAccess()}
+                    toggled={(this.state.ExternalAccess)}
+                  />
+
+                </div>
+              </Paper>
             </div>
 
           </div>
 
         );
+      case 3:
+        return (
+          <div style={{textAlign:"center"}}>
+            <CircularProgress size={80} thickness={5} />
+          </div>
+        )
       default:
         return 'Write to hispColombia heldersoft@gmail.com';
     }
@@ -440,18 +473,36 @@ class EditMode extends React.Component {
           <Step>
             <StepLabel>{d2.i18n.getTranslation("STEP_3")}</StepLabel>
           </Step>
+          <Step>
+            <StepLabel>{d2.i18n.getTranslation("STEP_4")}</StepLabel>
+          </Step>
         </Stepper>
         <div style={contentStyle}>
           {finished ? (
-            <p>
-              {this.state.messajeSucceful.numImported}
-              {this.state.messajeSucceful.obImported}
-              <RaisedButton
-                    label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_FINISH") : d2.i18n.getTranslation("BTN_NEXT")}
-                    primary={true}
-                    onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
-                  /> 
-            </p>
+            <div>
+              {d2.i18n.getTranslation("LABEL_NUMBER_OBJECT_UPDATED")} : <span style={{ "fontWeight": "bold" }}><Avatar>{this.state.messajeSuccessful.numImported}</Avatar></span>
+              <br />
+              <div style={styles.divConcentTable}>
+                <Table> <TableBody displayRowCheckbox={false} showRowHover={false}>
+                  {this.state.messajeSuccessful.obImported.map((val) => {
+                    return (<TableRow key={val}>
+                      <TableRowColumn>
+                        {val}
+                      </TableRowColumn>
+                    </TableRow>)
+                  })}
+                </TableBody></Table>
+              </div>
+              <div style={{ marginTop: 12, textAlign: 'center' }}>
+                <RaisedButton
+                  label={d2.i18n.getTranslation("BTN_FINISH")}
+                  primary={true}
+                  onClick={this.exitEditMode.bind(this)}
+                />
+              </div>
+
+
+            </div>
           ) : (
               <div>
                 {this.getStepContent(stepIndex)}
@@ -459,23 +510,25 @@ class EditMode extends React.Component {
                   <p>{this.state.messajeError}</p>
                 </div>
                 <div style={{ marginTop: 12, textAlign: 'center' }}>
-                <FlatButton
+                  <FlatButton
                     label={d2.i18n.getTranslation("BTN_CANCEL")}
                     primary={true}
+                    disabled={stepIndex === 3}
                     onClick={() => this.exitEditMode()}
                   />
                   <FlatButton
                     label={d2.i18n.getTranslation("BTN_BACK")}
-                    disabled={stepIndex === 0}
+                    disabled={stepIndex === 0 || stepIndex === 3}
                     onClick={this.handlePrev.bind(this)}
                     style={{ marginRight: 12 }}
                   />
 
                   <RaisedButton
-                    label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_FINISH") : d2.i18n.getTranslation("BTN_NEXT")}
+                    label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_SAVE") : d2.i18n.getTranslation("BTN_NEXT")}
                     primary={true}
+                    disabled={stepIndex === 3}
                     onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
-                  />                  
+                  />
                 </div>
               </div>
             )}

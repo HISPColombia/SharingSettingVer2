@@ -33,7 +33,7 @@ class SpecialButton extends React.Component {
    }
       render() {
         return (
-            <div>
+            <div title={this.props.enabled?"":this.props.title}>
                 <FlatButton onClick={()=>this.handleClickButton()} icon={this.state.value==0? <None color={this.props.color}/>: this.state.value==1?<ActionDone color={this.props.color}/>: <ActionDoneAll color={this.props.color}/>} disabled={!this.props.enabled} />
             </div>
         )
@@ -47,6 +47,7 @@ SpecialButton.propTypes = {
     type: React.PropTypes.string,
     enabled:React.PropTypes.bool,
     defaultValue:React.PropTypes.number,
+    title:React.PropTypes.string
   };
   
   

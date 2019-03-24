@@ -14,7 +14,8 @@ import {
 } from 'material-ui/Table';
 import User from 'material-ui/svg-icons/social/person';
 import Group from 'material-ui/svg-icons/social/group';
-
+import Clear from 'material-ui/svg-icons/content/clear'; 
+import FlatButton from 'material-ui/FlatButton';
 //Component
 import SearchTextBox from './SearchTextBox';
 //
@@ -135,6 +136,22 @@ class ListGroups extends React.Component {
     this.setState({sharingOption:{userAccesses,userGroupAccesses}})
     this.props.GroupSelected(this.state.sharingOption);
   }
+  handleRemoveItem(id){
+    let userAccesses=[];
+    let userGroupAccesses=[];
+   this.state.sharingOption.userAccesses.forEach((user)=>{
+      if(user.id!=id)
+        userAccesses.push(user);
+    });
+   this.state.sharingOption.userGroupAccesses.map((group)=>{
+      if(group.id!=id)
+        userGroupAccesses.push(group)
+    });
+    this.setState({
+      sharingOption:{userAccesses,userGroupAccesses}
+    })
+    this.props.GroupSelected(this.state.sharingOption);
+  }
 
   SelectUserOrGroup(valueSelected){
     if(valueSelected.data.type=='user')
@@ -175,6 +192,7 @@ class ListGroups extends React.Component {
                 <TableHeaderColumn columnNumber={2}>{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableHeaderColumn>
                 <TableHeaderColumn style={styles.columnForEditButton}>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableHeaderColumn>
                 <TableHeaderColumn style={styles.columnForEditButton}> {d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableHeaderColumn>
+                <TableHeaderColumn style={styles.columnForEditButton}></TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false} showRowHover={true}>
@@ -191,7 +209,13 @@ class ListGroups extends React.Component {
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={d2.i18n.getTranslation("MESSAGE_DISABLED_DATABUTTON")} />
+                      </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}>
+                      <FlatButton
+                        onClick={()=>this.handleRemoveItem(option.id)} 
+                        icon={<Clear color={styles.iconColor} />}
+                        />
                       </TableRowColumn>
                     </TableRow>
                   )
@@ -208,7 +232,13 @@ class ListGroups extends React.Component {
                       <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableRowColumn>
                       <TableRowColumn style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={d2.i18n.getTranslation("MESSAGE_DISABLED_DATABUTTON")} />
+                      </TableRowColumn>
+                      <TableRowColumn style={styles.columnForEditButton}>
+                      <FlatButton
+                        onClick={()=>this.handleRemoveItem(option.id)} 
+                        icon={<Clear color={styles.iconColor} />}
+                        />
                       </TableRowColumn>
                     </TableRow>
                   )

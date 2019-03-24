@@ -40,9 +40,7 @@ const theme = {
         },
     settingOptions:{
         icon:grey600,
-        title:grey400
-
-        
+        title:grey400        
     }
 };
 
