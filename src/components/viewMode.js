@@ -51,7 +51,7 @@ const styles = {
   },
   buttonMore: {
     textAlign: 'right',
-    with:'50'
+    with:50
   },
   divConcentTable:{
     height: 600,
@@ -70,7 +70,6 @@ class ViewObjects extends React.Component {
   }
     //query resource Selected
     async setResourceSelected(urlAPI, Payload) {
-      console.log(urlAPI)
       const d2 = this.props.d2;
       const api = d2.Api.getApi();
       let result = {};

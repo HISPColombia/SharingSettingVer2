@@ -140,21 +140,16 @@ class ListGroups extends React.Component {
       break;
     }
     this.setState({sharingOption:{userAccesses,userGroupAccesses}})
-    this.props.GroupSelected(this.state.sharingOption);
   }
   handleRemoveItem(id){
-    let userAccesses=[];
-    let userGroupAccesses=[];
-   this.state.sharingOption.userAccesses.forEach((user)=>{
-      if(user.id!=id)
-        userAccesses.push(user);
-    });
-   this.state.sharingOption.userGroupAccesses.map((group)=>{
-      if(group.id!=id)
-        userGroupAccesses.push(group)
-    });
     this.setState({
-      sharingOption:{userAccesses,userGroupAccesses}
+      sharingOption:{userAccesses:this.state.sharingOption.userAccesses.filter((user)=>{
+        if(user.id!=id)
+          return (user);
+      }),userGroupAccesses:this.state.sharingOption.userGroupAccesses.filter((group)=>{
+        if(group.id!=id)
+          return (group);
+      })}
     })
 
       //remove filter
@@ -166,10 +161,6 @@ class ListGroups extends React.Component {
           idSelectedforFilter
         });
       }
-    //update state from pather component
-    this.props.GroupSelected(this.state.sharingOption);
-
-
   }
 
   SelectUserOrGroup(valueSelected){
@@ -197,8 +188,12 @@ class ListGroups extends React.Component {
         }
       )
       this.setState({sharingOption:this.state.sharingOption})
+  }
+  componentDidUpdate(prevProp,prevState){
+    if(prevState.sharingOption!=this.state.sharingOption)
       this.props.GroupSelected(this.state.sharingOption);
   }
+
   componentDidMount(){
     this.setState({sharingOption:this.props.currentSelected});
     //previus Selected
