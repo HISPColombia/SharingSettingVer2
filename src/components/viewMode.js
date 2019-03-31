@@ -75,6 +75,8 @@ class ViewObjects extends React.Component {
       let result = {};
       try {
         let res = await api.post(urlAPI, Payload);
+        //update change on listview
+        this.props.handleChangeTabs("view");
         return res;
       }
       catch (e) {
@@ -103,9 +105,6 @@ class ViewObjects extends React.Component {
         if(res.status!="OK")
           this.setState({messajeError:res.message})
       })
-
-    
-
   }
 
   handleOpen(data) {
@@ -118,7 +117,6 @@ class ViewObjects extends React.Component {
   };
   GroupSelected(selected) {
      this.SendInformationAPI(this.state.userAndGroupsSelected,selected.userAccesses,selected.userGroupAccesses);
-
   }  
   componentDidMount() {
       this.state = { currentPage: this.props.currentPage,openModal: false,userAndGroupsSelected:{},messajeError:""};
@@ -266,7 +264,7 @@ ViewObjects.propTypes = {
   d2: React.PropTypes.object.isRequired,
   listObject: React.PropTypes.object,
   Enabledchecked: React.PropTypes.bool,
-  updateParams: React.PropTypes.func,
+  handleChangeTabs: React.PropTypes.func,
   currentPage: React.PropTypes.number,
   searchByName:React.PropTypes.string,
   filterString:React.PropTypes.string,

@@ -225,9 +225,10 @@ class Content extends React.Component {
               d2={d2} 
               listObject={this.state.listObject}
               currentPage={this.state.currentPage}
-              updateParams={this.updateParams.bind(this)}
+              handleChangeTabs={this.handleChangeTabs.bind(this)}
               searchByName={this.state.searchByName}
               filterString={this.state.filterString}
+
               />
             </Tab>
             <Tab label={d2.i18n.getTranslation("TAB_EDIT_MODE")} value="edit">
