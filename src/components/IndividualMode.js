@@ -60,7 +60,7 @@ const styles = {
 
 };
 
-class ViewObjects extends React.Component {
+class IndividualMode extends React.Component {
 
 
 
@@ -101,7 +101,7 @@ class ViewObjects extends React.Component {
         }
 
       }
-      this.setResourceSelected("29/sharing?type=" + this.props.resource.key + "&id=" + obj.id, valToSave).then(res => {
+      this.setResourceSelected("sharing?type=" + this.props.resource.key + "&id=" + obj.id, valToSave).then(res => {
         if(res.status!="OK")
           this.setState({messajeError:res.message})
       })
@@ -139,6 +139,7 @@ class ViewObjects extends React.Component {
       "r-": "CAN_VIEW",
       "--": "NO_ACCESS",
     }
+    try{
     let metaDataAccess = access[0] + access[1];
     let DataAccess = access[2] + access[3];
     if (type == "data") {
@@ -147,6 +148,9 @@ class ViewObjects extends React.Component {
     else {
       return publicAccessStatus[metaDataAccess];
     }
+  } catch(er){
+      return "NO_ACCESS"
+  }
   }
   renderResultInTable() {
     let keysCount = 0;
@@ -248,19 +252,22 @@ class ViewObjects extends React.Component {
           open={this.state.openModal}
           onRequestClose={this.handleClose.bind(this)}
         >
+        <div>
         <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
-        </Dialog>
         <div style={{ marginTop: 12, textAlign: 'center', color: "Red" }}>
                   <p>{this.state.messajeError}</p>
                 </div>
         </div>
+        </Dialog>
+
+      </div>
       </div>
     )
 
   }
 
 };
-ViewObjects.propTypes = {
+IndividualMode.propTypes = {
   d2: React.PropTypes.object.isRequired,
   listObject: React.PropTypes.object,
   Enabledchecked: React.PropTypes.bool,
@@ -270,4 +277,4 @@ ViewObjects.propTypes = {
   filterString:React.PropTypes.string,
   resource: React.PropTypes.object
 };
-export default ViewObjects;
+export default IndividualMode;

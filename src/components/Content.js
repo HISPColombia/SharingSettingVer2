@@ -1,7 +1,7 @@
 import React from 'react';
 import appTheme from '../theme';
-import ViewMode from './viewMode';
-import EditMode from './editMode';
+import IndividualMode from './IndividualMode';
+import BulkMode from './BulkMode';
 import Filter from './Filter'
 //Material UI 
 
@@ -219,7 +219,7 @@ class Content extends React.Component {
             onChange={this.handleChangeTabs.bind(this)}
           >
             <Tab label={d2.i18n.getTranslation("TAB_VIEW_MODE")} value="view">
-              <ViewMode 
+              <IndividualMode 
               resource={this.props.informationResource} 
               Enabledchecked={false}
               d2={d2} 
@@ -232,7 +232,7 @@ class Content extends React.Component {
               />
             </Tab>
             <Tab label={d2.i18n.getTranslation("TAB_EDIT_MODE")} value="edit">
-              <EditMode 
+              <BulkMode 
               resource={this.props.informationResource} 
               d2={d2}
               listObject={this.state.listObject}

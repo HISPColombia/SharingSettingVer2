@@ -66,6 +66,7 @@ class ListGroups extends React.Component {
     const d2 = this.props.d2;
     const api = d2.Api.getApi();
     let result = {};
+    console.log(urlAPI);
     try {
       let res = await api.get(urlAPI);
       return res;      
@@ -76,7 +77,7 @@ class ListGroups extends React.Component {
     return result;
   }
   async searchUserGroups(valuetoSearch){
-     return this.getResourceSelected("29/sharing/search?key="+valuetoSearch).then(res => {
+     return this.getResourceSelected("sharing/search?key="+valuetoSearch).then(res => {
        let users=[];
        let groups=[];
        res.users.forEach((user)=>{

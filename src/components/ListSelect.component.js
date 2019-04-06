@@ -41,5 +41,7 @@ ListSelect.propTypes = {
     onItemDoubleClick: PropTypes.func.isRequired,
     listStyle: PropTypes.object,
     size: PropTypes.number,
-    id:PropTypes.string
+    id:PropTypes.string,
+    filterString:PropTypes.string,
+    searchByName:PropTypes.string
 };

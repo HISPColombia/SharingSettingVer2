@@ -108,7 +108,7 @@ const styles = {
   }
 
 }
-class EditMode extends React.Component {
+class BulkMode extends React.Component {
 
   constructor(props) {
     super(props);
@@ -131,7 +131,6 @@ class EditMode extends React.Component {
 
   //query resource Selected
   async setResourceSelected(urlAPI, Payload) {
-    console.log(urlAPI)
     const d2 = this.props.d2;
     const api = d2.Api.getApi();
     let result = {};
@@ -156,8 +155,16 @@ class EditMode extends React.Component {
     var Imported=0;
     var noImported=0;
     var { stepIndex } = this.state;
+    var userAccesses=this.state.userAndGroupsSelected.userAccesses;
+    var userGroupAccesses=this.state.userAndGroupsSelected.userGroupAccesses;
     this.state.objectSelected.forEach((obj, index) => {
       let stringUserPublicAccess = access[this.state.PublicAccess] + "------";
+      //Merge the current setting
+      if(this.state.togSelected == "keep"){
+        userAccesses=userAccesses.concat(obj.userAccesses),
+        userGroupAccesses=userGroupAccesses.concat(obj.userGroupAccesses)
+      }
+
       let valToSave = {
         meta: {
           allowPublicAccess: (this.state.PublicAccess == 0 ? false : true),
@@ -169,12 +176,12 @@ class EditMode extends React.Component {
           externalAccess: this.state.ExternalAccess,
           name: obj.label,
           publicAccess: stringUserPublicAccess,
-          userAccesses: this.state.userAndGroupsSelected.userAccesses,
-          userGroupAccesses: this.state.userAndGroupsSelected.userGroupAccesses
+          userAccesses,
+          userGroupAccesses
         }
 
       }      
-      this.setResourceSelected("29/sharing?type=" + this.props.resource.key + "&id=" + obj.value, valToSave).then(res => {
+      this.setResourceSelected("sharing?type=" + this.props.resource.key + "&id=" + obj.value, valToSave).then(res => {
         if(res.status=="OK"){
             Imported++;
         }
@@ -244,7 +251,7 @@ class EditMode extends React.Component {
 
     });
     let currentSelected=this.state.objectSelected;
-    NewObSelected.concat(currentSelected);
+    NewObSelected=NewObSelected.concat(currentSelected);
     let aList = this.state.objectAvailable;
 
     //change visible false to all object
@@ -263,7 +270,11 @@ class EditMode extends React.Component {
   handleList(val) {
     let obSelected = {
       label: this.props.listObject[val].displayName,
-      value: this.props.listObject[val].id
+      value: this.props.listObject[val].id,
+      externalAccess:this.props.listObject[val].externalAccess,
+      publicAccess:this.props.listObject[val].publicAccess,
+      userAccesses:this.props.listObject[val].userAccesses,
+      userGroupAccesses:this.props.listObject[val].userGroupAccesses
     };
     //Add Object Selected
     let nList = this.state.objectSelected;
@@ -289,7 +300,11 @@ class EditMode extends React.Component {
   handleDesSelect(val) {
     let obSelected = {
       label: this.props.listObject[val].displayName,
-      value: this.props.listObject[val].id
+      value: this.props.listObject[val].id,
+      externalAccess:this.props.listObject[val].externalAccess,
+      publicAccess:this.props.listObject[val].publicAccess,
+      userAccesses:this.props.listObject[val].userAccesses,
+      userGroupAccesses:this.props.listObject[val].userGroupAccesses
     };
     //Add Object Selected
     let nList = this.state.objectAvailable;
@@ -333,7 +348,14 @@ class EditMode extends React.Component {
     const rowRaw = Object.values(listObject);
     return rowRaw.map((row) => {
       return (
-        { label: row.displayName, value: row.id, visible: true }
+        {
+            label: row.displayName,
+            value: row.id, visible: true,
+            externalAccess:row.externalAccess,
+            publicAccess:row.publicAccess,
+            userAccesses:row.userAccesses,
+            userGroupAccesses:row.userGroupAccesses
+        }
       )
     })
 
@@ -394,7 +416,7 @@ class EditMode extends React.Component {
                 <RaisedButton onClick={() => this.handleListSelected('ListSelected', this.handleDesSelect.bind(this))} label="←" labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
               </div>
               <div style={styles.ItemsList}>
-                <ListSelect id={"ListSelected"} filterString={this.props.filterString} searchByName={this.props.searchByName} source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10} />
+                <ListSelect id={"ListSelected"} filterString={""} searchByName={""} source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10} />
               </div>
               <div style={styles.ItemMiddleButton}>
               </div>
@@ -567,7 +589,7 @@ class EditMode extends React.Component {
     );
   }
 };
-EditMode.propTypes = {
+BulkMode.propTypes = {
   d2: React.PropTypes.object.isRequired,
   listObject: React.PropTypes.object,
   pager: React.PropTypes.object,
@@ -577,4 +599,4 @@ EditMode.propTypes = {
   handleChangeTabs: React.PropTypes.func
 };
 
-export default EditMode;
+export default BulkMode;
