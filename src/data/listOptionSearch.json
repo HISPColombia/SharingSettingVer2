@@ -21,6 +21,20 @@
             "filter":"?fields=programTrackedEntityAttributes[trackedEntityAttribute[id]],programIndicators,programStages[id,programStageDataElements[dataElement]]"
         },
         {
+            "code":"LABEL_SEARCHPROGRAMSTAGE",
+            "value":"programStages",
+            "disabled":false,
+            "tooltipText":"LABEL_SEARCHPROGRAMSTAGE_TTT",
+            "filter":"?fields=programStageDataElements[dataElement]"
+        },
+        {
+            "code":"LABEL_SEARCHDATAELEMENTGROUP",
+            "value":"dataElementGroups",
+            "disabled":false,
+            "tooltipText":"LABEL_SEARCHDATAELEMENTGROUP_TTT",
+            "filter":"?fields=id,name,dataElements[id]"
+        },
+        {
           "code":"LABEL_SEARCHINDICATOR",
           "value":"programIndicators",
           "disabled":false,

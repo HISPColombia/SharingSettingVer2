@@ -83,7 +83,6 @@ const webpackConfig = {
         new HTMLWebpackPlugin({
             template: './src/index.html',
             vendorScripts: [
-                "polyfill.min.js",
                 `${scriptPrefix}/dhis-web-core-resource/react-15/react-15${isDevBuild ? '' : '.min'}.js`,
                 `${scriptPrefix}/dhis-web-core-resource/rxjs/4.1.0/rx.all${isDevBuild ? '' : '.min'}.js`,
                 `${scriptPrefix}/dhis-web-core-resource/lodash/4.15.0/lodash${isDevBuild ? '' : '.min'}.js`,

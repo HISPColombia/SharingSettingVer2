@@ -12,7 +12,7 @@
     "prebuild_win": "IF EXIST build rd build /S /Q && mkdir build",
     "build": "rm -rf build && webpack && npm run manifest",
     "build_win": "npm run prebuild_win && webpack && npm run manifest",
-    "postbuild": "cp -rv index.html icon*.png i18n node_modules/jquery/dist/jquery.min.js node_modules/babel-polyfill/dist/polyfill.min.js manifest.webapp build/",
+    "postbuild": "cp -rv index.html icon*.png i18n manifest.webapp build/",
     "postbuild_win_globalnpm": "copyfiles -u -s index.html icon*.png node_modules/jquery/dist/jquery.min.js node_modules/babel-polyfill/dist/polyfill.min.js manifest.webapp build && npm run _postbuild_win_globalnpm",
     "_postbuild_win_globalnpm": "copyfiles i18n/*  build",
     "test": "mocha --reporter spec --compilers js:babel-core/register --require config/setup.js --recursive test",
