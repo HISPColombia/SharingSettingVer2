@@ -133,15 +133,13 @@ class BulkMode extends React.Component {
   async setResourceSelected(urlAPI, Payload) {
     const d2 = this.props.d2;
     const api = d2.Api.getApi();
-    let result = {};
     try {
       let res = await api.post(urlAPI, Payload);
       return res;
     }
     catch (e) {
-      console.error('Could not access to API Resource');
+      return (e)
     }
-    return result;
   }
   saveSetting(){
     var { stepIndex } = this.state;

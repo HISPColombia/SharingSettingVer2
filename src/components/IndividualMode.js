@@ -66,13 +66,12 @@ class IndividualMode extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0, openModal: false,userAndGroupsSelected:{},messajeError:""}
+    this.state = { currentPage: 0, openModal: false,userAndGroupsSelected:{},messajeError:"mensaje de error"}
   }
     //query resource Selected
     async setResourceSelected(urlAPI, Payload) {
       const d2 = this.props.d2;
       const api = d2.Api.getApi();
-      let result = {};
       try {
         let res = await api.post(urlAPI, Payload);
         //update change on listview
@@ -80,9 +79,8 @@ class IndividualMode extends React.Component {
         return res;
       }
       catch (e) {
-        console.error('Could not access to API Resource');
+        return e;
       }
-      return result;
     }
   SendInformationAPI(obj,userAccesses,userGroupAccesses) {
       let valToSave = {
@@ -180,6 +178,9 @@ class IndividualMode extends React.Component {
           <TableRowColumn style={styles.tablerow}>
 
             {row.userGroupAccesses.map((ug) => {
+              if(ug.access==undefined){
+                ug.access="--------"
+              }
               return (
                 <div key={ug.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(ug.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(ug.access, "data"))}>
                   <div>
@@ -194,6 +195,9 @@ class IndividualMode extends React.Component {
           </TableRowColumn>
           <TableRowColumn style={styles.tablerow}>
             {row.userAccesses.map((us) => {
+              if(us.access==undefined){
+                us.access="--------"
+              }
               return (
                 <div key={us.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(us.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(us.access, "data"))}>
                   <div>
@@ -253,10 +257,11 @@ class IndividualMode extends React.Component {
           onRequestClose={this.handleClose.bind(this)}
         >
         <div>
-        <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
         <div style={{ marginTop: 12, textAlign: 'center', color: "Red" }}>
                   <p>{this.state.messajeError}</p>
                 </div>
+        <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
+
         </div>
         </Dialog>
 
