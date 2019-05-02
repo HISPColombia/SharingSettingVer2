@@ -33,7 +33,7 @@
             "resource": "categoryOptions",
             "filters": "categories,categoryOptionGroup",
             "label": "OBJ_CATEGORYOPTIONS",
-            "sharingData":false
+            "sharingData":true
         },
         {
             "key": "categoryCombo",
