@@ -21,7 +21,7 @@ import SearchTextBox from './SearchTextBox';
 //
 const styles = {
   paper: {
-    height: 260,
+    height: 200,
     overflow: 'auto',
     width: '90%',
     margin: 20,
@@ -32,9 +32,13 @@ const styles = {
     width: '90%',
     background:appTheme.rawTheme.palette.canvasColor,
     margin: 20,
+    position: "relative"
   },
   columnForEditButton: {
-    width: '25%'
+    width: '15%'
+  },
+  columnForMain: {
+    width: '40%'
   },
   columnIcon: {
     width: 10
@@ -221,7 +225,7 @@ class ListGroups extends React.Component {
             <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
 
-                <TableHeaderColumn columnNumber={2}>{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableHeaderColumn>
+                <TableHeaderColumn columnNumber={2} style={styles.columnForMain} >{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableHeaderColumn>
                 <TableHeaderColumn style={styles.columnForEditButton}>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableHeaderColumn>
                 <TableHeaderColumn style={styles.columnForEditButton}> {d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableHeaderColumn>
                 <TableHeaderColumn style={styles.columnForEditButton}></TableHeaderColumn>

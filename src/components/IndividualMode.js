@@ -257,7 +257,7 @@ class IndividualMode extends React.Component {
           onRequestClose={this.handleClose.bind(this)}
         >
         <div>
-        <div style={{ marginTop: 12, textAlign: 'center', color: "Red" }}>
+        <div style={{ marginTop: 12, textAlign: 'center', color: "Red",position: "relative"}}>
                   <p>{this.state.messajeError}</p>
                 </div>
         <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />

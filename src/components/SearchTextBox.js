@@ -53,7 +53,7 @@ class SearchTextBox extends React.Component {
     render() {
         var keycount=0;
         return (
-            <div >
+            <div style={{position: "relative"}} >
                 
     
                 <TextField 

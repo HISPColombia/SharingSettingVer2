@@ -153,11 +153,12 @@ class BulkMode extends React.Component {
     var Imported=0;
     var noImported=0;
     var { stepIndex } = this.state;
-    var userAccesses=this.state.userAndGroupsSelected.userAccesses;
-    var userGroupAccesses=this.state.userAndGroupsSelected.userGroupAccesses;
     this.state.objectSelected.forEach((obj, index) => {
       let stringUserPublicAccess = access[this.state.PublicAccess] + "------";
-      //Merge the current setting
+     
+      var userAccesses=this.state.userAndGroupsSelected.userAccesses;
+      var userGroupAccesses=this.state.userAndGroupsSelected.userGroupAccesses;
+      //Merge the current setting ---
       if(this.state.togSelected == "keep"){
         userAccesses=userAccesses.concat(obj.userAccesses),
         userGroupAccesses=userGroupAccesses.concat(obj.userGroupAccesses)
