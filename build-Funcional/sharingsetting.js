@@ -72085,11 +72085,12 @@ var BulkMode = function (_React$Component) {
       var noImported = 0;
       var stepIndex = this.state.stepIndex;
 
-      var userAccesses = this.state.userAndGroupsSelected.userAccesses;
-      var userGroupAccesses = this.state.userAndGroupsSelected.userGroupAccesses;
       this.state.objectSelected.forEach(function (obj, index) {
         var stringUserPublicAccess = access[_this3.state.PublicAccess] + "------";
-        //Merge the current setting
+
+        var userAccesses = _this3.state.userAndGroupsSelected.userAccesses;
+        var userGroupAccesses = _this3.state.userAndGroupsSelected.userGroupAccesses;
+        //Merge the current setting ---
         if (_this3.state.togSelected == "keep") {
           userAccesses = userAccesses.concat(obj.userAccesses), userGroupAccesses = userGroupAccesses.concat(obj.userGroupAccesses);
         }
@@ -73717,7 +73718,7 @@ var IndividualMode = function (_React$Component) {
               null,
               _react2.default.createElement(
                 'div',
-                { style: { marginTop: 12, textAlign: 'center', color: "Red" } },
+                { style: { marginTop: 12, textAlign: 'center', color: "Red", position: "relative" } },
                 _react2.default.createElement(
                   'p',
                   null,
@@ -73816,7 +73817,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //
 var styles = {
   paper: {
-    height: 260,
+    height: 200,
     overflow: 'auto',
     width: '90%',
     margin: 20,
@@ -73826,10 +73827,14 @@ var styles = {
   textBox: {
     width: '90%',
     background: _theme2.default.rawTheme.palette.canvasColor,
-    margin: 20
+    margin: 20,
+    position: "relative"
   },
   columnForEditButton: {
-    width: '25%'
+    width: '15%'
+  },
+  columnForMain: {
+    width: '40%'
   },
   columnIcon: {
     width: 10
@@ -74040,7 +74045,7 @@ var ListGroups = function (_React$Component) {
                 null,
                 _react2.default.createElement(
                   _Table.TableHeaderColumn,
-                  { columnNumber: 2 },
+                  { columnNumber: 2, style: styles.columnForMain },
                   d2.i18n.getTranslation("TABLE_USER_NAME")
                 ),
                 _react2.default.createElement(
@@ -74344,7 +74349,7 @@ var SearchTextBox = function (_React$Component) {
             var keycount = 0;
             return _react2.default.createElement(
                 'div',
-                null,
+                { style: { position: "relative" } },
                 _react2.default.createElement(_TextField2.default, {
                     id: "valueSearch",
                     fullWidth: true,
