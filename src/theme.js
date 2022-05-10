@@ -1,6 +1,6 @@
 
 import Spacing from 'material-ui/styles/spacing';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { createTheme} from '@mui/material/styles';
 
 import {
     blue100,
@@ -16,9 +16,10 @@ import {
     darkBlack,
     red400,
     white,
-} from 'material-ui/styles/colors';
-import { fade } from 'material-ui/utils/colorManipulator';
-import { red100 } from 'material-ui/styles/colors';
+    red100
+} from '@mui/material/colors';
+import { Fade } from '@mui/material';
+
 
 const theme = {
     spacing: Spacing,
@@ -34,7 +35,7 @@ const theme = {
         alternateTextColor: white,
         canvasColor: white,
         borderColor: grey400,
-        disabledColor: fade(darkBlack, 0.3),
+        disabledColor: Fade(darkBlack, 0.3),
         error:red400
     },
     tabs:{backgroundColor:grey300,
@@ -44,6 +45,13 @@ const theme = {
     settingOptions:{
         icon:grey600,
         title:grey400        
+    },
+    forms: {
+        minWidth: 350,
+        maxWidth: 750,
+    },
+    formInput: {
+        fontWeight: 100,
     }
 };
 

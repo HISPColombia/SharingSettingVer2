@@ -1,22 +1,14 @@
-import React from 'react';
-import HeaderBarComponent from 'd2-ui/lib/app-header/HeaderBar';
-import headerBarStore$ from 'd2-ui/lib/app-header/headerBar.store';
-import withStateFrom from 'd2-ui/lib/component-helpers/withStateFrom';
-import Sidebar from 'd2-ui/lib/sidebar/Sidebar.component';
 
 
 //Material Components
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import FontIcon from 'material-ui/FontIcon';
-import appTheme from './theme';
-
+//import appTheme from './theme';
 
 //Components
-import ListSection from './data/listSections.json'
-import Content from './components/Content'
+//import ListSection from './data/listSections.json'
+//import Content from './components/Content'
 
 
-const HeaderBar = withStateFrom(headerBarStore$, HeaderBarComponent);
+
 let currentSection;
 let sidebarRef;
 
@@ -88,8 +80,8 @@ class AppFront extends React.Component {
   // life cycle
   getChildContext() {
     return {
-      d2: this.props.d2,
-      muiTheme: appTheme
+      d2: this.props.d2//,
+      //muiTheme: appTheme
     };
   }
 
@@ -109,10 +101,9 @@ class AppFront extends React.Component {
 
     return (
 
-      <MuiThemeProvider muiTheme={appTheme}>
+      <>
         <div className="app-wrapper">
-         <HeaderBar />
-        <br/>
+           <br/>
         
         
         {
@@ -121,7 +112,7 @@ class AppFront extends React.Component {
           :<div style={stylesLocal.hidde} ></div>
           
         }
-        <Sidebar
+        {/* <Sidebar
             sections={
               ListSection.sections.map((section)=>{
                 let obj={};
@@ -138,34 +129,34 @@ class AppFront extends React.Component {
             searchFieldLabel="Search"
             onChangeSearchText={this.changeSearchTextHandler}
             ref={this.storeRef}         
-          />
+          /> */}
     
-		  <Content
+		  {/* <Content
                 title={this.state.sectionToRender}
                 d2={d2}
                 informationResource={this.state.informationResource}
                 disableSlide={this.disableSlide.bind(this)}
-              />
+              /> */}
 
         </div>
-      </MuiThemeProvider>
+      </>
     );
   }
 }
-AppFront.propTypes = {
-  d2: React.PropTypes.object.isRequired,
-  currentSection: React.PropTypes.string,
-  searchText: React.PropTypes.string
-};
+// AppFront.propTypes = {
+//   d2: React.PropTypes.object.isRequired,
+//   currentSection: React.PropTypes.string,
+//   searchText: React.PropTypes.string
+// };
 
-AppFront.contextTypes = {
-  muiTheme: React.PropTypes.object
-};
+// AppFront.contextTypes = {
+//   muiTheme: React.PropTypes.object
+// };
 
-AppFront.childContextTypes = {
-  d2: React.PropTypes.object,
-  muiTheme: React.PropTypes.object
-};
+// AppFront.childContextTypes = {
+//   d2: React.PropTypes.object,
+//   muiTheme: React.PropTypes.object
+// };
 
 export default AppFront;
 

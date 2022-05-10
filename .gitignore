@@ -1,20 +1,5 @@
-# Jetbrains files
-.idea
-*.iml
-
-# Project folders/dependencies
+# DHIS2 Platform
 node_modules
+.d2
+src/locales
 build
-coverage
-manifest.webapp
-.eslintignore
-.eslintrc
-.scss-lint.yml
-
-# Misc files
-npm-debug.log
-
-.DS_Store
-
-# Don't include our local configuration info
-config.json

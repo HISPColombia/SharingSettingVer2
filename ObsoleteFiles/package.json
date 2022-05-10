@@ -1,0 +1,80 @@
+{
+  "name": "sharingsetting",
+  "version": "2.0.0",
+  "description": "App Sharing Setting",
+  "main": "./src/app.js",
+  "repository": "https://github.com/HISPColombia/SharingSettingVer2.git",
+  "author": "Helder Castrillon",
+  "license": "MIT",
+  "scripts": {
+    "coverage": "babel-node node_modules/.bin/isparta cover --root ./src --report text --report html --report lcov node_modules/mocha/bin/_mocha -- --reporter dot --require config/setup.js --recursive test",
+    "prebuild": "rm -rf build && mkdir build && d2-manifest package.json manifest.webapp",
+    "prebuild_win": "IF EXIST build rd build /S /Q && mkdir build",
+    "build": "rm -rf build && webpack && npm run manifest",
+    "build_win": "npm run prebuild_win && webpack && npm run manifest",
+    "postbuild": "cp -rv index.html icon*.png i18n manifest.webapp build/",
+    "postbuild_win_globalnpm": "copyfiles -u -s index.html icon*.png node_modules/jquery/dist/jquery.min.js node_modules/babel-polyfill/dist/polyfill.min.js manifest.webapp build && npm run _postbuild_win_globalnpm",
+    "_postbuild_win_globalnpm": "copyfiles i18n/*  build",
+    "test": "mocha --reporter spec --compilers js:babel-core/register --require config/setup.js --recursive test",
+    "test-watch": "mocha --reporter spec --compilers js:babel-core/register --require config/setup.js --recursive test --watch",
+    "lint": "eslint --fix src && ./node_modules/eslint/bin/eslint.js --env node,mocha --global expect,sinon,spy,stub --rule 'no-unused-expressions: 0' test && scss-lint",
+    "validate": "npm ls",
+    "prestart": "d2-manifest package.json manifest.webapp",
+    "manifest": "d2-manifest package.json build/manifest.webapp",
+    "start": "webpack-dev-server",
+    "dist_win": "npm run build_win && npm run postbuild_win_globalnpm",
+    "dist": "npm run build && npm run postbuild && cd build && zip -r bat-app.zip * && cd .."
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.9.1",
+    "@material-ui/icons": "^3.0.2",
+    "babel-runtime": "^6.26.0",
+    "colors": "^1.2.1",
+    "d2": "^30.0.4",
+    "d2-manifest": "^1.0.0",
+    "d2-ui": "29.0.29",
+    "d2-utilizr": "0.2.15",
+    "material-ui": "^0.20.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "classnames": "^2.2.5",
+    "css-loader": "^0.28.11",
+    "eslint-config-dhis2": "^3.0.7",
+    "html-webpack-plugin": "^3.1.0",
+    "loglevel": "^1.6.1",
+    "node-sass": "^4.8.3",
+    "path": "^0.12.7",
+    "prop-type": "^0.0.1",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "susy": "^3.0.3",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ],
+  "manifest.webapp": {
+    "name": "DHIS 2 Sharing Setting App",
+    "icons": {
+      "48": "icon.png"
+    },
+    "activities": {
+      "dhis": {
+        "href": ".."
+      }
+    }
+  }
+}
