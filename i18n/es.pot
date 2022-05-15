@@ -1,0 +1,496 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: i18next-conv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"POT-Creation-Date: 2022-05-10T00:42:05.195Z\n"
+"PO-Revision-Date: 2022-05-10T00:42:05.195Z\n"
+
+msgid "LBL_DATA_ELEMENTS"
+msgstr "DataElements"
+
+
+msgid "LABEL_LIST_OBJECTS"
+msgstr "Lista de tipos objetos"
+
+msgid "LABEL_LIST_PERMISSION"
+msgstr "Lista de objetos de tipo  "
+
+msgid "LBL_CATEGORY_OPTIONS"
+msgstr "Opciones De Categoría"
+
+msgid "LBL_CATEGORY_COMBO"
+msgstr "Combo de Categoría"
+
+msgid "LBLSELECT_ELEMENTS"
+msgstr "Selecione Elementos"
+
+msgid "LABEL_EDIT"
+msgstr "Editar"
+
+msgid "LABEL_EDIT_VIEW"
+msgstr "Editar - Ver"
+
+msgid "LABEL_NONE"
+msgstr "Ninguno"
+
+msgid "LABEL_ASIGN"
+msgstr "Asignar"
+
+msgid "LABEL_INDICATORS"
+msgstr "Indicadores"
+
+msgid "LABEL_INDICATORS_GROUPS"
+msgstr "Grupo de indicadores"
+
+msgid "LABEL_DATASETS"
+msgstr "Data sets"
+
+msgid "LABEL_ORGANIZATION_UNIT_GROUPS"
+msgstr "Grupos de unidad organizativa"
+
+msgid "LABEL_OPTION_SETS"
+msgstr "Opciones fijadas"
+
+msgid "LABEL_ITEM"
+msgstr "Elementos"
+
+msgid "OBJ_DATAELEMENT"
+msgstr "Elemento de datos"
+
+msgid "OBJ_DATAELEMENTGROUP"
+msgstr "Grupo de elemento de datos"
+
+msgid "OBJ_DATAELEMENTGROUPSETS"
+msgstr "Set de grupos de elemento de datos"
+
+msgid "OBJ_CATEGORYOPTIONS"
+msgstr "Opciones de categoría"
+
+msgid "OBJ_CATEGORIES"
+msgstr "Categorias"
+
+msgid "OBJ_CATEGORYCOMBO"
+msgstr "Combo de categoría"
+
+msgid "OBJ_CATEGORYOPTIONCOMBOS"
+msgstr "Combo de opciones de categoria"
+
+msgid "OBJ_CATEGORYOPTIONGROUPS"
+msgstr "Grupos de opciones de categoria"
+
+msgid "OBJ_CATEGORYOPTIONGROUPSETS"
+msgstr "Sets de grupos de opciones de categoria"
+
+msgid "OBJ_INDICATORS"
+msgstr "Indicadores"
+
+msgid "OBJ_INDICATORSTYPES"
+msgstr "Tipos de indicadores"
+
+msgid "OBJ_INDICATORSGROUPS"
+msgstr "Grupos de indicadores"
+
+msgid "OBJ_DATASETS"
+msgstr "Set de datos"
+
+msgid "OBJ_ORGANISATIONUNITGROUPS"
+msgstr "Grupos de unidad de organización"
+
+msgid "OBJ_ORGANISATIONUNITGROUPSSETS"
+msgstr "Set de grupos de unidades de organización"
+
+msgid "OBJ_OPTIONSETS"
+msgstr "Set de opciones"
+
+msgid "OBJ_USERGROUPS"
+msgstr "Grupos de usuarios"
+
+msgid "OBJ_USERROLES"
+msgstr "Roles de usuario"
+
+msgid "LABEL_USER"
+msgstr "Usuario"
+
+msgid "LABEL_READ"
+msgstr "Puede Ver"
+
+msgid "LABEL_READWRITE"
+msgstr "Puede Editar"
+
+msgid "LABEL_NONE"
+msgstr "Ninguno"
+
+msgid "LABEL_USERGROUP"
+msgstr "Grupo de usuario"
+
+msgid "LABEL_USERPERMISIONS"
+msgstr "Permisos de usuario"
+
+msgid "LABEL_SELECTEDITEMS"
+msgstr "Elementos Seleccionados"
+
+msgid "TAB_USERS"
+msgstr "Ver usuarios"
+
+msgid "TAB_ASIGNPERMISSIONS"
+msgstr "Asignar permisos"
+
+msgid "TAB_ASIGNELEMENTS"
+msgstr "Asignar Grupo de Usuarios"
+
+msgid "TAB_VIEW_MODE"
+msgstr "Modo Individual"
+
+msgid "TAB_EDIT_MODE"
+msgstr "Modo Multiple"
+
+msgid "LABEL_YES"
+msgstr "Si"
+
+msgid "LABEL_NO"
+msgstr "No"
+
+msgid "LABEL_SEARCH"
+msgstr "Buscar"
+
+msgid "LABEL_DELETEUSERGROUPS"
+msgstr "Eliminar grupo de usuarios"
+
+msgid "LABEL_WISHDELETEUSERGROUPS"
+msgstr "Desea elminar el grupo de usuarios"
+
+msgid "TAB_OBJECTS"
+msgstr "Objetos"
+
+msgid "LABEL_CLOSE"
+msgstr "Cerrar"
+
+msgid "LABEL_CONVENTION"
+msgstr "Convención de colores"
+
+msgid "LABEL_PUBLICACCESS"
+msgstr "Acceso publico"
+
+msgid "LABEL_EXTERNALACCESS"
+msgstr "Externo"
+
+msgid "LABEL_PERMISSIONS"
+msgstr "Permisos"
+
+msgid "LABEL_SEARCHPROGRAMORDATASET"
+msgstr "Filtrar objetos relacionados con:"
+
+msgid "LABEL_SEARCHPROGRAMS"
+msgstr "programa"
+
+msgid "LABEL_SEARCHNAME"
+msgstr "Buscar por nombre"
+
+msgid "LABEL_SELECTGROUP"
+msgstr "Seleccione grupo"
+
+msgid "LABEL_SELECTDATASET"
+msgstr "Seleccione set de datos"
+
+msgid "LABEL_SEARCHDATASET"
+msgstr "Set de Datos"
+
+msgid "LABEL_SELECTPROGRAM"
+msgstr "Seleccione  programa"
+
+msgid "LABEL_SEARCHPROGRAM"
+msgstr "Programas"
+
+msgid "LABEL_SEARCHPROGRAMSTAGE"
+msgstr "Etapas de programa"
+
+msgid "LABEL_SEARCHDATAELEMENTGROUP"
+msgstr "Grupos de Elementos"
+
+msgid "LABEL_SEARCHGROUP"
+msgstr "Grupo"
+
+msgid "LABEL_SEARCHCATEGORIES"
+msgstr "categorias"
+
+msgid "LABEL_NORESULTSFOUND"
+msgstr "No hay resultados"
+
+msgid "LABEL_SEARCHBY"
+msgstr "Buscar por"
+
+msgid "LABEL_FINDOPTIONS"
+msgstr "Filtrar"
+
+msgid "LABEL_FINDOPTIONS_SUB"
+msgstr "Filtrar objetos de acuerdo con el tipo seleccionado"
+
+msgid "LABEL_UPDATE_TOGGLE"
+msgstr "Modo Actualización"
+
+msgid "BUTTON_CLEAR"
+msgstr "Limpiar"
+
+msgid "LABEL_KEEPPERMISSIONS"
+msgstr "Mantener permisos"
+
+msgid "LABEL_UPDATEPERMISSIONS"
+msgstr "Actualizar permisos"
+
+msgid "TAB_WHATDOYOUWANTTODO"
+msgstr "¿Que desea hacer ? "
+
+msgid "LABEL_SELECTALL"
+msgstr "Aplicar a todos los grupos de usuarios Filtrados"
+
+msgid "LABEL_CODE"
+msgstr "Codigo"
+
+msgid "MESSAGE"
+msgstr "Este elemento(s) fue Actualizado"
+
+msgid "ERROR"
+msgstr "Este elemento tuvo error"
+
+msgid "BUTTON_CLEAR_ALL"
+msgstr "Limpiar todo"
+
+msgid "BUTTON_DELETE_ALL"
+msgstr "Eliminar grupos de usuario"
+
+msgid "LABEL_SEARCHUSERGROUP"
+msgstr "Grupo de usuarios"
+
+msgid "LABEL_SEARCHUSERGROUP2"
+msgstr "Nombre "
+
+msgid "OBJ_LEGENDSETS"
+msgstr "Set de leyendas"
+
+msgid "OBJ_CONSTANTS"
+msgstr "Constantes "
+
+msgid "OBJ_TRKATTRIBUTES"
+msgstr "Atributos "
+
+msgid "OBJ_PROGRAMS"
+msgstr "Programas "
+
+msgid "BJ_PROGRAMINDOCATORS"
+msgstr "Indicadores de programa "
+
+msgid "OBJ_DASHBOARDS"
+msgstr "Dashboards "
+
+msgid "OBJ_MAPS"
+msgstr "Mapas "
+
+msgid "OBJ_EVENTREPORTS"
+msgstr "Reporte de eventos "
+
+msgid "OBJ_EVENTCHARTS"
+msgstr "Graficas de Eventos "
+
+msgid "OBJ_REPORTTABLES"
+msgstr "Tablas Povite "
+
+msgid "OBJ_CHARTS"
+msgstr "Graficas de agregados "
+
+msgid "OBJ_SQLVIEWS"
+msgstr "Vistas SQL"
+
+msgid "OBJ_RELATIONSHIP"
+msgstr "Tipos de relaciones"
+
+msgid "OBJ_TRACKEDENTITYTYPES"
+msgstr "Tipos de entidades"
+
+msgid "OBJ_PROGRAMSTAGE"
+msgstr "Etapas de programas"
+
+msgid "TABLE_NAME"
+msgstr "Nombre"
+
+msgid "TABLE_PUBLICACCESS"
+msgstr "Acceso público"
+
+msgid "TABLE_EXTERNALACCESS"
+msgstr "Acceso Externo"
+
+msgid "TABLE_SHARINGGROUP"
+msgstr "Grupos"
+
+msgid "TABLE_SHARINGUSER"
+msgstr "Usuarios"
+
+msgid "CAN_EDIT"
+msgstr "Puede encontrar ver y editar"
+
+msgid "CAN_VIEW"
+msgstr "Puede encontrar y ver"
+
+msgid "NO_ACCESS"
+msgstr "No hay acceso"
+
+msgid "STEP_1"
+msgstr "seleccione los objetos"
+
+msgid "STEP_2"
+msgstr "Seleccione los grupos y/o usuarios"
+
+msgid "STEP_3"
+msgstr "Defina la estrategia a aplicar"
+
+msgid "STEP_4"
+msgstr "Resumen"
+
+msgid "BTN_ASIGN_ALL"
+msgstr "ASIGNAR TODO"
+
+msgid "BTN_REMOVE_ALL"
+msgstr "REMOVER TODO"
+
+msgid "TABLE_USER_NAME"
+msgstr "Usuario"
+
+msgid "TABLE_METADATA_ACCESS"
+msgstr " METADATOS"
+
+msgid "TABLE_DATA_ACCESS"
+msgstr "DATOS"
+
+msgid "TITLE_SEARCH_GROUP"
+msgstr "Adicionar usuarios y grupos de usuarios"
+
+msgid "LABEL_NOVALUE"
+msgstr "<Sin filtrar>"
+
+msgid "LABEL_NOVALUE_TTT"
+msgstr "Seleccione una opción del filtro"
+
+msgid "LABEL_SEARCHDATASET_TTT"
+msgstr "Escriba el nombre del dataset aquí"
+
+msgid "LABEL_SEARCHPROGRAM_TTT"
+msgstr "Escriba el nombre del programa aquí"
+
+msgid "LABEL_SEARCHPROGRAMSTAGE_TTT"
+msgstr "Escriba el nombre de la etapa del programa aquí"
+
+msgid "LABEL_SEARCHDATAELEMENTGROUP_TTT"
+msgstr "Escriba el noombre del grupo de elementos de datos aquí"
+
+msgid "LABEL_SEARCHUSERGROUP_TTT"
+msgstr "Escriba el nombre del grupo de usuarios aquí"
+
+msgid "LABEL_SEARCHUSER_TTT"
+msgstr "Escriba el nombre del usuario aquí"
+
+msgid "LABEL_SEARCHUSER"
+msgstr "Usuarios"
+
+msgid "LABEL_SEARCHINDICATOR"
+msgstr "Indicadores de programas"
+
+msgid "LABEL_SEARCHINDICATOR_TTT"
+msgstr "Escriba el nombre del indicadores de programas aquí"
+
+msgid "LABEL_CATEGORY"
+msgstr "Categorias"
+
+msgid "LABEL_CATEGORYCOMBO"
+msgstr "Combinación de Caterogoría"
+
+msgid "LABEL_CATEGORYOPGROUPSET"
+msgstr "Set de opciones de categoría"
+
+msgid "LABEL_CATEGORYOPTIONGROUP"
+msgstr "Grupo de opciones de categoría"
+
+msgid "LABEL_INDICATORGROUPS"
+msgstr "Grupo de Indicadores"
+
+msgid "LABEL_OUGROUPSET"
+msgstr "Set de grupos de OU"
+
+msgid "LABEL_CATEGORY_TTT"
+msgstr "Escriba el nombre de una categoría aquí"
+
+msgid "LABEL_CATEGORYCOMBO_TTT"
+msgstr "Escriba el nombre de una combinación de categoría aquí"
+
+msgid "LABEL_CATEGORYOPGROUPSET_TTT"
+msgstr "Escriba el nombre de un set de opciones de categoría aquí"
+
+msgid "LABEL_CATEGORYOPTIONGROUP_TTT"
+msgstr "Escriba el nombre de un grupo de opciones de categoría aquí"
+
+msgid "LABEL_OUGROUPSET_TTT"
+msgstr "Escriba el nombre de un Set de grupos de OU aquí"
+
+msgid "LABEL_INDICATORGROUPS_TTT"
+msgstr "Escriba el nombre del grupo de indicadores aquí"
+
+msgid "CN_CLOSE"
+msgstr "Cerrar"
+
+msgid "CN_TITLE"
+msgstr "Convenciones"
+
+msgid "CN_SUBTITLE_METADATA"
+msgstr "METADATOS: privilegios relacionados con el acceso  "
+
+msgid "CN_SUBTITLE_DATA"
+msgstr "DATOS: Privilegios relacionados con el registro de datos y su acceso"
+
+msgid "BTN_BACK"
+msgstr "ATRAS"
+
+msgid "BTN_NEXT"
+msgstr "SIGUENTE"
+
+msgid "BTN_CANCEL"
+msgstr "CANCELAR"
+
+msgid "BTN_CLOSE"
+msgstr "CERRAR"
+
+msgid "BTN_FINISH"
+msgstr "FINALIZAR"
+
+msgid "BTN_SAVE"
+msgstr "GUARDAR CONFIGURACIÓN"
+
+msgid "OPTION_OVERWRITE"
+msgstr "Sobrescribir configuración de uso compartido "
+
+msgid "OPTION_KEEP"
+msgstr "Unir con configuración de uso compartido actual"
+
+msgid "OPTION_PUBLICACCESS"
+msgstr "Configurar acceso público"
+
+msgid "OPTION_EXTERNALACCESS"
+msgstr "Configurar acceso externo"
+
+msgid "SUBTITLE_STRATEGY"
+msgstr "Estrategia para guardar configuración de uso compartido sobre los objetos seleccionados "
+
+msgid "SUBTITLE_PUBLIC"
+msgstr "Configuración de acceso público y externo sobre el uso compartido en los objetos seleccionados "
+
+msgid "MESSAGE_ERROR_SELECT_OBJECT"
+msgstr "Seleccione al menos un objeto, usuario o grupo"
+
+msgid "MESSAGE_DISABLED_DATABUTTON"
+msgstr "No disponible para este tipo de objeto"
+
+msgid "LABEL_NUMBER_OBJECT_UPDATED"
+msgstr "Numero de objetos actualizados"
+
+msgid "LABEL_NUMBER_OBJECT_NOUPDATED"
+msgstr "Numero de objetos no actualizados"

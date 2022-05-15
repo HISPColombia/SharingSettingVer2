@@ -33,15 +33,15 @@ export default function ListSelect(props) {
         )
     );
 }
-ListSelect.propTypes = {
-    source: PropTypes.arrayOf(PropTypes.shape({
-        label: PropTypes.string,
-        value: PropTypes.string
-    })).isRequired,
-    onItemDoubleClick: PropTypes.func.isRequired,
-    listStyle: PropTypes.object,
-    size: PropTypes.number,
-    id:PropTypes.string,
-    filterString:PropTypes.string,
-    searchByName:PropTypes.string
-};
+// ListSelect.propTypes = {
+//     source: PropTypes.arrayOf(PropTypes.shape({
+//         label: PropTypes.string,
+//         value: PropTypes.string
+//     })).isRequired,
+//     onItemDoubleClick: PropTypes.func.isRequired,
+//     listStyle: PropTypes.object,
+//     size: PropTypes.number,
+//     id:PropTypes.string,
+//     filterString:PropTypes.string,
+//     searchByName:PropTypes.string
+// };

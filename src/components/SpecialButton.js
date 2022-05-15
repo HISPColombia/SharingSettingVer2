@@ -1,9 +1,9 @@
 
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
-import None from 'material-ui/svg-icons/av/not-interested'; 
-import ActionDone from 'material-ui/svg-icons/action/done';
-import ActionDoneAll from 'material-ui/svg-icons/action/done-all'; 
+import Button from '@mui/material/Button';
+import None from '@mui/icons-material/NotInterested';
+import ActionDone from '@mui/icons-material/Done';
+import ActionDoneAll from '@mui/icons-material/DoneAll';
 
 class SpecialButton extends React.Component {
     constructor(props) {
@@ -34,21 +34,10 @@ class SpecialButton extends React.Component {
       render() {
         return (
             <div title={this.props.enabled?"":this.props.title}>
-                <FlatButton onClick={()=>this.handleClickButton()} icon={this.state.value==0? <None color={this.props.color}/>: this.state.value==1?<ActionDone color={this.props.color}/>: <ActionDoneAll color={this.props.color}/>} disabled={!this.props.enabled} />
+                <Button onClick={()=>this.handleClickButton()} icon={this.state.value==0? <None color={this.props.color}/>: this.state.value==1?<ActionDone color={this.props.color}/>: <ActionDoneAll color={this.props.color}/>} disabled={!this.props.enabled} />
             </div>
         )
     }
 }
-SpecialButton.propTypes = {
-    value: React.PropTypes.number,
-    color: React.PropTypes.string,
-    callBackHandleClick:React.PropTypes.func,
-    id: React.PropTypes.string,
-    type: React.PropTypes.string,
-    enabled:React.PropTypes.bool,
-    defaultValue:React.PropTypes.number,
-    title:React.PropTypes.string
-  };
-  
   
   export default SpecialButton

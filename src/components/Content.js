@@ -5,15 +5,21 @@ import BulkMode from './BulkMode';
 import Filter from './Filter'
 //Material UI 
 
-import { Tab, Tabs } from 'material-ui/Tabs';
-import Avatar from 'material-ui/Avatar';
-import Chip from 'material-ui/Chip';
-import None from 'material-ui/svg-icons/av/not-interested';
-import ActionDone from 'material-ui/svg-icons/action/done';
-import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-import Help from 'material-ui/svg-icons/action/help';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Avatar from '@mui/material/Avatar';
+import Chip from '@mui/material/Chip';
+import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
+
+
+import None from '@mui/icons-material/NotInterested';
+import ActionDone from '@mui/icons-material/Done';
+import ActionDoneAll from '@mui/icons-material/DoneAll';
+import Help from '@mui/icons-material/Help';
+
+//dhis2
+import i18n from '../locales/index.js' 
 
 // Styles
 require('../scss/app.scss');
@@ -22,13 +28,13 @@ const styles = {
   header: {
     fontSize: 24,
     fontWeight: 300,
-    color: appTheme.rawTheme.palette.textColor,
+    color: appTheme.palette.primary.textColor,
     padding: '24px 0 12px 16px',
   },
   chips: {
-    color: appTheme.rawTheme.palette.canvasColor,
-    avatarColor: appTheme.rawTheme.palette.canvasColor,
-    iconColor: appTheme.settingOptions.icon
+    color: appTheme.palette.primary.canvasColor,
+    avatarColor: appTheme.palette.primary.canvasColor,
+    iconColor: appTheme.palette.primary.settingOptions.icon
   }
 };
 
@@ -143,10 +149,10 @@ class Content extends React.Component {
 
   render() {
     const d2 = this.props.d2;
-
+//{i18n.t("search")}
     const actions = [
-      <FlatButton
-        label={d2.i18n.getTranslation("CN_CLOSE")}
+      <Button
+        label={i18n.t("CN_CLOSE")}
         primary={true}
         onClick={this.handleClose.bind(this)}
       />];
@@ -155,50 +161,50 @@ class Content extends React.Component {
       <div className="app">
         <div className='content-area'>
           <div style={styles.header}>
-            Sharing Setting for:  <span style={{"fontWeight": "bold"}}>{d2.i18n.getTranslation(this.props.title)}</span>
+            Sharing Setting for:  <span style={{"fontWeight": "bold"}}>{i18n.t(this.props.title)}</span>
           </div>
           <div style={{textAlign:'right'}}>
-          <FlatButton
+          <Button
               icon={<Help/>}
                onClick={this.handleOpen.bind(this)}
             />
 
             <Dialog
-              title={d2.i18n.getTranslation("CN_TITLE")}
+              title={i18n.t("CN_TITLE")}
               modal={false}
               open={this.state.open}
               onRequestClose={this.handleClose.bind(this)}
               actions={actions}
             >
               <div>
-              {d2.i18n.getTranslation("CN_SUBTITLE_METADATA")}
+              {i18n.t("CN_SUBTITLE_METADATA")}
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
-                  {d2.i18n.getTranslation("NO_ACCESS")}
+                  {i18n.t("NO_ACCESS")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDone />} />
-                  {d2.i18n.getTranslation("CAN_VIEW")}
+                  {i18n.t("CAN_VIEW")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDoneAll />} />
-                  {d2.i18n.getTranslation("CAN_EDIT")}
+                  {i18n.t("CAN_EDIT")}
                 </Chip>
 
               </div>
               <div>
-              {d2.i18n.getTranslation("CN_SUBTITLE_DATA")}
+              {i18n.t("CN_SUBTITLE_DATA")}
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
-                  {d2.i18n.getTranslation("NO_ACCESS")}
+                  {i18n.t("NO_ACCESS")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDone />} />
-                  {d2.i18n.getTranslation("CAN_VIEW")}
+                  {i18n.t("CAN_VIEW")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDoneAll />} />
-                  {d2.i18n.getTranslation("CAN_EDIT")}
+                  {i18n.t("CAN_EDIT")}
                 </Chip>
 
               </div>
@@ -218,7 +224,7 @@ class Content extends React.Component {
             value={this.state.mode}
             onChange={this.handleChangeTabs.bind(this)}
           >
-            <Tab label={d2.i18n.getTranslation("TAB_VIEW_MODE")} value="view">
+            <Tab label={i18n.t("TAB_VIEW_MODE")} value="view">
               <IndividualMode 
               resource={this.props.informationResource} 
               Enabledchecked={false}
@@ -231,7 +237,7 @@ class Content extends React.Component {
 
               />
             </Tab>
-            <Tab label={d2.i18n.getTranslation("TAB_EDIT_MODE")} value="edit">
+            <Tab label={i18n.t("TAB_EDIT_MODE")} value="edit">
               <BulkMode 
               resource={this.props.informationResource} 
               d2={d2}
@@ -250,23 +256,6 @@ class Content extends React.Component {
 
   }
 
-};
-
-Content.propTypes = {
-  d2: React.PropTypes.object.isRequired,
-  title: React.PropTypes.string,
-  informationResource: React.PropTypes.object,
-  disableSlide: React.PropTypes.func
-};
-
-Content.contextTypes = {
-  title: React.PropTypes.string,
-  muiTheme: React.PropTypes.object
-};
-
-Content.childContextTypes = {
-  d2: React.PropTypes.object,
-  muiTheme: React.PropTypes.object
 };
 
 export default Content

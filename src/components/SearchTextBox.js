@@ -1,9 +1,10 @@
 
 import React from 'react';
-import { List, ListItem } from 'material-ui/List';
-import TextField from 'material-ui/TextField';
+import List from '@mui/material/List';
+import ListItemText from '@mui/material/List';
+import TextField from  '@mui/material/TextField';
 import appTheme from '../theme';
-import Paper from 'material-ui/Paper';
+import Paper from '@mui/material/Paper';
 const styles={
     content:{
         padding:'5%',
@@ -70,7 +71,7 @@ class SearchTextBox extends React.Component {
                     <List>
                         {this.state.value.map((val)=>{
                                 keycount++
-                                return(<ListItem onClick={()=>this.handleSelectOption(val)}  key={keycount} primaryText={val.displayName}/>)
+                                return(<ListItemText  onClick={()=>this.handleSelectOption(val)}  key={keycount} primary={val.displayName}/>)
                         })}
                     </List>
                 </Paper> 
@@ -80,14 +81,6 @@ class SearchTextBox extends React.Component {
         )
     }
 }
-SearchTextBox.propTypes = {    
-    color: React.PropTypes.string,
-    source:React.PropTypes.func,
-    title: React.PropTypes.string,
-    callBackSelected:React.PropTypes.func,
-    showValueSelected:React.PropTypes.bool,
-    disabled:React.PropTypes.bool
-};
 
 
 export default SearchTextBox

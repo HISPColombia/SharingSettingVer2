@@ -1,29 +1,32 @@
 import React from 'react';
-import None from 'material-ui/svg-icons/av/not-interested';
-import ActionDone from 'material-ui/svg-icons/action/done';
-import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
-import LinearProgress from 'material-ui/LinearProgress';
-import Divider from 'material-ui/Divider';
-import FlatButton from 'material-ui/FlatButton';
-import More from 'material-ui/svg-icons/navigation/more-vert'; 
-import Dialog from 'material-ui/Dialog';
+import None from '@mui/icons-material/NotInterested';
+import ActionDone from '@mui/icons-material/Done';
+import ActionDoneAll from '@mui/icons-material/DoneAll';
+import LinearProgress from '@mui/material/LinearProgress';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import More from '@mui/icons-material/MoreVert';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
 import appTheme from '../theme';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+
 
 import ListGroups from './ListGroups';
 const styles = {
   header: {
     fontSize: 24,
     fontWeight: 300,
-    color: appTheme.rawTheme.palette.textColor,
+    color: appTheme.palette.primary.textColor,
     padding: '24px 0 12px 16px',
   },
   headline: {
@@ -172,10 +175,10 @@ class IndividualMode extends React.Component {
         //filter by name ir by filter selected
       if (((row.displayName.includes(this.props.searchByName) == true) && (this.props.filterString.includes(row.id)==true || this.props.filterString=="")))
         return (<TableRow key={keysCount}>
-          <TableRowColumn style={styles.tablerow}>{row.displayName}</TableRowColumn>
-          <TableRowColumn style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "CAN_EDIT" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "CAN_VIEW" ? <ActionDone /> : <None />}</TableRowColumn>
-          <TableRowColumn style={styles.tablerow}>{row.externalAccess ? <ActionDone /> : <None />}</TableRowColumn>
-          <TableRowColumn style={styles.tablerow}>
+          <TableCell  style={styles.tablerow}>{row.displayName}</TableCell >
+          <TableCell  style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "CAN_EDIT" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "CAN_VIEW" ? <ActionDone /> : <None />}</TableCell >
+          <TableCell  style={styles.tablerow}>{row.externalAccess ? <ActionDone /> : <None />}</TableCell >
+          <TableCell  style={styles.tablerow}>
 
             {row.userGroupAccesses.map((ug) => {
               if(ug.access==undefined){
@@ -192,8 +195,8 @@ class IndividualMode extends React.Component {
                 </div>)
             })
             }
-          </TableRowColumn>
-          <TableRowColumn style={styles.tablerow}>
+          </TableCell >
+          <TableCell  style={styles.tablerow}>
             {row.userAccesses.map((us) => {
               if(us.access==undefined){
                 us.access="--------"
@@ -210,10 +213,10 @@ class IndividualMode extends React.Component {
             })
             }
          
-          </TableRowColumn>
-          <TableRowColumn style={styles.buttonMore}>
-          <FlatButton icon={<More/>}  onClick={()=>this.handleOpen(row)} />
-          </TableRowColumn>
+          </TableCell >
+          <TableCell  style={styles.buttonMore}>
+          <IconButton onClick={()=>this.handleOpen(row)}><More/>   </IconButton>
+          </TableCell >
         </TableRow>)
       })
 
@@ -229,40 +232,43 @@ class IndividualMode extends React.Component {
           //this.waiting()
         }
         <Table>
-          <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
+          <TableHead  displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
             <TableRow>
-              <TableHeaderColumn>{d2.i18n.getTranslation("TABLE_NAME")}</TableHeaderColumn>
-              <TableHeaderColumn>{d2.i18n.getTranslation("TABLE_PUBLICACCESS")}</TableHeaderColumn>
-              <TableHeaderColumn>{d2.i18n.getTranslation("TABLE_EXTERNALACCESS")}</TableHeaderColumn>
-              <TableHeaderColumn style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGGROUP")}</TableHeaderColumn>
-              <TableHeaderColumn style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGUSER")}</TableHeaderColumn>
-              <TableHeaderColumn style={styles.buttonMore}></TableHeaderColumn>
+              <TableCell >{d2.i18n.getTranslation("TABLE_NAME")}</TableCell >
+              <TableCell >{d2.i18n.getTranslation("TABLE_PUBLICACCESS")}</TableCell >
+              <TableCell >{d2.i18n.getTranslation("TABLE_EXTERNALACCESS")}</TableCell >
+              <TableCell  style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGGROUP")}</TableCell >
+              <TableCell  style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGUSER")}</TableCell >
+              <TableCell  style={styles.buttonMore}></TableCell >
             </TableRow>
-          </TableHeader>
+          </TableHead >
           <TableBody displayRowCheckbox={this.props.Enabledchecked} showRowHover={true}>
             {Object.keys(this.props.listObject).length > 0 ? this.renderResultInTable() :""}
           </TableBody>
 
         </Table>
         <Dialog
-          title={d2.i18n.getTranslation("STEP_2")}
-          actions={[
-            <FlatButton
-              label={d2.i18n.getTranslation("BTN_CLOSE")}
-              primary={true}
-              onClick={this.handleClose.bind(this)}
-            />]}
           modal={false}
           open={this.state.openModal}
           onRequestClose={this.handleClose.bind(this)}
         >
-        <div>
-        <div style={{ marginTop: 12, textAlign: 'center', color: "Red",position: "relative"}}>
-                  <p>{this.state.messajeError}</p>
-                </div>
-        <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
+          <DialogTitle id="alert-dialog-title">
+          {d2.i18n.getTranslation("STEP_2")}
+        </DialogTitle>
+        <DialogContent>
+            <div style={{ marginTop: 12, textAlign: 'center', color: "Red",position: "relative"}}>
+                      <p>{this.state.messajeError}</p>
+                    </div>
+            <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
 
-        </div>
+        </DialogContent>
+        <DialogActions>
+          <Button
+              label={d2.i18n.getTranslation("BTN_CLOSE")}
+              primary={true}
+              onClick={this.handleClose.bind(this)}
+            />
+        </DialogActions>
         </Dialog>
 
       </div>
@@ -272,14 +278,14 @@ class IndividualMode extends React.Component {
   }
 
 };
-IndividualMode.propTypes = {
-  d2: React.PropTypes.object.isRequired,
-  listObject: React.PropTypes.object,
-  Enabledchecked: React.PropTypes.bool,
-  handleChangeTabs: React.PropTypes.func,
-  currentPage: React.PropTypes.number,
-  searchByName:React.PropTypes.string,
-  filterString:React.PropTypes.string,
-  resource: React.PropTypes.object
-};
+// IndividualMode.propTypes = {
+//   d2: React.PropTypes.object.isRequired,
+//   listObject: React.PropTypes.object,
+//   Enabledchecked: React.PropTypes.bool,
+//   handleChangeTabs: React.PropTypes.func,
+//   currentPage: React.PropTypes.number,
+//   searchByName:React.PropTypes.string,
+//   filterString:React.PropTypes.string,
+//   resource: React.PropTypes.object
+// };
 export default IndividualMode;

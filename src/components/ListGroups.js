@@ -2,22 +2,23 @@ import React from 'react';
 
 //Material UI
 
-import appTheme from '../theme';
-import SpecialButton from './SpecialButton';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-import User from 'material-ui/svg-icons/social/person';
-import Group from 'material-ui/svg-icons/social/group';
-import Clear from 'material-ui/svg-icons/content/clear'; 
-import FlatButton from 'material-ui/FlatButton';
+
+import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
+import User from '@mui/icons-material/Person';
+import Group from '@mui/icons-material/Group';
+import Clear from '@mui/icons-material/Clear';
+
 //Component
 import SearchTextBox from './SearchTextBox';
+import appTheme from '../theme';
+import SpecialButton from './SpecialButton';
 //
 const styles = {
   paper: {
@@ -30,7 +31,7 @@ const styles = {
   },
   textBox:{
     width: '90%',
-    background:appTheme.rawTheme.palette.canvasColor,
+    background:appTheme.palette.primary.canvasColor,
     margin: 20,
     position: "relative"
   },
@@ -43,7 +44,7 @@ const styles = {
   columnIcon: {
     width: 10
   },
-  iconColor: appTheme.settingOptions.icon
+  iconColor: appTheme.palette.primary.settingOptions.icon
 }
 
 
@@ -222,15 +223,15 @@ class ListGroups extends React.Component {
         <div style={styles.paper}>
           <Table>
 
-            <TableHeader displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
+            <TableHead displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
 
-                <TableHeaderColumn columnNumber={2} style={styles.columnForMain} >{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableHeaderColumn>
-                <TableHeaderColumn style={styles.columnForEditButton}>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableHeaderColumn>
-                <TableHeaderColumn style={styles.columnForEditButton}> {d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableHeaderColumn>
-                <TableHeaderColumn style={styles.columnForEditButton}></TableHeaderColumn>
+                <TableCell columnNumber={2} style={styles.columnForMain} >{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableCell>
+                <TableCell style={styles.columnForEditButton}>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableCell>
+                <TableCell style={styles.columnForEditButton}> {d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableCell>
+                <TableCell style={styles.columnForEditButton}></TableCell>
               </TableRow>
-            </TableHeader>
+            </TableHead>
             <TableBody displayRowCheckbox={false} showRowHover={true}>
               {
                 this.state.sharingOption.userAccesses.map((option)=> {
@@ -241,18 +242,18 @@ class ListGroups extends React.Component {
                  
                   return (
                     <TableRow key={option.id+"_"+keyCount}>
-                      <TableRowColumn style={styles.columnIcon}><User color={styles.iconColor} /></TableRowColumn>
-                      <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}>
+                      <TableCell style={styles.columnIcon}><User color={styles.iconColor} /></TableCell>
+                      <TableCell><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableCell>
+                      <TableCell style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableCell>
+                      <TableCell style={styles.columnForEditButton}>
                       <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={d2.i18n.getTranslation("MESSAGE_DISABLED_DATABUTTON")} />
-                      </TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}>
-                      <FlatButton
+                      </TableCell>
+                      <TableCell style={styles.columnForEditButton}>
+                      <Button
                         onClick={()=>this.handleRemoveItem(option.id)} 
                         icon={<Clear color={styles.iconColor} />}
                         />
-                      </TableRowColumn>
+                      </TableCell>
                     </TableRow>
                   )
                 })}
@@ -264,18 +265,18 @@ class ListGroups extends React.Component {
                   let AccessData=access[option.access.substring(2,4)];
                   return (
                     <TableRow key={option.id+"_"+keyCount}>
-                      <TableRowColumn style={styles.columnIcon}><Group color={styles.iconColor} /></TableRowColumn>
-                      <TableRowColumn><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}>
+                      <TableCell style={styles.columnIcon}><Group color={styles.iconColor} /></TableCell>
+                      <TableCell><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableCell>
+                      <TableCell style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableCell>
+                      <TableCell style={styles.columnForEditButton}>
                       <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={d2.i18n.getTranslation("MESSAGE_DISABLED_DATABUTTON")} />
-                      </TableRowColumn>
-                      <TableRowColumn style={styles.columnForEditButton}>
-                      <FlatButton
+                      </TableCell>
+                      <TableCell style={styles.columnForEditButton}>
+                      <Button
                         onClick={()=>this.handleRemoveItem(option.id)} 
                         icon={<Clear color={styles.iconColor} />}
                         />
-                      </TableRowColumn>
+                      </TableCell>
                     </TableRow>
                   )
                 })}
@@ -296,13 +297,6 @@ class ListGroups extends React.Component {
     );
   }
 }
-
-ListGroups.propTypes = {
-  d2: React.PropTypes.object.isRequired,
-  GroupSelected:React.PropTypes.func,
-  resource:React.PropTypes.object,
-  currentSelected:React.PropTypes.object
-};
 
 
 export default ListGroups

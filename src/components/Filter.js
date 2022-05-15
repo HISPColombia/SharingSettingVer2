@@ -1,14 +1,16 @@
 import React from 'react';
 
 //MAterial UI
-import TextField from 'material-ui/TextField';
+import TextField from '@mui/material/TextField';
 import appTheme from '../theme';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import SelectField from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import OptionSearch from '../data/listOptionSearch.json'
 //Component
 import SearchTextBox from './SearchTextBox';
 //
+//dhis2
+import i18n from '../locales/index.js' 
 
 const styles = {
   container: {
@@ -19,7 +21,7 @@ const styles = {
     padding: 5
 
   },
-  titleColor: appTheme.settingOptions.title
+  titleColor: appTheme.palette.primary.settingOptions.title
 }
 const optionFilter = OptionSearch.options;
 class Filter extends React.Component {
@@ -60,7 +62,7 @@ class Filter extends React.Component {
       return (
         <MenuItem
           value={option.value}
-          primaryText={this.props.d2.i18n.getTranslation(option.code)}
+          primaryText={i18n.t(option.code)}
           key={option.value}
         />
       )
@@ -110,13 +112,13 @@ class Filter extends React.Component {
         <div style={styles.item}>
           <TextField
             fullWidth={true}
-            floatingLabelText={this.props.d2.i18n.getTranslation('LABEL_SEARCHNAME')}
+            floatingLabelText={i18n.t('LABEL_SEARCHNAME')}
             onChange={this.handleChangeValue.bind(this)}
           />
         </div>
         <div style={styles.item}>
           <SelectField
-            floatingLabelText={this.props.d2.i18n.getTranslation('LABEL_SEARCHPROGRAMORDATASET')}
+            floatingLabelText={i18n.t('LABEL_SEARCHPROGRAMORDATASET')}
             value={this.state.value}
             onChange={this.handleChange}
             floatingLabelFixed={true}
@@ -128,7 +130,7 @@ class Filter extends React.Component {
         <div style={styles.item}>
           <SearchTextBox
             source={this.searchOption.bind(this)}
-            title={d2.i18n.getTranslation(this.state.valueSelected.tooltipText)}
+            title={i18n.t(this.state.valueSelected.tooltipText)}
             callBackSelected={this.selectOption.bind(this)}
             color={styles.titleColor}
             showValueSelected={true}
@@ -142,20 +144,4 @@ class Filter extends React.Component {
   }
 }
 
-Filter.propTypes = {
-  d2: React.PropTypes.object.isRequired,
-  handlefilterTextChange: React.PropTypes.func,
-  handleReturnFilterSelected: React.PropTypes.func,
-  filterAvailable: React.PropTypes.object
-};
-
-Filter.contextTypes = {
-  title: React.PropTypes.string,
-  muiTheme: React.PropTypes.object
-};
-
-Filter.childContextTypes = {
-  d2: React.PropTypes.object,
-  muiTheme: React.PropTypes.object
-};
 export default Filter

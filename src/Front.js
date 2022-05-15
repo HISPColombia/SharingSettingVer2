@@ -1,13 +1,14 @@
-
+//DHIS2 component
+import i18n from './locales/index.js'
 
 //Material Components
-//import appTheme from './theme';
+import appTheme from './theme';
 
 //Components
-//import ListSection from './data/listSections.json'
-//import Content from './components/Content'
+import ListSection from './data/listSections.json'
+import Content from './components/Content'
 
-
+import SideMenu from './components/SideMenu';
 
 let currentSection;
 let sidebarRef;
@@ -80,8 +81,8 @@ class AppFront extends React.Component {
   // life cycle
   getChildContext() {
     return {
-      d2: this.props.d2//,
-      //muiTheme: appTheme
+      d2: this.props.d2,
+      muiTheme: appTheme
     };
   }
 
@@ -112,51 +113,33 @@ class AppFront extends React.Component {
           :<div style={stylesLocal.hidde} ></div>
           
         }
-        {/* <Sidebar
-            sections={
+        <SideMenu sections={
               ListSection.sections.map((section)=>{
-                let obj={};
-                let label=d2.i18n.getTranslation(section.label);
+                let label=i18n.t(section.label)
                 let key=section.label
-               return({key,label,icon: <FontIcon className="material-icons" >folder_open</FontIcon>})
+               return({key,label})
 
             }).filter(section=>section.label.includes(this.state.textSearch)==true || this.state.textSearch=="")
             }
-                      
-            onChangeSection={this.changeSectionHandler}
             currentSection={this.props.currentSection}
-            showSearchField
-            searchFieldLabel="Search"
+            onChangeSection={this.changeSectionHandler}
+            searchFieldLabel={i18n.t("search")}
             onChangeSearchText={this.changeSearchTextHandler}
-            ref={this.storeRef}         
-          /> */}
+            />
+           
     
-		  {/* <Content
+		   <Content
                 title={this.state.sectionToRender}
-                d2={d2}
                 informationResource={this.state.informationResource}
                 disableSlide={this.disableSlide.bind(this)}
-              /> */}
+              /> 
 
         </div>
       </>
     );
   }
 }
-// AppFront.propTypes = {
-//   d2: React.PropTypes.object.isRequired,
-//   currentSection: React.PropTypes.string,
-//   searchText: React.PropTypes.string
-// };
 
-// AppFront.contextTypes = {
-//   muiTheme: React.PropTypes.object
-// };
-
-// AppFront.childContextTypes = {
-//   d2: React.PropTypes.object,
-//   muiTheme: React.PropTypes.object
-// };
 
 export default AppFront;
 

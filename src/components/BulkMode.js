@@ -1,22 +1,23 @@
 import React from 'react';
-import {
-  Step,
-  Stepper,
-  StepLabel,
-} from 'material-ui/Stepper';
-import Toggle from 'material-ui/Toggle';
-import Paper from 'material-ui/Paper';
-import Divider from 'material-ui/Divider';
-import {
-  Table,
-  TableBody,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-import Avatar from 'material-ui/Avatar';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import CircularProgress from 'material-ui/CircularProgress';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+
+
+import Avatar from '@mui/material/Avatar';
+
+import CircularProgress from '@mui/material/CircularProgress';
 
 //Component
 import ListSelect from './ListSelect.component';
@@ -69,10 +70,10 @@ const styles = {
     justifySelf: 'start'
   },
   ButtonActived: {
-    backgroundColor: appTheme.palette.accent1Color,
-    textColor: appTheme.palette.alternateTextColor
+    backgroundColor: appTheme.palette.primary.accent1Color,
+    textColor: appTheme.palette.primary.alternateTextColor
   },
-  iconColor: appTheme.settingOptions.icon,
+  iconColor: appTheme.palette.primary.settingOptions.icon,
   papers: {
     height: 200,
     width: 400,
@@ -95,7 +96,7 @@ const styles = {
     gridTemplateRows: 'auto',
     margin: 20
   },
-  toggleExternal: {
+  SwitchExternal: {
     marginRight: 50,
     marginLeft: 20
   },
@@ -104,7 +105,7 @@ const styles = {
     overflow: 'auto'
   },
   errorMessaje:{
-    color:appTheme.palette.error
+    color:appTheme.palette.primary.error
   }
 
 }
@@ -411,8 +412,8 @@ class BulkMode extends React.Component {
                 <ListSelect id={"ListAvailable"} filterString={this.props.filterString} searchByName={this.props.searchByName} source={this.state.objectAvailable.filter((obj) => obj.visible == true)} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10} />
               </div>
               <div style={styles.ItemMiddleButton}>
-                <RaisedButton onClick={() => this.handleListSelected('ListAvailable', this.handleList.bind(this))} label="→" style={styles.ButtonSelect} />
-                <RaisedButton onClick={() => this.handleListSelected('ListSelected', this.handleDesSelect.bind(this))} label="←" labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={() => this.handleListSelected('ListAvailable', this.handleList.bind(this))} label="→" style={styles.ButtonSelect} />
+                <Button onClick={() => this.handleListSelected('ListSelected', this.handleDesSelect.bind(this))} label="←" labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
               </div>
               <div style={styles.ItemsList}>
                 <ListSelect id={"ListSelected"} filterString={""} searchByName={""} source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10} />
@@ -424,11 +425,11 @@ class BulkMode extends React.Component {
             <div style={styles.containterList}>
 
               <div style={styles.ButtonLeftAling}>
-                <RaisedButton onClick={this.handleSelectAll.bind(this)} label={d2.i18n.getTranslation("BTN_ASIGN_ALL") + "→"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={this.handleSelectAll.bind(this)} label={d2.i18n.getTranslation("BTN_ASIGN_ALL") + "→"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
               </div>
               <div style={styles.ItemMiddleButton}>  </div>
               <div style={styles.ButtonRightAling}>
-                <RaisedButton onClick={this.handleRemoveAll.bind(this)} label={d2.i18n.getTranslation("BTN_REMOVE_ALL") + "←"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={this.handleRemoveAll.bind(this)} label={d2.i18n.getTranslation("BTN_REMOVE_ALL") + "←"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
               </div>
               <div style={styles.ItemMiddleButton}></div>
             </div>
@@ -452,16 +453,16 @@ class BulkMode extends React.Component {
                   <div style={styles.subtitles}>{d2.i18n.getTranslation("SUBTITLE_STRATEGY")}</div>
                   <Divider />
                   <div style={styles.bodypaper}>
-                    <Toggle
+                    <Switch
                       label={d2.i18n.getTranslation("OPTION_OVERWRITE")}
-                      defaultToggled={true}
-                      onToggle={() => this.handleTogle("overwrite")}
-                      toggled={(this.state.togSelected == "overwrite" ? true : false)}
+                      defaultchecked={true}
+                      onChange={() => this.handleTogle("overwrite")}
+                      checked={(this.state.togSelected == "overwrite" ? true : false)}
                     />
-                    <Toggle
+                    <Switch
                       label={d2.i18n.getTranslation("OPTION_KEEP")}
-                      onToggle={() => this.handleTogle("keep")}
-                      toggled={(this.state.togSelected == "keep" ? true : false)}
+                      onChange={() => this.handleTogle("keep")}
+                      checked={(this.state.togSelected == "keep" ? true : false)}
                     />
                   </div>
                 </Paper>
@@ -476,12 +477,12 @@ class BulkMode extends React.Component {
                     <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
                   </div>
                 </div>
-                <div style={styles.toggleExternal}>
+                <div style={styles.SwitchExternal}>
 
-                  <Toggle
+                  <Switch
                     label={d2.i18n.getTranslation("OPTION_EXTERNALACCESS")}
-                    onToggle={() => this.handleExternalAccess()}
-                    toggled={(this.state.ExternalAccess)}
+                    onChange={() => this.handleExternalAccess()}
+                    checked={(this.state.ExternalAccess)}
                   />
 
                 </div>
@@ -534,18 +535,18 @@ class BulkMode extends React.Component {
                 <Table> <TableBody displayRowCheckbox={false} showRowHover={false}>
                   {this.state.messajeSuccessful.obImported.map((val) => {
                     return (<TableRow key={val.label} style={val.status=="OK"?{}:{background:styles.errorMessaje.color}}>
-                      <TableRowColumn>
+                      <TableCell>
                         {val.label}
-                      </TableRowColumn>
-                      <TableRowColumn>
+                      </TableCell>
+                      <TableCell>
                     ({val.status}) {val.message}
-                      </TableRowColumn>
+                      </TableCell>
                     </TableRow>)
                   })}
                 </TableBody></Table>
               </div>
               <div style={{ marginTop: 12, textAlign: 'center' }}>
-                <RaisedButton
+                <Button
                   label={d2.i18n.getTranslation("BTN_FINISH")}
                   primary={true}
                   onClick={this.exitEditMode.bind(this)}
@@ -561,20 +562,20 @@ class BulkMode extends React.Component {
                   <p>{this.state.messajeError}</p>
                 </div>
                 <div style={{ marginTop: 12, textAlign: 'center' }}>
-                  <FlatButton
+                  <Button
                     label={d2.i18n.getTranslation("BTN_CANCEL")}
                     primary={true}
                     disabled={stepIndex === 3}
                     onClick={() => this.exitEditMode()}
                   />
-                  <FlatButton
+                  <Button
                     label={d2.i18n.getTranslation("BTN_BACK")}
                     disabled={stepIndex === 0 || stepIndex === 3}
                     onClick={this.handlePrev.bind(this)}
                     style={{ marginRight: 12 }}
                   />
 
-                  <RaisedButton
+                  <Button
                     label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_SAVE") : d2.i18n.getTranslation("BTN_NEXT")}
                     primary={true}
                     disabled={stepIndex === 3}
@@ -588,14 +589,14 @@ class BulkMode extends React.Component {
     );
   }
 };
-BulkMode.propTypes = {
-  d2: React.PropTypes.object.isRequired,
-  listObject: React.PropTypes.object,
-  pager: React.PropTypes.object,
-  searchByName: React.PropTypes.string,
-  filterString: React.PropTypes.string,
-  resource: React.PropTypes.object,
-  handleChangeTabs: React.PropTypes.func
-};
+// BulkMode.propTypes = {
+//   d2: React.PropTypes.object.isRequired,
+//   listObject: React.PropTypes.object,
+//   pager: React.PropTypes.object,
+//   searchByName: React.PropTypes.string,
+//   filterString: React.PropTypes.string,
+//   resource: React.PropTypes.object,
+//   handleChangeTabs: React.PropTypes.func
+// };
 
 export default BulkMode;

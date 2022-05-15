@@ -4,8 +4,8 @@ import classes from './App.module.css'
 import Frontend from './Front';
 
 const MyApp = () => (
-    <div className={classes.container}>
-       xx
+    <div>
+       <Frontend/>
     </div>
 )
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
 //MAterial UI
-import TextField from 'material-ui/TextField';
+import TextField from '@mui/material/TextField';
 import appTheme from '../theme';
-import FontIcon from 'material-ui/FontIcon';
-import { grey400 } from 'material-ui/styles/colors';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { grey } from  '@mui/material/colors';
 
 
 const styles = {
@@ -55,7 +55,7 @@ class Filter extends React.Component {
         </div>
 
         <div style={styles.icon}>
-          <FontIcon className="material-icons" color={grey400} style={styles.iconStyles} >open_in_new</FontIcon>
+          <OpenInNewIcon className="material-icons" color={grey[400]}/>
 
         </div>
       </section>
