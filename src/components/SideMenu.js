@@ -6,7 +6,7 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import Divider from '@mui/material/Divider';
 import { Box } from '@mui/system';
 export default ({sections}) => {
-    return(<div>
+    return(
     <Paper sx={{ width: 320,height:800,overflow: 'scroll'}}>
     <Box><TextField id="filled-basic" label="Filled" variant="filled" /></Box>
     
@@ -19,4 +19,4 @@ export default ({sections}) => {
             </MenuItem>))}
 
     </Paper>
-</div>)}
+)}

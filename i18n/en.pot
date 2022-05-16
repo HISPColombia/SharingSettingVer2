@@ -5,8 +5,52 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-14T23:49:33.848Z\n"
-"PO-Revision-Date: 2022-05-14T23:49:33.848Z\n"
+"POT-Creation-Date: 2022-05-16T02:14:16.404Z\n"
+"PO-Revision-Date: 2022-05-16T02:14:16.404Z\n"
+
+msgctxt "CLOSE"
+msgid "CN"
+msgstr "CN_CLOSE"
+
+msgctxt "TITLE"
+msgid "CN"
+msgstr "CN_TITLE"
+
+msgctxt "METADATA"
+msgid "CN_SUBTITLE"
+msgstr "CN_SUBTITLE_METADATA"
+
+msgctxt "ACCESS"
+msgid "NO"
+msgstr "NO_ACCESS"
+
+msgctxt "VIEW"
+msgid "CAN"
+msgstr "CAN_VIEW"
+
+msgctxt "EDIT"
+msgid "CAN"
+msgstr "CAN_EDIT"
+
+msgctxt "DATA"
+msgid "CN_SUBTITLE"
+msgstr "CN_SUBTITLE_DATA"
+
+msgctxt "MODE"
+msgid "TAB_VIEW"
+msgstr "TAB_VIEW_MODE"
+
+msgctxt "MODE"
+msgid "TAB_EDIT"
+msgstr "TAB_EDIT_MODE"
+
+msgctxt "SEARCHNAME"
+msgid "LABEL"
+msgstr "LABEL_SEARCHNAME"
+
+msgctxt "SEARCHPROGRAMORDATASET"
+msgid "LABEL"
+msgstr "LABEL_SEARCHPROGRAMORDATASET"
 
 msgid "search"
 msgstr "search"

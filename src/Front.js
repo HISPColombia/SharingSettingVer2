@@ -105,14 +105,12 @@ class AppFront extends React.Component {
       <>
         <div className="app-wrapper">
            <br/>
-        
-        
-        {
-          this.state.hiddenSlide
-          ?""
-          :<div style={stylesLocal.hidde} ></div>
-          
-        }
+          {
+            this.state.hiddenSlide
+            ?""
+            :<div style={stylesLocal.hidde} ></div>
+            
+          }
         <SideMenu sections={
               ListSection.sections.map((section)=>{
                 let label=i18n.t(section.label)
@@ -129,7 +127,7 @@ class AppFront extends React.Component {
            
     
 		   <Content
-                title={this.state.sectionToRender}
+               title={this.state.sectionToRender}
                 informationResource={this.state.informationResource}
                 disableSlide={this.disableSlide.bind(this)}
               /> 

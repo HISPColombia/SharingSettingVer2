@@ -22,7 +22,7 @@ const red400=red[400];
 const red100=red[100];
 const darkBlack=grey[900];
 const white='#ffff';
-const theme2 = {
+const theme = {
     spacing: 2,
     fontFamily: 'Roboto, sans-serif',
     palette: {
@@ -63,17 +63,7 @@ const theme2 = {
     }
     
 };
-const theme= {
-    palette: {
-      primary: {
-        main: blue[500],
-      },
-      secondary: {
-        main: blue[500],
-      },
-    },
-  };
 
-const muiTheme = createTheme(theme2);
+const muiTheme = createTheme(theme);
 
 export default muiTheme;

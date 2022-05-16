@@ -50,15 +50,15 @@ class Content extends React.Component {
 
   //query resource Selected
   async getResourceSelected(urlAPI) {
-    const d2 = this.props.d2;
-    const api = d2.Api.getApi();
-    let result = {};
-    try {
-      let res = await api.get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&paging=false&page=");
-      if (res.hasOwnProperty(urlAPI)) {
-        return res;
-      }
-    }
+    // const d2 = this.props.d2;
+    // const api = d2.Api.getApi();
+    // let result = {};
+     try {
+    //   let res = await api.get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&paging=false&page=");
+    //   if (res.hasOwnProperty(urlAPI)) {
+    //     return res;
+    //   }
+     }
     catch (e) {
       console.error('Could not access to API Resource');
     }
@@ -93,7 +93,6 @@ class Content extends React.Component {
 
   getChildContext() {
     return {
-      d2: this.props.d2,
       muiTheme: appTheme
     };
   }
@@ -148,8 +147,6 @@ class Content extends React.Component {
   };
 
   render() {
-    const d2 = this.props.d2;
-//{i18n.t("search")}
     const actions = [
       <Button
         label={i18n.t("CN_CLOSE")}
@@ -213,8 +210,7 @@ class Content extends React.Component {
 
 
           </div>
-          <Filter 
-        d2={d2} 
+          <Filter  
         handlefilterTextChange={this.handlefilterTextChange.bind(this)} 
         handleReturnFilterSelected={this.getFilterSelected.bind(this)}
         filterAvailable={this.props.informationResource}
@@ -228,7 +224,6 @@ class Content extends React.Component {
               <IndividualMode 
               resource={this.props.informationResource} 
               Enabledchecked={false}
-              d2={d2} 
               listObject={this.state.listObject}
               currentPage={this.state.currentPage}
               handleChangeTabs={this.handleChangeTabs.bind(this)}
@@ -240,7 +235,6 @@ class Content extends React.Component {
             <Tab label={i18n.t("TAB_EDIT_MODE")} value="edit">
               <BulkMode 
               resource={this.props.informationResource} 
-              d2={d2}
               listObject={this.state.listObject}
               pager={this.state.pager}
               searchByName={this.state.searchByName}
