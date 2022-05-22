@@ -3,6 +3,7 @@ import appTheme from '../theme';
 import IndividualMode from './IndividualMode';
 import BulkMode from './BulkMode';
 import Filter from './Filter'
+import {get} from '../API/Dhis2.js';
 //Material UI 
 
 import Tabs from '@mui/material/Tabs';
@@ -50,14 +51,13 @@ class Content extends React.Component {
 
   //query resource Selected
   async getResourceSelected(urlAPI) {
-    // const d2 = this.props.d2;
-    // const api = d2.Api.getApi();
-    // let result = {};
+    let result = {};
+
      try {
-    //   let res = await api.get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&paging=false&page=");
-    //   if (res.hasOwnProperty(urlAPI)) {
-    //     return res;
-    //   }
+      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&paging=false&page=");
+      if (res.hasOwnProperty(urlAPI)) {
+        return res;
+      }
      }
     catch (e) {
       console.error('Could not access to API Resource');

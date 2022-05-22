@@ -2,7 +2,13 @@
 // @import "../../node_modules/d2-ui/scss/HeaderBar";
 // @import "../../node_modules/d2-ui/scss/DataTable";
 
-$left-bar-width: 295px;
+
+$left-bar-width: 1px;//295
+
+.app-wrapper {
+  display: grid;
+  grid-template-columns: [row1-start] 25% [row1-end row2-start] 75% [row2-end];
+}
 
 html {
   background: #f3f3f3;
@@ -24,7 +30,7 @@ html {
 
 .content-area {
   padding-left: $left-bar-width;
-  max-width: 75%;
+  max-width: 100%;
   min-width: 400px;
   margin-bottom: 64px;
 }

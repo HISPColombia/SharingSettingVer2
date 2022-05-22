@@ -10,17 +10,19 @@ import Content from './components/Content'
 
 import SideMenu from './components/SideMenu';
 
+
+
 let currentSection;
 let sidebarRef;
 
-const stylesLocal={
-  hidde:{
-    background:'gray',
+const stylesLocal = {
+  hidde: {
+    background: 'gray',
     width: 290,
     height: '100%',
-    position:'absolute',
-    opacity:'0.3',
-    zIndex:100
+    position: 'absolute',
+    opacity: '0.3',
+    zIndex: 100
   }
 }
 
@@ -34,9 +36,9 @@ class AppFront extends React.Component {
       showSnackbar: false,
       formValidator: undefined,
       sectionToRender: '',
-      informationResource:{},
-      textSearch:"",
-      hiddenSlide:true
+      informationResource: {},
+      textSearch: "",
+      hiddenSlide: true
     };
 
     this.changeSectionHandler = this.changeSectionHandler.bind(this);
@@ -55,23 +57,23 @@ class AppFront extends React.Component {
   }
 
   //search resource on json file using the key
-  setResourceSelected(keySelected){
-    let resourceSelected=ListSection.sections.find(function(resource){
-      return resource.label===keySelected;
+  setResourceSelected(keySelected) {
+    let resourceSelected = ListSection.sections.find(function (resource) {
+      return resource.label === keySelected;
     });
     this.setState(
-      { 
+      {
         informationResource: resourceSelected,
         sectionToRender: currentSection,
-        textSearch:"" 
+        textSearch: ""
       });
   }
-  changeSearchTextHandler(searchText){
-    this.setState({textSearch:searchText});
+  changeSearchTextHandler(searchText) {
+    this.setState({ textSearch: searchText });
   }
 
   componentDidMount() {
-     this.setState({ sectionToRender: ListSection.sections[0].label , informationResource:ListSection.sections[0]});
+    this.setState({ sectionToRender: ListSection.sections[0].label, informationResource: ListSection.sections[0] });
   }
 
   storeRef(ref) {
@@ -86,14 +88,14 @@ class AppFront extends React.Component {
     };
   }
 
- disableSlide(mode){
-   if(mode=='edit'){
-     this.setState({hiddenSlide:false})
-   }
-   else{
-    this.setState({hiddenSlide:true})
-   }
- }
+  disableSlide(mode) {
+    if (mode == 'edit') {
+      this.setState({ hiddenSlide: false })
+    }
+    else {
+      this.setState({ hiddenSlide: true })
+    }
+  }
   render() {
     const d2 = this.props.d2;
     const iconStyles = {
@@ -103,34 +105,35 @@ class AppFront extends React.Component {
     return (
 
       <>
-        <div className="app-wrapper">
-           <br/>
+        
+          <br />
           {
             this.state.hiddenSlide
-            ?""
-            :<div style={stylesLocal.hidde} ></div>
-            
-          }
-        <SideMenu sections={
-              ListSection.sections.map((section)=>{
-                let label=i18n.t(section.label)
-                let key=section.label
-               return({key,label})
+              ? ""
+              : <div style={stylesLocal.hidde} ></div>
 
-            }).filter(section=>section.label.includes(this.state.textSearch)==true || this.state.textSearch=="")
-            }
+          }
+        <div className="app-wrapper">
+          <SideMenu sections={
+            ListSection.sections.map((section) => {
+              let label = i18n.t(section.label)
+              let key = section.label
+              return ({ key, label })
+
+            }).filter(section => section.label.includes(this.state.textSearch) == true || this.state.textSearch == "")
+          }
             currentSection={this.props.currentSection}
             onChangeSection={this.changeSectionHandler}
             searchFieldLabel={i18n.t("search")}
             onChangeSearchText={this.changeSearchTextHandler}
-            />
-           
-    
-		   <Content
-               title={this.state.sectionToRender}
-                informationResource={this.state.informationResource}
-                disableSlide={this.disableSlide.bind(this)}
-              /> 
+          />
+
+
+          <Content
+            title={this.state.sectionToRender}
+            informationResource={this.state.informationResource}
+            disableSlide={this.disableSlide.bind(this)}
+          />
 
         </div>
       </>

@@ -3,7 +3,10 @@ import React from 'react';
 //MAterial UI
 import TextField from '@mui/material/TextField';
 import appTheme from '../theme';
-import SelectField from '@mui/material/Select';
+import SelectField from '@mui/material/NativeSelect';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import OptionSearch from '../data/listOptionSearch.json'
 //Component
@@ -62,9 +65,10 @@ class Filter extends React.Component {
       return (
         <MenuItem
           value={option.value}
-          primaryText={i18n.t(option.code)}
           key={option.value}
-        />
+        >
+        {i18n.t(option.code)}
+        </MenuItem>
       )
     }
   }
@@ -112,20 +116,33 @@ class Filter extends React.Component {
         <div style={styles.item}>
           <TextField
             fullWidth={true}
-            floatingLabelText={i18n.t('LABEL_SEARCHNAME')}
+            label={i18n.t('LABEL_SEARCHNAME')}
+            variant="standard"
             onChange={this.handleChangeValue.bind(this)}
           />
         </div>
         <div style={styles.item}>
-          <SelectField
-            floatingLabelText={i18n.t('LABEL_SEARCHPROGRAMORDATASET')}
-            value={this.state.value}
-            onChange={this.handleChange}
-            floatingLabelFixed={true}
-            disabled={this.props.filterAvailable.filters == "" ? true : false}
-          >
-            {optionFilter.map(this.renderOption, this)}
-          </SelectField>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel variant="standard" htmlFor="uncontrolled-native">
+            {i18n.t('LABEL_SEARCHPROGRAMORDATASET')}
+            </InputLabel>
+            <SelectField
+              defaultValue={30}
+              value={this.state.value}
+              onChange={this.handleChange}
+              floatingLabelFixed={true}
+              disabled={this.props.filterAvailable.filters == "" ? true : false}
+              inputProps={{
+                name: 'age',
+                id: 'uncontrolled-native',
+              }}
+            >
+              {optionFilter.map(this.renderOption, this)}
+            </SelectField>
+              
+              </FormControl>
+          </Box>
         </div>
         <div style={styles.item}>
           <SearchTextBox
