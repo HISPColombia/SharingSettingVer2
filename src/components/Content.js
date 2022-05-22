@@ -8,6 +8,8 @@ import {get} from '../API/Dhis2.js';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
+import Typography from '@mui/material/Typography';
+import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
@@ -39,12 +41,32 @@ const styles = {
   }
 };
 
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
 
 class Content extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { searchByName:"",filterString:"",open: false, mode: 'view', listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, currentPage: 1 }
+    this.state = { searchByName:"",filterString:"",open: false, mode: "view", listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, currentPage: 1 }
   }
 
   //API Query
@@ -104,7 +126,7 @@ class Content extends React.Component {
   //Handles
 
   //tabs handle
-  handleChangeTabs(value) {
+  handleChangeTabs(event,value) {
     //refresh List
     this.getResourceSelected(this.props.informationResource.resource).then(res => {
       let dataResult = {}
@@ -211,17 +233,20 @@ class Content extends React.Component {
 
           </div>
           <Filter  
-        handlefilterTextChange={this.handlefilterTextChange.bind(this)} 
-        handleReturnFilterSelected={this.getFilterSelected.bind(this)}
-        filterAvailable={this.props.informationResource}
-        />
-
+          handlefilterTextChange={this.handlefilterTextChange.bind(this)} 
+          handleReturnFilterSelected={this.getFilterSelected.bind(this)}
+          filterAvailable={this.props.informationResource}
+          />
           <Tabs
             value={this.state.mode}
             onChange={this.handleChangeTabs.bind(this)}
           >
-            <Tab label={i18n.t("TAB_VIEW_MODE")} value="view">
-              <IndividualMode 
+            <Tab label={i18n.t("TAB_VIEW_MODE")} value="view"/>    
+            <Tab label={i18n.t("TAB_EDIT_MODE")} value="edit"/>              
+          </Tabs>
+          <Box>
+            <TabPanel value={this.state.mode} index={"view"}>
+                 <IndividualMode 
               resource={this.props.informationResource} 
               Enabledchecked={false}
               listObject={this.state.listObject}
@@ -231,8 +256,8 @@ class Content extends React.Component {
               filterString={this.state.filterString}
 
               />
-            </Tab>
-            <Tab label={i18n.t("TAB_EDIT_MODE")} value="edit">
+            </TabPanel>
+            <TabPanel value={this.state.mode} index={"edit"}>
               <BulkMode 
               resource={this.props.informationResource} 
               listObject={this.state.listObject}
@@ -241,8 +266,9 @@ class Content extends React.Component {
               filterString={this.state.filterString}
               handleChangeTabs={this.handleChangeTabs.bind(this)}
               />
-            </Tab>
-          </Tabs>
+            </TabPanel>
+            
+          </Box>
         </div>
       </div>
 

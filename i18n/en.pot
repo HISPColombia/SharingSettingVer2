@@ -5,500 +5,101 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-10T00:42:05.195Z\n"
-"PO-Revision-Date: 2022-05-10T00:42:05.195Z\n"
-
-msgid "TITLE_APPS"
-msgstr "SHARING SETTING version 1.5"
-
-msgid "HOME"
-msgstr "Home"
-
-msgid "LBL_DATA_ELEMENTS"
-msgstr " DataElements"
-
-msgid "LABEL_LIST_OBJECTS"
-msgstr " Objects type List"
-
-msgid "LABEL_LIST_PERMISSION"
-msgstr " Object List of type"
-
-msgid "LBL_CATEGORY_OPTIONS"
-msgstr " Category Options"
-
-msgid "LBL_CATEGORY_COMBO"
-msgstr " CategoryCombo"
-
-msgid "LBLSELECT_ELEMENTS"
-msgstr " Select Elements"
-
-msgid "LABEL_EDIT"
-msgstr " Edit"
-
-msgid "LABEL_EDIT_VIEW"
-msgstr " Edit - View"
-
-msgid "LABEL_NONE"
-msgstr " None"
-
-msgid "LABEL_ASIGN"
-msgstr " Assign"
-
-msgid "LABEL_INDICATORS"
-msgstr " Indicators"
-
-msgid "LABEL_INDICATORS_GROUPS"
-msgstr " Indicators groups"
-
-msgid "LABEL_DATASETS"
-msgstr " Data sets"
-
-msgid "LABEL_ORGANISATION_UNIT_GROUPS"
-msgstr " Organization units groups"
-
-msgid "LABEL_OPTION_SETS"
-msgstr " Option Sets"
-
-msgid "LABEL_ITEM"
-msgstr " Items"
-
-msgid "OBJ_DATAELEMENT"
-msgstr "Data Elements"
-
-msgid "OBJ_DATAELEMENTGROUP"
-msgstr "Data Element Groups"
-
-msgid "OBJ_DATAELEMENTGROUPSETS"
-msgstr "Data Element Groups Sets"
-
-msgid "OBJ_CATEGORYOPTIONS"
-msgstr "Category options"
-
-msgid "OBJ_CATEGORIES"
-msgstr "Categories"
-
-msgid "OBJ_CATEGORYCOMBO"
-msgstr "Category Combo"
-
-msgid "OBJ_CATEGORYOPTIONCOMBOS"
-msgstr "Category option combos"
-
-msgid "OBJ_CATEGORYOPTIONGROUPS"
-msgstr "Category Option Groups"
-
-msgid "OBJ_CATEGORYOPTIONGROUPSETS"
-msgstr "Category option group sets"
-
-msgid "OBJ_INDICATORS"
-msgstr "Indicators"
-
-msgid "OBJ_INDICATORSTYPES"
-msgstr " Indicator types"
-
-msgid "OBJ_INDICATORSGROUPS"
-msgstr "Indicator groups"
-
-msgid "OBJ_DATASETS"
-msgstr "Data sets"
-
-msgid "OBJ_ORGANISATIONUNITGROUPS"
-msgstr "Organisation unit groups"
-
-msgid "OBJ_ORGANISATIONUNITGROUPSSETS"
-msgstr "Organisation unit groups sets"
-
-msgid "OBJ_OPTIONSETS"
-msgstr "Option sets"
-
-msgid "OBJ_USERGROUPS"
-msgstr "User Groups"
-
-msgid "OBJ_USERROLES"
-msgstr "User Roles"
-
-msgid "LABEL_USER"
-msgstr "User"
-
-msgid "LABEL_USERGROUP"
-msgstr "User group"
-
-msgid "LABEL_READ"
-msgstr "Can View"
-
-msgid "LABEL_READWRITE"
-msgstr "Can Edit"
-
-msgid "LABEL_NONE"
-msgstr "None"
-
-msgid "LABEL_USERPERMISIONS"
-msgstr "User permision"
-
-msgid "LABEL_SELECTEDITEMS"
-msgstr "Selected items"
-
-msgid "TAB_USERS"
-msgstr "Watch Users"
-
-msgid "TAB_ASIGNPERMISSIONS"
-msgstr "Assign permisions"
-
-msgid "TAB_ASIGNELEMENTS"
-msgstr "Assign User Groups"
-
-msgid "TAB_VIEW_MODE"
-msgstr "Individual mode"
-
-msgid "TAB_EDIT_MODE"
-msgstr "Bulk mode"
-
-msgid "LABEL_ASIGN"
-msgstr "Assign"
-
-msgid "LABEL_YES"
-msgstr "Yes"
-
-msgid "LABEL_NO"
-msgstr "No"
-
-msgid "LABEL_SEARCH"
-msgstr "Search"
-
-msgid "LABEL_DELETEUSERGROUPS"
-msgstr "Delete user groups"
-
-msgid "LABEL_WISHDELETEUSERGROUPS"
-msgstr "Do you want to delete user groups?"
-
-msgid "TAB_OBJECTS"
-msgstr "Objects"
-
-msgid "LABEL_CLOSE"
-msgstr "Close"
-
-msgid "LABEL_CONVENTION"
-msgstr "Convencion of colors"
-
-msgid "LABEL_PUBLICACCESS"
-msgstr "Public Access"
-
-msgid "LABEL_EXTERNALACCESS"
-msgstr "External"
-
-msgid "LABEL_PERMISSIONS"
-msgstr "Permissions"
-
-msgid "LABEL_SEARCHPROGRAMORDATASET"
-msgstr "Filter objects related with:"
-
-msgid "LABEL_SEARCHPROGRAMS"
-msgstr "Program"
-
-msgid "LABEL_SEARCHNAME"
-msgstr " Search by name"
-
-msgid "LABEL_SELECTGROUP"
-msgstr " Select group"
-
-msgid "LABEL_SELECTDATASET"
-msgstr " Select data set"
-
-msgid "LABEL_SEARCHDATASET"
-msgstr "Data Set"
-
-msgid "LABEL_SELECTPROGRAM"
-msgstr " Select program"
-
-msgid "LABEL_SEARCHPROGRAM"
-msgstr "Program"
-
-msgid "LABEL_SEARCHPROGRAMSTAGE"
-msgstr "Program Stage"
-
-msgid "LABEL_SEARCHDATAELEMENTGROUP"
-msgstr "DataElement Groups"
-
-msgid "LABEL_SEARCHGROUP"
-msgstr "group"
-
-msgid "LABEL_SEARCHCATEGORIES"
-msgstr "categories"
-
-msgid "LABEL_NORESULTSFOUND "
-msgstr "NO RESULTS FOUND"
-
-msgid "LABEL_SEARCHBY"
-msgstr "Search by"
-
-msgid "LABEL_FINDOPTIONS"
-msgstr "Filter"
-
-msgid "LABEL_FINDOPTIONS_SUB"
-msgstr "Filter objects according to the type selected"
-
-msgid "LABEL_UPDATE_TOGGLE"
-msgstr "Update Mode"
-
-msgid "BUTTON_CLEAR"
-msgstr "Clear"
-
-msgid "LABEL_KEEPPERMISSIONS"
-msgstr "Keep permissions"
-
-msgid "LABEL_UPDATEPERMISSIONS"
-msgstr "Update permissions"
-
-msgid "TAB_WHATDOYOUWANTTODO"
-msgstr "What do you want to do?"
-
-msgid "LABEL_SELECTALL"
-msgstr "Apply to all user Groups Firtered"
-
-msgid "LABEL_CODE"
-msgstr "Code"
-
-msgid "MESSAGE"
-msgstr " This element(s) was update"
-
-msgid "ERROR"
-msgstr " this element was mistake"
-
-msgid "BUTTON_CLEAR_ALL"
-msgstr "Clear all"
-
-msgid "BUTTON_DELETE_ALL"
-msgstr "Delete all user groups"
-
-msgid "LABEL_SEARCHUSERGROUP"
-msgstr "User groups"
-
-msgid "LABEL_SEARCHUSERGROUP2"
-msgstr "Name"
-
-msgid "OBJ_LEGENDSETS"
-msgstr "Legend Sets"
-
-msgid "OBJ_CONSTANTS"
-msgstr "Constants"
-
-msgid "OBJ_TRKATTRIBUTES"
-msgstr "Tracker Attributes"
-
-msgid "OBJ_PROGRAMS"
-msgstr "Programs"
-
-msgid "OBJ_PROGRAMINDOCATORS"
-msgstr "Programs Indicators"
-
-msgid "OBJ_DASHBOARDS"
-msgstr "Dashboards"
-
-msgid "OBJ_MAPS"
-msgstr "Maps"
-
-msgid "OBJ_EVENTREPORTS"
-msgstr "Events Reports"
-
-msgid "OBJ_EVENTCHARTS"
-msgstr "Events charts"
-
-msgid "OBJ_REPORTTABLES"
-msgstr "Pivot Tables"
-
-msgid "OBJ_CHARTS"
-msgstr "Agreggate chart"
-
-msgid "OBJ_SQLVIEWS"
-msgstr "SQL Viev"
-
-msgid "OBJ_RELATIONSHIP"
-msgstr "Relationship type"
-
-msgid "OBJ_TRACKEDENTITYTYPES"
-msgstr "Tracked entity type"
-
-msgid "OBJ_PROGRAMSTAGE"
-msgstr "Program Stages"
-
-msgid "TABLE_NAME"
-msgstr "Name"
-
-msgid "TABLE_PUBLICACCESS"
-msgstr "Public Access"
-
-msgid "TABLE_EXTERNALACCESS"
-msgstr "External Access"
-
-msgid "TABLE_SHARINGGROUP"
-msgstr "Groups"
-
-msgid "TABLE_SHARINGUSER"
-msgstr "Users"
-
-msgid "CAN_EDIT"
-msgstr "Can find, view and edit"
-
-msgid "CAN_VIEW"
-msgstr "Can find and view"
-
-msgid "NO_ACCESS"
-msgstr "No Access"
-
-msgid "STEP_1"
-msgstr "Select the Object"
-
-msgid "STEP_2"
-msgstr "Select the user and/or groups"
-
-msgid "STEP_3"
-msgstr "Define the strategy to setting"
-
-msgid "STEP_4"
-msgstr "Summary"
-
-msgid "BTN_ASIGN_ALL"
-msgstr " ASING All"
-
-msgid "BTN_REMOVE_ALL"
-msgstr " REMOVE All"
-
-msgid "TABLE_USER_NAME"
-msgstr " User"
-
-msgid "TABLE_METADATA_ACCESS"
-msgstr " METADATA"
-
-msgid "TABLE_DATA_ACCESS"
-msgstr " DATA"
-
-msgid "TITLE_SEARCH_GROUP"
-msgstr "Add users and user groups"
-
-msgid "LABEL_NOVALUE"
-msgstr "<No value>"
-
-msgid "LABEL_NOVALUE_TTT"
-msgstr "Select one filter option"
-
-msgid "LABEL_SEARCHDATASET_TTT"
-msgstr "Write dataset name here"
-
-msgid "LABEL_SEARCHPROGRAM_TTT"
-msgstr " Write program name here"
-
-msgid "LABEL_SEARCHPROGRAMSTAGE_TTT"
-msgstr " Write programStage name here"
-
-msgid "LABEL_SEARCHDATAELEMENTGROUP_TTT"
-msgstr "Write DataElement group name here"
-
-msgid "LABEL_SEARCHUSERGROUP_TTT"
-msgstr "Write user group name here"
-
-msgid "LABEL_SEARCHUSER_TTT"
-msgstr "write user name here"
-
-msgid "LABEL_SEARCHUSER"
-msgstr "Users"
-
-msgid "LABEL_SEARCHINDICATOR"
-msgstr "Program indicators"
-
-msgid "LABEL_SEARCHINDICATOR_TTT"
-msgstr "Write program indicator name here"
-
-msgid "LABEL_CATEGORY"
-msgstr "Category"
-
-msgid "LABEL_CATEGORYCOMBO"
-msgstr "Category Combo"
-
-msgid "LABEL_CATEGORYOPGROUPSET"
-msgstr "Category option group set"
-
-msgid "LABEL_CATEGORYOPTIONGROUP"
-msgstr "Category option group"
-
-msgid "LABEL_INDICATORGROUPS"
-msgstr "Indicator group"
-
-msgid "LABEL_OUGROUPSET"
-msgstr "OU group set"
-
-msgid "LABEL_CATEGORY_TTT"
-msgstr "Write category name here"
-
-msgid "LABEL_CATEGORYCOMBO_TTT"
-msgstr "Write category Combo name here"
-
-msgid "LABEL_CATEGORYOPGROUPSET_TTT"
-msgstr "Write category option group set name here"
-
-msgid "LABEL_CATEGORYOPTIONGROUP_TTT"
-msgstr "Write category option group name here"
-
-msgid "LABEL_OUGROUPSET_TTT"
-msgstr "Write name here"
-
-msgid "LABEL_INDICATORGROUPS_TTT"
-msgstr "Write indicator group here"
-
-msgid "CN_CLOSE"
-msgstr "Close"
-
-msgid "CN_TITLE"
-msgstr "Conventions"
-
-msgid "CN_SUBTITLE_METADATA"
-msgstr "METADATA: privileges related to access"
-
-msgid "CN_SUBTITLE_DATA"
-msgstr "DATA: Privileges related to data registration and access"
-
-msgid "BTN_BACK"
-msgstr "BACK"
-
-msgid "BTN_NEXT"
-msgstr " NEXT"
-
-msgid "BTN_CANCEL"
-msgstr "CANCEL"
-
-msgid "BTN_FINISH"
-msgstr "FINISH"
-
-msgid "BTN_CLOSE"
-msgstr "CLOSE"
-
-msgid "BTN_SAVE"
-msgstr "SAVE SETTING"
-
-msgid "OPTION_OVERWRITE"
-msgstr "Overwrite Sharing settings"
-
-msgid "OPTION_KEEP"
-msgstr "Merge with current Sharing settings"
-
-msgid "OPTION_PUBLICACCESS"
-msgstr "Setting public Access"
-
-msgid "OPTION_EXTERNALACCESS"
-msgstr "Setting external Access"
-
-msgid "SUBTITLE_STRATEGY"
-msgstr "Strategy to save Sharing Setting to all object selected"
-
-msgid "SUBTITLE_PUBLIC"
-msgstr "Setting public and external access to all object selected"
-
-msgid "MESSAGE_ERROR_SELECT_OBJECT"
-msgstr " Select at least one object, user or group"
-
-msgid "MESSAGE_DISABLED_DATABUTTON"
-msgstr "Not available for this type of object"
-
-msgid "LABEL_NUMBER_OBJECT_UPDATED"
-msgstr "Number of objects updated"
-
-msgid "LABEL_NUMBER_OBJECT_NOUPDATED"
-msgstr "Number of objects don't updated"
+"POT-Creation-Date: 2022-05-22T16:39:09.719Z\n"
+"PO-Revision-Date: 2022-05-22T16:39:09.719Z\n"
+
+msgctxt "CLOSE"
+msgid "CN"
+msgstr "CN_CLOSE"
+
+msgctxt "CLOSE"
+msgid "BTN"
+msgstr "BTN_CLOSE"
+
+msgctxt "TITLE"
+msgid "CN"
+msgstr "CN_TITLE"
+
+msgctxt "METADATA"
+msgid "CN_SUBTITLE"
+msgstr "CN_SUBTITLE_METADATA"
+
+msgctxt "ACCESS"
+msgid "NO"
+msgstr "NO_ACCESS"
+
+msgctxt "ACCESS"
+msgid "TABLE_METADATA"
+msgstr "TABLE_METADATA_ACCESS"
+
+msgctxt "ACCESS"
+msgid "TABLE_DATA"
+msgstr "TABLE_DATA_ACCESS"
+
+msgctxt "VIEW"
+msgid "CAN"
+msgstr "CAN_VIEW"
+
+msgctxt "EDIT"
+msgid "CAN"
+msgstr "CAN_EDIT"
+
+msgctxt "DATA"
+msgid "CN_SUBTITLE"
+msgstr "CN_SUBTITLE_DATA"
+
+msgctxt "MODE"
+msgid "TAB_VIEW"
+msgstr "TAB_VIEW_MODE"
+
+msgctxt "MODE"
+msgid "TAB_EDIT"
+msgstr "TAB_EDIT_MODE"
+
+msgctxt "SEARCHNAME"
+msgid "LABEL"
+msgstr "LABEL_SEARCHNAME"
+
+msgctxt "SEARCHPROGRAMORDATASET"
+msgid "LABEL"
+msgstr "LABEL_SEARCHPROGRAMORDATASET"
+
+msgctxt "NAME"
+msgid "TABLE"
+msgstr "TABLE_NAME"
+
+msgctxt "NAME"
+msgid "TABLE_USER"
+msgstr "TABLE_USER_NAME"
+
+msgctxt "PUBLICACCESS"
+msgid "TABLE"
+msgstr "TABLE_PUBLICACCESS"
+
+msgctxt "EXTERNALACCESS"
+msgid "TABLE"
+msgstr "TABLE_EXTERNALACCESS"
+
+msgctxt "SHARINGGROUP"
+msgid "TABLE"
+msgstr "TABLE_SHARINGGROUP"
+
+msgctxt "SHARINGUSER"
+msgid "TABLE"
+msgstr "TABLE_SHARINGUSER"
+
+msgctxt "DATABUTTON"
+msgid "MESSAGE_DISABLED"
+msgstr "MESSAGE_DISABLED_DATABUTTON"
+
+msgctxt "GROUP"
+msgid "TITLE_SEARCH"
+msgstr "TITLE_SEARCH_GROUP"
+
+msgid "search"
+msgstr "search"
+
+msgid "STEP"
+msgid_plural "STEP"
+msgstr[0] ""
+msgstr[1] "STEP_2"

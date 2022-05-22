@@ -19,7 +19,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import appTheme from '../theme';
-
+//dhis2
+import i18n from '../locales/index.js' 
+import {post} from '../API/Dhis2.js';
 
 import ListGroups from './ListGroups';
 const styles = {
@@ -73,10 +75,8 @@ class IndividualMode extends React.Component {
   }
     //query resource Selected
     async setResourceSelected(urlAPI, Payload) {
-      const d2 = this.props.d2;
-      const api = d2.Api.getApi();
       try {
-        let res = await api.post(urlAPI, Payload);
+        let res = await post(urlAPI, Payload);
         //update change on listview
         this.props.handleChangeTabs("view");
         return res;
@@ -158,7 +158,6 @@ class IndividualMode extends React.Component {
     //convert object to array
     let rowRaw = Object.values(this.props.listObject);
     //
-    const d2 = this.props.d2;
     const funResolvMessage = this.resolveAccessMessage;
     return rowRaw.map((row) => {
       keysCount++;
@@ -185,7 +184,7 @@ class IndividualMode extends React.Component {
                 ug.access="--------"
               }
               return (
-                <div key={ug.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(ug.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(ug.access, "data"))}>
+                <div key={ug.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + i18n.t(funResolvMessage(ug.access, "metadata")) + " DATA:" + i18n.t(funResolvMessage(ug.access, "data"))}>
                   <div>
                     {ug.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
                     {ug.access[3] == "w" ? <ActionDoneAll /> : ug.access[2] == "r" ? <ActionDone /> : <None />}
@@ -202,7 +201,7 @@ class IndividualMode extends React.Component {
                 us.access="--------"
               }
               return (
-                <div key={us.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + d2.i18n.getTranslation(funResolvMessage(us.access, "metadata")) + " DATA:" + d2.i18n.getTranslation(funResolvMessage(us.access, "data"))}>
+                <div key={us.id + "_" + keysCount} style={styles.buttonGroup} title={"METADATA: " + i18n.t(funResolvMessage(us.access, "metadata")) + " DATA:" + i18n.t(funResolvMessage(us.access, "data"))}>
                   <div>
                     {us.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
                     {us.access[3] == "w" ? <ActionDoneAll /> : us.access[2] == "r" ? <ActionDone /> : <None />}
@@ -223,10 +222,8 @@ class IndividualMode extends React.Component {
 
   }
   render() {
-    const d2 = this.props.d2;
     return (
       <div>
-
         <div style={styles.divConcentTable}>
         {
           //this.waiting()
@@ -234,11 +231,11 @@ class IndividualMode extends React.Component {
         <Table>
           <TableHead  displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
             <TableRow>
-              <TableCell >{d2.i18n.getTranslation("TABLE_NAME")}</TableCell >
-              <TableCell >{d2.i18n.getTranslation("TABLE_PUBLICACCESS")}</TableCell >
-              <TableCell >{d2.i18n.getTranslation("TABLE_EXTERNALACCESS")}</TableCell >
-              <TableCell  style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGGROUP")}</TableCell >
-              <TableCell  style={styles.buttonGroup}>{d2.i18n.getTranslation("TABLE_SHARINGUSER")}</TableCell >
+              <TableCell >{i18n.t("TABLE_NAME")}</TableCell >
+              <TableCell >{i18n.t("TABLE_PUBLICACCESS")}</TableCell >
+              <TableCell >{i18n.t("TABLE_EXTERNALACCESS")}</TableCell >
+              <TableCell  style={styles.buttonGroup}>{i18n.t("TABLE_SHARINGGROUP")}</TableCell >
+              <TableCell  style={styles.buttonGroup}>{i18n.t("TABLE_SHARINGUSER")}</TableCell >
               <TableCell  style={styles.buttonMore}></TableCell >
             </TableRow>
           </TableHead >
@@ -253,18 +250,18 @@ class IndividualMode extends React.Component {
           onRequestClose={this.handleClose.bind(this)}
         >
           <DialogTitle id="alert-dialog-title">
-          {d2.i18n.getTranslation("STEP_2")}
+          {i18n.t("STEP_2")}
         </DialogTitle>
         <DialogContent>
             <div style={{ marginTop: 12, textAlign: 'center', color: "Red",position: "relative"}}>
                       <p>{this.state.messajeError}</p>
                     </div>
-            <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
+            <ListGroups GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
 
         </DialogContent>
         <DialogActions>
           <Button
-              label={d2.i18n.getTranslation("BTN_CLOSE")}
+              label={i18n.t("BTN_CLOSE")}
               primary={true}
               onClick={this.handleClose.bind(this)}
             />
@@ -278,14 +275,4 @@ class IndividualMode extends React.Component {
   }
 
 };
-// IndividualMode.propTypes = {
-//   d2: React.PropTypes.object.isRequired,
-//   listObject: React.PropTypes.object,
-//   Enabledchecked: React.PropTypes.bool,
-//   handleChangeTabs: React.PropTypes.func,
-//   currentPage: React.PropTypes.number,
-//   searchByName:React.PropTypes.string,
-//   filterString:React.PropTypes.string,
-//   resource: React.PropTypes.object
-// };
 export default IndividualMode;

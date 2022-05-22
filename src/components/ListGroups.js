@@ -20,6 +20,10 @@ import SearchTextBox from './SearchTextBox';
 import appTheme from '../theme';
 import SpecialButton from './SpecialButton';
 //
+import {get} from '../API/Dhis2.js';
+import i18n from '../locales/index.js' 
+
+
 const styles = {
   paper: {
     height: 200,
@@ -68,12 +72,9 @@ class ListGroups extends React.Component {
 
   //query resource Selected
   async getResourceSelected(urlAPI) {
-    const d2 = this.props.d2;
-    const api = d2.Api.getApi();
     let result = {};
-    console.log(urlAPI);
     try {
-      let res = await api.get(urlAPI);
+      let res = await get(urlAPI);
       return res;      
     }
     catch (e) {
@@ -216,7 +217,6 @@ class ListGroups extends React.Component {
     });
   }
   render() {
-    const d2 = this.props.d2;
     var keyCount=0;
     return (
       <div style={{position: 'relative'}} >
@@ -226,9 +226,9 @@ class ListGroups extends React.Component {
             <TableHead displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
 
-                <TableCell columnNumber={2} style={styles.columnForMain} >{d2.i18n.getTranslation("TABLE_USER_NAME")}</TableCell>
-                <TableCell style={styles.columnForEditButton}>{d2.i18n.getTranslation("TABLE_METADATA_ACCESS")}</TableCell>
-                <TableCell style={styles.columnForEditButton}> {d2.i18n.getTranslation("TABLE_DATA_ACCESS")}</TableCell>
+                <TableCell columnNumber={2} style={styles.columnForMain} >{i18n.t("TABLE_USER_NAME")}</TableCell>
+                <TableCell style={styles.columnForEditButton}>{i18n.t("TABLE_METADATA_ACCESS")}</TableCell>
+                <TableCell style={styles.columnForEditButton}> {i18n.t("TABLE_DATA_ACCESS")}</TableCell>
                 <TableCell style={styles.columnForEditButton}></TableCell>
               </TableRow>
             </TableHead>
@@ -246,7 +246,7 @@ class ListGroups extends React.Component {
                       <TableCell><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableCell>
                       <TableCell style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableCell>
                       <TableCell style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={d2.i18n.getTranslation("MESSAGE_DISABLED_DATABUTTON")} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={i18n.t("MESSAGE_DISABLED_DATABUTTON")} />
                       </TableCell>
                       <TableCell style={styles.columnForEditButton}>
                       <Button
@@ -269,7 +269,7 @@ class ListGroups extends React.Component {
                       <TableCell><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableCell>
                       <TableCell style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableCell>
                       <TableCell style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={d2.i18n.getTranslation("MESSAGE_DISABLED_DATABUTTON")} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={i18n.t("MESSAGE_DISABLED_DATABUTTON")} />
                       </TableCell>
                       <TableCell style={styles.columnForEditButton}>
                       <Button
@@ -286,7 +286,7 @@ class ListGroups extends React.Component {
           <div style={styles.textBox}>
         <SearchTextBox 
         source={this.searchUserGroups.bind(this)} 
-        title={d2.i18n.getTranslation("TITLE_SEARCH_GROUP")} 
+        title={i18n.t("TITLE_SEARCH_GROUP")} 
         callBackSelected={this.SelectUserOrGroup.bind(this)} 
         color={styles.iconColor}
         showValueSelected={false}  
