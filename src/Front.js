@@ -80,13 +80,13 @@ class AppFront extends React.Component {
     sidebarRef = ref;
   }
 
-  // life cycle
-  getChildContext() {
-    return {
-      d2: this.props.d2,
-      muiTheme: appTheme
-    };
-  }
+  // // life cycle
+  // getChildContext() {
+  //   return {
+  //     d2: this.props.d2,
+  //     muiTheme: appTheme
+  //   };
+  // }
 
   disableSlide(mode) {
     if (mode == 'edit') {

@@ -102,7 +102,7 @@ class IndividualMode extends React.Component {
         }
 
       }
-      this.setResourceSelected("sharing?type=" + this.props.resource.key + "&id=" + obj.id, valToSave).then(res => {
+      this.setResourceSelected("/sharing?type=" + this.props.resource.key + "&id=" + obj.id, valToSave).then(res => {
         if(res.status!="OK")
           this.setState({messajeError:res.message})
       })

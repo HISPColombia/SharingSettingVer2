@@ -63,12 +63,12 @@ class Filter extends React.Component {
     if(Object.keys(this.props.filterAvailable).length>1)
     if (this.props.filterAvailable.filters.includes(option.value)) {
       return (
-        <MenuItem
+        <option 
           value={option.value}
           key={option.value}
         >
         {i18n.t(option.code)}
-        </MenuItem>
+        </option>
       )
     }
   }
