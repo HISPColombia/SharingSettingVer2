@@ -24,6 +24,10 @@ import ListSelect from './ListSelect.component';
 import appTheme from '../theme';
 import ListGroups from './ListGroups';
 import SpecialButton from './SpecialButton';
+//dhis2
+import i18n from '../locales/index.js'
+import i18n from '../locales/index.js'
+import { post } from '../API/Dhis2.js';
 
 
 const styles = {
@@ -132,10 +136,8 @@ class BulkMode extends React.Component {
 
   //query resource Selected
   async setResourceSelected(urlAPI, Payload) {
-    const d2 = this.props.d2;
-    const api = d2.Api.getApi();
     try {
-      let res = await api.post(urlAPI, Payload);
+      let res = await post(urlAPI, Payload);
       return res;
     }
     catch (e) {
@@ -220,7 +222,7 @@ class BulkMode extends React.Component {
       });
     }
     else {
-      this.setState({ messajeError: this.props.d2.i18n.getTranslation("MESSAGE_ERROR_SELECT_OBJECT") });
+      this.setState({ messajeError: i18n.t("MESSAGE_ERROR_SELECT_OBJECT") });
     }
   };
 
@@ -425,11 +427,11 @@ class BulkMode extends React.Component {
             <div style={styles.containterList}>
 
               <div style={styles.ButtonLeftAling}>
-                <Button onClick={this.handleSelectAll.bind(this)} label={d2.i18n.getTranslation("BTN_ASIGN_ALL") + "→"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={this.handleSelectAll.bind(this)} label={i18n.t("BTN_ASIGN_ALL") + "→"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
               </div>
               <div style={styles.ItemMiddleButton}>  </div>
               <div style={styles.ButtonRightAling}>
-                <Button onClick={this.handleRemoveAll.bind(this)} label={d2.i18n.getTranslation("BTN_REMOVE_ALL") + "←"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={this.handleRemoveAll.bind(this)} label={i18n.t("BTN_REMOVE_ALL") + "←"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
               </div>
               <div style={styles.ItemMiddleButton}></div>
             </div>
@@ -450,17 +452,17 @@ class BulkMode extends React.Component {
               </div>
               <div style={styles.ItemsStrategy}>
                 <Paper style={styles.papers}>
-                  <div style={styles.subtitles}>{d2.i18n.getTranslation("SUBTITLE_STRATEGY")}</div>
+                  <div style={styles.subtitles}>{i18n.t("SUBTITLE_STRATEGY")}</div>
                   <Divider />
                   <div style={styles.bodypaper}>
                     <Switch
-                      label={d2.i18n.getTranslation("OPTION_OVERWRITE")}
+                      label={i18n.t("OPTION_OVERWRITE")}
                       defaultchecked={true}
                       onChange={() => this.handleTogle("overwrite")}
                       checked={(this.state.togSelected == "overwrite" ? true : false)}
                     />
                     <Switch
-                      label={d2.i18n.getTranslation("OPTION_KEEP")}
+                      label={i18n.t("OPTION_KEEP")}
                       onChange={() => this.handleTogle("keep")}
                       checked={(this.state.togSelected == "keep" ? true : false)}
                     />
@@ -468,11 +470,11 @@ class BulkMode extends React.Component {
                 </Paper>
               </div>
               <Paper style={styles.papers}>
-                <div style={styles.subtitles}>{d2.i18n.getTranslation("SUBTITLE_PUBLIC")}</div>
+                <div style={styles.subtitles}>{i18n.t("SUBTITLE_PUBLIC")}</div>
                 <Divider />
                 <div style={styles.ItemsStrategy}>
                   <div style={styles.bodypaper2}>
-                    <div style={styles.ItemsStrategy}>{d2.i18n.getTranslation("OPTION_PUBLICACCESS")}</div>
+                    <div style={styles.ItemsStrategy}>{i18n.t("OPTION_PUBLICACCESS")}</div>
 
                     <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
                   </div>
@@ -480,7 +482,7 @@ class BulkMode extends React.Component {
                 <div style={styles.SwitchExternal}>
 
                   <Switch
-                    label={d2.i18n.getTranslation("OPTION_EXTERNALACCESS")}
+                    label={i18n.t("OPTION_EXTERNALACCESS")}
                     onChange={() => this.handleExternalAccess()}
                     checked={(this.state.ExternalAccess)}
                   />
@@ -511,24 +513,24 @@ class BulkMode extends React.Component {
       <div style={{ width: '100%', maxWidth: '90%', margin: 'auto' }}>
         <Stepper activeStep={stepIndex}>
           <Step>
-            <StepLabel>{d2.i18n.getTranslation("STEP_1")}</StepLabel>
+            <StepLabel>{i18n.t("STEP_1")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{d2.i18n.getTranslation("STEP_2")}</StepLabel>
+            <StepLabel>{i18n.t("STEP_2")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{d2.i18n.getTranslation("STEP_3")}</StepLabel>
+            <StepLabel>{i18n.t("STEP_3")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{d2.i18n.getTranslation("STEP_4")}</StepLabel>
+            <StepLabel>{i18n.t("STEP_4")}</StepLabel>
           </Step>
         </Stepper>
         <div style={contentStyle}>
           {finished ? (
             <div>
-              {d2.i18n.getTranslation("LABEL_NUMBER_OBJECT_UPDATED")} : <span style={{ "fontWeight": "bold" }}><Avatar>{this.state.messajeSuccessful.numImported}</Avatar></span>
+              {i18n.t("LABEL_NUMBER_OBJECT_UPDATED")} : <span style={{ "fontWeight": "bold" }}><Avatar>{this.state.messajeSuccessful.numImported}</Avatar></span>
               <br />
-              {d2.i18n.getTranslation("LABEL_NUMBER_OBJECT_NOUPDATED")} : <span style={{ "fontWeight": "bold" }}> <Avatar  backgroundColor={styles.errorMessaje.color}>{this.state.messajeSuccessful.numNoImported}</Avatar></span>
+              {i18n.t("LABEL_NUMBER_OBJECT_NOUPDATED")} : <span style={{ "fontWeight": "bold" }}> <Avatar  backgroundColor={styles.errorMessaje.color}>{this.state.messajeSuccessful.numNoImported}</Avatar></span>
            
               <br />
               <div style={styles.divConcentTable}>
@@ -547,7 +549,7 @@ class BulkMode extends React.Component {
               </div>
               <div style={{ marginTop: 12, textAlign: 'center' }}>
                 <Button
-                  label={d2.i18n.getTranslation("BTN_FINISH")}
+                  label={i18n.t("BTN_FINISH")}
                   primary={true}
                   onClick={this.exitEditMode.bind(this)}
                 />
@@ -563,20 +565,20 @@ class BulkMode extends React.Component {
                 </div>
                 <div style={{ marginTop: 12, textAlign: 'center' }}>
                   <Button
-                    label={d2.i18n.getTranslation("BTN_CANCEL")}
+                    label={i18n.t("BTN_CANCEL")}
                     primary={true}
                     disabled={stepIndex === 3}
                     onClick={() => this.exitEditMode()}
                   />
                   <Button
-                    label={d2.i18n.getTranslation("BTN_BACK")}
+                    label={i18n.t("BTN_BACK")}
                     disabled={stepIndex === 0 || stepIndex === 3}
                     onClick={this.handlePrev.bind(this)}
                     style={{ marginRight: 12 }}
                   />
 
                   <Button
-                    label={stepIndex === 2 ? d2.i18n.getTranslation("BTN_SAVE") : d2.i18n.getTranslation("BTN_NEXT")}
+                    label={stepIndex === 2 ? i18n.t("BTN_SAVE") : i18n.t("BTN_NEXT")}
                     primary={true}
                     disabled={stepIndex === 3}
                     onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
