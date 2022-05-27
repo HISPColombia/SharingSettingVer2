@@ -26,7 +26,6 @@ import ListGroups from './ListGroups';
 import SpecialButton from './SpecialButton';
 //dhis2
 import i18n from '../locales/index.js'
-import i18n from '../locales/index.js'
 import { post } from '../API/Dhis2.js';
 
 
@@ -591,14 +590,5 @@ class BulkMode extends React.Component {
     );
   }
 };
-// BulkMode.propTypes = {
-//   d2: React.PropTypes.object.isRequired,
-//   listObject: React.PropTypes.object,
-//   pager: React.PropTypes.object,
-//   searchByName: React.PropTypes.string,
-//   filterString: React.PropTypes.string,
-//   resource: React.PropTypes.object,
-//   handleChangeTabs: React.PropTypes.func
-// };
 
 export default BulkMode;
