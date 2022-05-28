@@ -125,13 +125,12 @@ class Filter extends React.Component {
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
             <InputLabel variant="standard" htmlFor="uncontrolled-native">
-            {i18n.t('LABEL_SEARCHPROGRAMORDATASET')}
+                {i18n.t('LABEL_SEARCHPROGRAMORDATASET')}
             </InputLabel>
             <SelectField
-              defaultValue={30}
+              defaultValue={this.props.filterAvailable.filters === ""||this.props.filterAvailable.filters===undefined?i18n.t("LABEL_NOVALUE"):i18n.t(this.props.filterAvailable.filters.split(',')[0])}
               value={this.state.value}
-              onChange={this.handleChange}
-              floatingLabelFixed={true}
+              onChange={this.handleChange}              
               disabled={this.props.filterAvailable.filters == "" ? true : false}
               inputProps={{
                 name: 'age',

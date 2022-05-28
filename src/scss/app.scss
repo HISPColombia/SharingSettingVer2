@@ -3,7 +3,7 @@
 // @import "../../node_modules/d2-ui/scss/DataTable";
 
 
-$left-bar-width: 1px;//295
+//$left-bar-width: 1px;//295
 
 .app-wrapper {
   display: grid;
@@ -14,13 +14,36 @@ html {
   background: #f3f3f3;
   font-family: 'Roboto', sans-serif;
 }
+.sidebar{
+  background: #f3f3f3;
+  font-family: 'Roboto', sans-serif;
+  width: 290px;
+  height:500px;
+  padding-top: 10px;
+  //overflow: scroll;
+  position: -webkit-sticky;  // required for Safari
+  position: sticky;
+  top: 0; // required as well.
 
+
+}
+.sidebar-menuitem{
+  background: #f3f3f3 !important;  
+  text-align: left !important;
+  justify-content: flex-start !important;
+}
+.sidebar-menuitem-selected{
+  background: rgb(224, 224, 224) !important;  
+  color:rgb(33, 150, 243) !important;
+  justify-content: flex-start !important;
+
+}
 .app {
   //padding-top: 1rem;
 }
 
 .left-bar {
-  width: $left-bar-width;
+ // width: $left-bar-width;
   position: fixed;
   bottom: 0;
   top: 0;
@@ -29,7 +52,7 @@ html {
 }
 
 .content-area {
-  padding-left: $left-bar-width;
+  //padding-left: $left-bar-width;
   max-width: 100%;
   min-width: 400px;
   margin-bottom: 64px;

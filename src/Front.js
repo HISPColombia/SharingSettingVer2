@@ -104,9 +104,7 @@ class AppFront extends React.Component {
 
     return (
 
-      <>
-        
-          <br />
+      <>      
           {
             this.state.hiddenSlide
               ? ""
@@ -122,9 +120,8 @@ class AppFront extends React.Component {
 
             }).filter(section => section.label.includes(this.state.textSearch) == true || this.state.textSearch == "")
           }
-            currentSection={this.props.currentSection}
+            currentSection={this.state.sectionToRender}
             onChangeSection={this.changeSectionHandler}
-            searchFieldLabel={i18n.t("search")}
             onChangeSearchText={this.changeSearchTextHandler}
           />
 

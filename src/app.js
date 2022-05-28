@@ -1,10 +1,8 @@
 import React from 'react'
 import Frontend from './Front';
 
-const MyApp = () => (
-    <div>
-       <Frontend/>
-    </div>
-)
+const MyApp = () =><Frontend/>
+
+
 
 export default MyApp
