@@ -56,7 +56,6 @@ class Filter extends React.Component {
 
   getChildContext() {
     return {
-      d2: this.props.d2,
       muiTheme: appTheme
     };
   }
@@ -111,7 +110,6 @@ class Filter extends React.Component {
     this.props.handlefilterTextChange(event.target.value);
   }
   render() {
-    const d2 = this.props.d2
     return (
       <section style={styles.container}>
         <div style={styles.item}>

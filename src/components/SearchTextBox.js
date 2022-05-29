@@ -32,7 +32,7 @@ class SearchTextBox extends React.Component {
         this.state = { value: [], textValue: '' }
     };
 
-    handleChangeValue(event) {
+    handleChangeValue(event,valueSelected) {
         this.setState({ textValue: event.target.value });
         if (event.target.value == "") {
             this.setState({ value: [] });
@@ -43,14 +43,15 @@ class SearchTextBox extends React.Component {
             })
         }
     }
-    handleSelectOption(e,valueSelected) {
-        console.log(e.target.value);
-        this.props.callBackSelected(valueSelected);
-        this.setState({ value: [] });
-        if (this.props.showValueSelected == false)
-            this.setState({ textValue: '' });
-        else
-            this.setState({ textValue: valueSelected.displayName });
+    handleSelectOption(e,value,reason) {
+       if(reason==="selectOption"){
+            this.props.callBackSelected(value);
+            this.setState({ value: [] });
+            if (this.props.showValueSelected == false)
+                this.setState({ textValue: '' });
+            else
+                this.setState({ textValue: value.label });
+       }
 
     }
 
@@ -62,10 +63,10 @@ class SearchTextBox extends React.Component {
                         disablePortal
                         id="combo-box-demo"
                         options={this.state.value}
-                        sx={{ width: 300 }}     
-                        onInputChange={(e,value) => this.handleSelectOption(e,value)}                   
+                        sx={{ width: 400 }}     
+                        onInputChange={(e,value) =>this.handleChangeValue(e,value)}                       
+                        onChange={(e,value,reason) => this.handleSelectOption(e,value,reason)}                   
                         renderInput={(params) => <TextField {...params} 
-                        onChange={this.handleChangeValue.bind(this)}                         
                         label={this.props.disabled ? "Select some option" : this.props.title}
                         variant="standard"
                         disabled={this.props.disabled}
