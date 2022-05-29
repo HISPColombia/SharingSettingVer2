@@ -26,16 +26,26 @@ html {
   top: 0; // required as well.
 
 
+
 }
 .sidebar-menuitem{
   background: #f3f3f3 !important;  
   text-align: left !important;
   justify-content: flex-start !important;
+  font-size: 14px !important; 
+  text-transform:initial !important;
+  font-weight: 0 !important;
+  min-height: 40px !important;
 }
 .sidebar-menuitem-selected{
   background: rgb(224, 224, 224) !important;  
   color:rgb(33, 150, 243) !important;
   justify-content: flex-start !important;
+  font-size: 14px !important; 
+  text-transform:initial !important;
+  text-transform:initial !important;
+  font-weight: 0 !important;
+  min-height: 40px !important;
 
 }
 .app {

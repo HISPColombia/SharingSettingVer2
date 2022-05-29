@@ -3,17 +3,19 @@ import React from 'react';
 //MAterial UI
 import TextField from '@mui/material/TextField';
 import appTheme from '../theme';
-import SelectField from '@mui/material/NativeSelect';
+
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
+import SelectField from '@mui/material/Select';
 import OptionSearch from '../data/listOptionSearch.json'
 //Component
 import SearchTextBox from './SearchTextBox';
 //
 //dhis2
 import i18n from '../locales/index.js' 
+import {get} from '../API/Dhis2.js';
 
 const styles = {
   container: {
@@ -43,9 +45,9 @@ class Filter extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event, index, value) {
-    let vSelected = optionFilter.filter(val => val.value == value)
-    this.setState({ value })
+  handleChange(event) {
+    let vSelected = optionFilter.filter(val => val.value == event.target.value)
+    this.setState({ value:event.target.value })
     if (vSelected.length >= 1)
       this.setState({ valueSelected: vSelected[0] })
     if (vSelected[0].disabled)
@@ -63,22 +65,21 @@ class Filter extends React.Component {
     if(Object.keys(this.props.filterAvailable).length>1)
     if (this.props.filterAvailable.filters.includes(option.value)) {
       return (
-        <option 
+        <MenuItem 
           value={option.value}
           key={option.value}
         >
         {i18n.t(option.code)}
-        </option>
+        </MenuItem>
       )
     }
   }
 
   async getResourceSelected(resource, urlAPI) {
-    const d2 = this.props.d2;
-    const api = d2.Api.getApi();
+
     let result = {};
     try {
-      let res = await api.get('/' + resource + urlAPI);
+      let res = await get('/' + resource + urlAPI);
       //if (res.hasOwnProperty(resource)) {
       return res;
     }
@@ -88,7 +89,7 @@ class Filter extends React.Component {
     return result;
   }
   async searchOption(valuetoSearch) {
-    const urlAPI = "?fields=id,displayName&filter=displayName:like:" + valuetoSearch
+    const urlAPI = "?fields=id,name,displayName~rename(label)&filter=displayName:like:" + valuetoSearch
     return this.getResourceSelected(this.state.valueSelected.value, urlAPI).then(res => {
       return res[this.state.valueSelected.value];
     })
@@ -123,25 +124,26 @@ class Filter extends React.Component {
         </div>
         <div style={styles.item}>
         <Box sx={{ minWidth: 120 }}>
-          <FormControl fullWidth>
-            <InputLabel variant="standard" htmlFor="uncontrolled-native">
+          <FormControl variant="standard" fullWidth>
+            <InputLabel id="selectfilter">
                 {i18n.t('LABEL_SEARCHPROGRAMORDATASET')}
             </InputLabel>
             <SelectField
+              labelId="selectfilter"
               defaultValue={this.props.filterAvailable.filters === ""||this.props.filterAvailable.filters===undefined?i18n.t("LABEL_NOVALUE"):i18n.t(this.props.filterAvailable.filters.split(',')[0])}
               value={this.state.value}
               onChange={this.handleChange}              
               disabled={this.props.filterAvailable.filters == "" ? true : false}
               inputProps={{
-                name: 'age',
+                name: i18n.t('LABEL_SEARCHPROGRAMORDATASET'),
                 id: 'uncontrolled-native',
               }}
             >
               {optionFilter.map(this.renderOption, this)}
             </SelectField>
               
-              </FormControl>
-          </Box>
+          </FormControl>
+        </Box>
         </div>
         <div style={styles.item}>
           <SearchTextBox
