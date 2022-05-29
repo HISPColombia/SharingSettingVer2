@@ -395,7 +395,7 @@ class BulkMode extends React.Component {
       finished: false
     });
     this.handleRemoveAll();
-    this.props.handleChangeTabs("view")
+    this.props.handleChangeTabs(undefined,"view",1);
   }
 
   GroupSelected(selected) {

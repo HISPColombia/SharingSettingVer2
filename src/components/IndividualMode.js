@@ -15,7 +15,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
+import TablePagination from '@mui/material/TablePagination';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import appTheme from '../theme';
@@ -59,8 +59,7 @@ const styles = {
     with: 50
   },
   divConcentTable: {
-    height: 600,
-    overflow: 'auto'
+    
   }
 
 };
@@ -71,14 +70,14 @@ class IndividualMode extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0, openModal: false, userAndGroupsSelected: {}, messajeError: "mensaje de error" }
+    this.state = { currentPage: 0, openModal: false, userAndGroupsSelected: {}, messajeError: "mensaje de error",rowsPerPage:50,page:1,rowlength:0 }
   }
   //query resource Selected
   async setResourceSelected(urlAPI, Payload) {
     try {
       let res = await post(urlAPI, Payload);
       //update change on listview
-      this.props.handleChangeTabs("view");
+      this.props.handleChangeTabs(undefined,"view",1);
       return res;
     }
     catch (e) {
@@ -122,8 +121,14 @@ class IndividualMode extends React.Component {
   componentDidMount() {
     this.state = { currentPage: this.props.currentPage, openModal: false, userAndGroupsSelected: {}, messajeError: "" };
   }
+  handleChangeRowsPerPage = (event) => {
+    this.setState({rowsPerPage:parseInt(event.target.value, 10),page:0});
+  };
 
-
+  handleChangePage=(e,newpage)=>{
+    this.props.handleChangeTabs(undefined,"view",newpage);
+    this.setState({page:newpage});
+  }
   waiting() {
     var hide = true;
     setTimeout(() => { hide = true }, 5000)
@@ -228,7 +233,17 @@ class IndividualMode extends React.Component {
           {
             //this.waiting()
           }
+          <TablePagination
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+              component="div"
+              count={this.props.pager.total}
+              rowsPerPage={this.state.rowsPerPage}
+              page={this.state.page}
+              onPageChange={this.handleChangePage}
+              onRowsPerPageChange={this.handleChangeRowsPerPage}
+            />
           <Table>
+            
             <TableHead displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
                 <TableCell >{i18n.t("TABLE_NAME")}</TableCell >
@@ -244,6 +259,15 @@ class IndividualMode extends React.Component {
             </TableBody>
 
           </Table>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            component="div"
+            count={this.props.pager.total}
+            rowsPerPage={this.state.rowsPerPage}
+            page={this.state.page}
+            onPageChange={this.handleChangePage}
+            onRowsPerPageChange={this.handleChangeRowsPerPage}
+          />
           <Dialog
             modal={false}
             open={this.state.openModal}

@@ -72,11 +72,11 @@ class Content extends React.Component {
   //API Query
 
   //query resource Selected
-  async getResourceSelected(urlAPI) {
+  async getResourceSelected(urlAPI,page=1) {
     let result = {};
 
      try {
-      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&paging=false&page=");
+      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&page="+page);
       if (res.hasOwnProperty(urlAPI)) {
         return res;
       }
@@ -126,9 +126,9 @@ class Content extends React.Component {
   //Handles
 
   //tabs handle
-  handleChangeTabs(event,value) {
+  handleChangeTabs(event,value,page=1) {
     //refresh List
-    this.getResourceSelected(this.props.informationResource.resource).then(res => {
+    this.getResourceSelected(this.props.informationResource.resource,page).then(res => {
       let dataResult = {}
       for (let g of res[this.props.informationResource.resource]) {
         dataResult[g.id] = g;
@@ -250,6 +250,7 @@ class Content extends React.Component {
               resource={this.props.informationResource} 
               Enabledchecked={false}
               listObject={this.state.listObject}
+              pager={this.state.pager}
               currentPage={this.state.currentPage}
               handleChangeTabs={this.handleChangeTabs.bind(this)}
               searchByName={this.state.searchByName}
