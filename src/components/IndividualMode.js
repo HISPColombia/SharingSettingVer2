@@ -285,10 +285,10 @@ class IndividualMode extends React.Component {
             </DialogContent>
             <DialogActions>
               <Button
-                label={i18n.t("BTN_CLOSE")}
-                primary={true}
                 onClick={this.handleClose.bind(this)}
-              />
+                variant="contained"              >
+                {i18n.t("BTN_CLOSE")}
+                </Button>
             </DialogActions>
           </Dialog>
 

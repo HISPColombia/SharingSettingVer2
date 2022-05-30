@@ -413,8 +413,8 @@ class BulkMode extends React.Component {
                 <ListSelect id={"ListAvailable"} filterString={this.props.filterString} searchByName={this.props.searchByName} source={this.state.objectAvailable.filter((obj) => obj.visible == true)} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10} />
               </div>
               <div style={styles.ItemMiddleButton}>
-                <Button onClick={() => this.handleListSelected('ListAvailable', this.handleList.bind(this))} label="→" style={styles.ButtonSelect} />
-                <Button onClick={() => this.handleListSelected('ListSelected', this.handleDesSelect.bind(this))} label="←" labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={() => this.handleListSelected('ListAvailable', this.handleList.bind(this))} style={styles.ButtonSelect} variant="outlined">→</Button>
+                <Button onClick={() => this.handleListSelected('ListSelected', this.handleDesSelect.bind(this))} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} variant="outlined" >←</Button>
               </div>
               <div style={styles.ItemsList}>
                 <ListSelect id={"ListSelected"} filterString={""} searchByName={""} source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10} />
@@ -426,11 +426,11 @@ class BulkMode extends React.Component {
             <div style={styles.containterList}>
 
               <div style={styles.ButtonLeftAling}>
-                <Button onClick={this.handleSelectAll.bind(this)} label={i18n.t("BTN_ASIGN_ALL") + "→"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={this.handleSelectAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}  variant="outlined">{i18n.t("BTN_ASIGN_ALL") + "→"}</Button>
               </div>
               <div style={styles.ItemMiddleButton}>  </div>
               <div style={styles.ButtonRightAling}>
-                <Button onClick={this.handleRemoveAll.bind(this)} label={i18n.t("BTN_REMOVE_ALL") + "←"} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} />
+                <Button onClick={this.handleRemoveAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} variant="outlined">{i18n.t("BTN_REMOVE_ALL") + "←"}</Button>
               </div>
               <div style={styles.ItemMiddleButton}></div>
             </div>
@@ -548,10 +548,11 @@ class BulkMode extends React.Component {
               </div>
               <div style={{ marginTop: 12, textAlign: 'center' }}>
                 <Button
-                  label={i18n.t("BTN_FINISH")}
                   primary={true}
                   onClick={this.exitEditMode.bind(this)}
-                />
+                >
+                  {i18n.t("BTN_FINISH")}
+                </Button>
               </div>
 
 
@@ -564,24 +565,27 @@ class BulkMode extends React.Component {
                 </div>
                 <div style={{ marginTop: 12, textAlign: 'center' }}>
                   <Button
-                    label={i18n.t("BTN_CANCEL")}
                     primary={true}
                     disabled={stepIndex === 3}
                     onClick={() => this.exitEditMode()}
-                  />
+                  >
+                    {i18n.t("BTN_CANCEL")}
+                    </Button>
                   <Button
-                    label={i18n.t("BTN_BACK")}
                     disabled={stepIndex === 0 || stepIndex === 3}
                     onClick={this.handlePrev.bind(this)}
                     style={{ marginRight: 12 }}
-                  />
-
+                  >
+                    {i18n.t("BTN_BACK")}
+                  </Button>
                   <Button
-                    label={stepIndex === 2 ? i18n.t("BTN_SAVE") : i18n.t("BTN_NEXT")}
                     primary={true}
                     disabled={stepIndex === 3}
                     onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
-                  />
+                    variant="contained"
+                  >
+                    {stepIndex === 2 ? i18n.t("BTN_SAVE") : i18n.t("BTN_NEXT")}
+                    </Button>
                 </div>
               </div>
             )}
