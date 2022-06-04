@@ -494,3 +494,9 @@ msgstr "Numero de objetos actualizados"
 
 msgid "Number of objects don't updated"
 msgstr "Numero de objetos no actualizados"
+
+msgid "METADATA - privileges related to access"
+msgstr "METADATA - privilegios relacionados con el acceso"
+
+msgid "DATA - Privileges related to data registration and access"
+msgstr "DATA - privilegios relacionados con el registro y acceso de datos"

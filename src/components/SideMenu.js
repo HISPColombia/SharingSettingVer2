@@ -44,11 +44,11 @@ export default ({ sections, currentSection, onChangeSection, onChangeSearchText 
     };
     return (
         <div className="sidebar">
-            <Box sx={{ padding: 1 }}>
+            <Box sx={{ paddingTop:1,paddingLeft:2,paddingRight:5,paddingBottom:1 }}>
                 <TextField onChange={(e) => onChangeSearchText(e.target.value)} fullWidth={true} label={i18n.t("search")} variant="standard" />
             </Box>
             <Box
-                sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 520 }}
+                sx={{ flexGrow: 1, display: 'flex', height: '90%' }}
             >
 
                 <Tabs

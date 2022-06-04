@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-06-04T18:19:49.249Z\n"
-"PO-Revision-Date: 2022-06-04T18:19:49.249Z\n"
+"POT-Creation-Date: 2022-06-04T22:31:54.658Z\n"
+"PO-Revision-Date: 2022-06-04T22:31:54.658Z\n"
 
 msgid "Select at least one object, user or group"
 msgstr "Select at least one object, user or group"
@@ -74,6 +74,9 @@ msgstr "Close"
 msgid "Conventions"
 msgstr "Conventions"
 
+msgid "METADATA - privileges related to access"
+msgstr "METADATA - privileges related to access"
+
 msgid "No Access"
 msgstr "No Access"
 
@@ -82,6 +85,9 @@ msgstr "Can find and view"
 
 msgid "Can find, view and edit"
 msgstr "Can find, view and edit"
+
+msgid "DATA - Privileges related to data registration and access"
+msgstr "DATA - Privileges related to data registration and access"
 
 msgid "Individual mode"
 msgstr "Individual mode"

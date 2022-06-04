@@ -5,12 +5,12 @@ import i18n from './locales/index.js'
 import appTheme from './theme';
 
 //Components
-import ListSection from './data/listSections.json'
+import InitialListSection from './data/listSections.json'
 import Content from './components/Content'
 
 import SideMenu from './components/SideMenu';
 
-
+import {get,post} from './API/Dhis2'
 
 let currentSection;
 let sidebarRef;
@@ -38,7 +38,8 @@ class AppFront extends React.Component {
       sectionToRender: '',
       informationResource: {},
       textSearch: "",
-      hiddenSlide: true
+      hiddenSlide: true,
+      ListSection:{sections:[]}
     };
 
     this.changeSectionHandler = this.changeSectionHandler.bind(this);
@@ -58,7 +59,7 @@ class AppFront extends React.Component {
 
   //search resource on json file using the key
   setResourceSelected(keySelected) {
-    let resourceSelected = ListSection.sections.find(function (resource) {
+    let resourceSelected = this.state.ListSection.sections.find(function (resource) {
       return resource.label === keySelected;
     });
     this.setState(
@@ -73,20 +74,22 @@ class AppFront extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ sectionToRender: ListSection.sections[0].label, informationResource: ListSection.sections[0] });
-  }
 
-  storeRef(ref) {
-    sidebarRef = ref;
-  }
+    // if listsections.json is empty, get it from dhis2
+    get('/dataStore/sharingsettingapp/listSections').then(r => {
+        if(r.httpStatusCode=== 404){
+          console.log("ya no ingresa aquí")
+          this.setState({ ListSection: InitialListSection,sectionToRender: InitialListSection.sections[0].label, informationResource: InitialListSection.sections[0] });
+          post('/dataStore/sharingsettingapp/listSections', InitialListSection).then(r => {console.log(r)})
+        }
+        else{
+          this.setState({ ListSection: r,sectionToRender: r.sections[0].label, informationResource: r.sections[0] });
+        }
+      }).catch(error => {
+        console.log(error);
+      })
 
-  // // life cycle
-  // getChildContext() {
-  //   return {
-  //     d2: this.props.d2,
-  //     muiTheme: appTheme
-  //   };
-  // }
+  }
 
   disableSlide(mode) {
     if (mode == 'edit') {
@@ -96,11 +99,7 @@ class AppFront extends React.Component {
       this.setState({ hiddenSlide: true })
     }
   }
-  render() {
-    const d2 = this.props.d2;
-    const iconStyles = {
-      marginRight: 24,
-    };
+  render() { 
 
     return (
 
@@ -113,7 +112,7 @@ class AppFront extends React.Component {
           }
         <div className="app-wrapper">
           <SideMenu sections={
-            ListSection.sections.map((section) => {
+            this.state.ListSection.sections.map((section) => {
               let label = i18n.t(section.label)
               let key = section.label
               return ({ key, label })

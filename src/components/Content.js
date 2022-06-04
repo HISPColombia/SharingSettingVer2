@@ -196,7 +196,7 @@ class Content extends React.Component {
               actions={actions}
             >
               <div>
-              {i18n.t("METADATA: privileges related to access")}
+              {i18n.t("METADATA - privileges related to access")}
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
                   {i18n.t("No Access")}
@@ -212,7 +212,7 @@ class Content extends React.Component {
 
               </div>
               <div>
-              {i18n.t("DATA: Privileges related to data registration and access")}
+              {i18n.t("DATA - Privileges related to data registration and access")}
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
                   {i18n.t("No Access")}

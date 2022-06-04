@@ -9,13 +9,13 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import SelectField from '@mui/material/Select';
-import OptionSearch from '../data/listOptionSearch.json'
+import InitiallistOptionSearch from '../data/listOptionSearch.json'
 //Component
 import SearchTextBox from './SearchTextBox';
 //
 //dhis2
 import i18n from '../locales/index.js' 
-import {get} from '../API/Dhis2.js';
+import {get,post} from '../API/Dhis2.js';
 
 const styles = {
   container: {
@@ -28,7 +28,6 @@ const styles = {
   },
   titleColor: appTheme.palette.primary.settingOptions.title
 }
-const optionFilter = OptionSearch.options;
 class Filter extends React.Component {
 
 
@@ -40,13 +39,14 @@ class Filter extends React.Component {
         value: '',
         disabled: true,
         tooltipText: 'Select one filter option'
-      }
+      },
+      optionFilter:[]
     };
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    let vSelected = optionFilter.filter(val => val.value == event.target.value)
+    let vSelected = this.state.optionFilter.filter(val => val.value == event.target.value)
     this.setState({ value:event.target.value })
     if (vSelected.length >= 1)
       this.setState({ valueSelected: vSelected[0] })
@@ -72,6 +72,22 @@ class Filter extends React.Component {
         </MenuItem>
       )
     }
+  }
+
+  componentDidMount() {
+          // if listOptionSearch.json is empty, get it from dhis2
+          get('/dataStore/sharingsettingapp/listOptionSearch').then(r => {
+          if(r.httpStatusCode=== 404){
+            console.log("ya no ingresa aquí")
+            this.setState({ listOptionSearch: InitiallistOptionSearch,optionFilter: InitiallistOptionSearch.options });
+            post('/dataStore/sharingsettingapp/listOptionSearch', InitiallistOptionSearch).then(r => {console.log(r)})
+          }
+          else{
+            this.setState({ listOptionSearch: r,optionFilter: r.options });
+          }
+        }).catch(error => {
+          console.log(error);
+        })
   }
 
   async getResourceSelected(resource, urlAPI) {
@@ -137,7 +153,7 @@ class Filter extends React.Component {
                 id: 'uncontrolled-native',
               }}
             >
-              {optionFilter.map(this.renderOption, this)}
+              {this.state.optionFilter.map(this.renderOption, this)}
             </SelectField>
               
           </FormControl>
