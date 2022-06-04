@@ -8,245 +8,245 @@ msgstr ""
 "POT-Creation-Date: 2022-05-10T00:42:05.195Z\n"
 "PO-Revision-Date: 2022-05-10T00:42:05.195Z\n"
 
-msgid "LBL_DATA_ELEMENTS"
+msgid " DataElements"
 msgstr "DataElements"
 
 
-msgid "LABEL_LIST_OBJECTS"
+msgid " Objects type List"
 msgstr "Lista de tipos objetos"
 
-msgid "LABEL_LIST_PERMISSION"
+msgid " Object List of type"
 msgstr "Lista de objetos de tipo  "
 
-msgid "LBL_CATEGORY_OPTIONS"
+msgid " Category Options"
 msgstr "Opciones De Categoría"
 
-msgid "LBL_CATEGORY_COMBO"
+msgid " CategoryCombo"
 msgstr "Combo de Categoría"
 
-msgid "LBLSELECT_ELEMENTS"
+msgid " Select Elements"
 msgstr "Selecione Elementos"
 
-msgid "LABEL_EDIT"
+msgid " Edit"
 msgstr "Editar"
 
-msgid "LABEL_EDIT_VIEW"
+msgid " Edit_VIEW"
 msgstr "Editar - Ver"
 
-msgid "LABEL_NONE"
+msgid " None"
 msgstr "Ninguno"
 
-msgid "LABEL_ASIGN"
+msgid " Assign"
 msgstr "Asignar"
 
-msgid "LABEL_INDICATORS"
+msgid " Indicators"
 msgstr "Indicadores"
 
-msgid "LABEL_INDICATORS_GROUPS"
+msgid " Indicators groups"
 msgstr "Grupo de indicadores"
 
-msgid "LABEL_DATASETS"
+msgid " Data sets"
 msgstr "Data sets"
 
 msgid "LABEL_ORGANIZATION_UNIT_GROUPS"
 msgstr "Grupos de unidad organizativa"
 
-msgid "LABEL_OPTION_SETS"
+msgid " Option Sets"
 msgstr "Opciones fijadas"
 
-msgid "LABEL_ITEM"
+msgid " Items"
 msgstr "Elementos"
 
-msgid "OBJ_DATAELEMENT"
+msgid "Data Elements"
 msgstr "Elemento de datos"
 
-msgid "OBJ_DATAELEMENTGROUP"
+msgid "Data Element Groups"
 msgstr "Grupo de elemento de datos"
 
-msgid "OBJ_DATAELEMENTGROUPSETS"
+msgid "Data Element Groups Sets"
 msgstr "Set de grupos de elemento de datos"
 
-msgid "OBJ_CATEGORYOPTIONS"
+msgid "Category options"
 msgstr "Opciones de categoría"
 
-msgid "OBJ_CATEGORIES"
+msgid "Categories"
 msgstr "Categorias"
 
-msgid "OBJ_CATEGORYCOMBO"
+msgid "Category Combo"
 msgstr "Combo de categoría"
 
-msgid "OBJ_CATEGORYOPTIONCOMBOS"
+msgid "Category option combos"
 msgstr "Combo de opciones de categoria"
 
-msgid "OBJ_CATEGORYOPTIONGROUPS"
+msgid "Category Option Groups"
 msgstr "Grupos de opciones de categoria"
 
-msgid "OBJ_CATEGORYOPTIONGROUPSETS"
+msgid "Category option group sets"
 msgstr "Sets de grupos de opciones de categoria"
 
-msgid "OBJ_INDICATORS"
+msgid "Indicators"
 msgstr "Indicadores"
 
-msgid "OBJ_INDICATORSTYPES"
+msgid " Indicator types"
 msgstr "Tipos de indicadores"
 
-msgid "OBJ_INDICATORSGROUPS"
+msgid "Indicator groups"
 msgstr "Grupos de indicadores"
 
-msgid "OBJ_DATASETS"
+msgid "Data sets"
 msgstr "Set de datos"
 
-msgid "OBJ_ORGANISATIONUNITGROUPS"
+msgid "Organisation unit groups"
 msgstr "Grupos de unidad de organización"
 
-msgid "OBJ_ORGANISATIONUNITGROUPSSETS"
+msgid "Organisation unit groups sets"
 msgstr "Set de grupos de unidades de organización"
 
-msgid "OBJ_OPTIONSETS"
+msgid "Option sets"
 msgstr "Set de opciones"
 
-msgid "OBJ_USERGROUPS"
+msgid "User Groups"
 msgstr "Grupos de usuarios"
 
-msgid "OBJ_USERROLES"
+msgid "User Roles"
 msgstr "Roles de usuario"
 
-msgid "LABEL_USER"
+msgid "User"
 msgstr "Usuario"
 
-msgid "LABEL_READ"
+msgid "Can View"
 msgstr "Puede Ver"
 
-msgid "LABEL_READWRITE"
+msgid "Can Edit"
 msgstr "Puede Editar"
 
-msgid "LABEL_NONE"
+msgid " None"
 msgstr "Ninguno"
 
-msgid "LABEL_USERGROUP"
+msgid "User group"
 msgstr "Grupo de usuario"
 
-msgid "LABEL_USERPERMISIONS"
+msgid "User permision"
 msgstr "Permisos de usuario"
 
-msgid "LABEL_SELECTEDITEMS"
+msgid "Selected items"
 msgstr "Elementos Seleccionados"
 
-msgid "TAB_USERS"
+msgid "Watch Users"
 msgstr "Ver usuarios"
 
-msgid "TAB_ASIGNPERMISSIONS"
+msgid "Assign permisions"
 msgstr "Asignar permisos"
 
-msgid "TAB_ASIGNELEMENTS"
+msgid "Assign User Groups"
 msgstr "Asignar Grupo de Usuarios"
 
-msgid "TAB_VIEW_MODE"
+msgid "Individual mode"
 msgstr "Modo Individual"
 
-msgid "TAB_EDIT_MODE"
+msgid "Bulk mode"
 msgstr "Modo Multiple"
 
-msgid "LABEL_YES"
+msgid "Yes"
 msgstr "Si"
 
-msgid "LABEL_NO"
+msgid "No"
 msgstr "No"
 
-msgid "LABEL_SEARCH"
+msgid "Search"
 msgstr "Buscar"
 
-msgid "LABEL_DELETEUSERGROUPS"
+msgid "Delete user groups"
 msgstr "Eliminar grupo de usuarios"
 
-msgid "LABEL_WISHDELETEUSERGROUPS"
+msgid "Do you want to delete user groups?"
 msgstr "Desea elminar el grupo de usuarios"
 
-msgid "TAB_OBJECTS"
+msgid "Objects"
 msgstr "Objetos"
 
-msgid "LABEL_CLOSE"
+msgid "Close"
 msgstr "Cerrar"
 
-msgid "LABEL_CONVENTION"
+msgid "Convencion of colors"
 msgstr "Convención de colores"
 
-msgid "LABEL_PUBLICACCESS"
+msgid "Public Access"
 msgstr "Acceso publico"
 
-msgid "LABEL_EXTERNALACCESS"
+msgid "External"
 msgstr "Externo"
 
-msgid "LABEL_PERMISSIONS"
+msgid "Permissions"
 msgstr "Permisos"
 
-msgid "LABEL_SEARCHPROGRAMORDATASET"
+msgid "Filter objects related with:"
 msgstr "Filtrar objetos relacionados con:"
 
-msgid "LABEL_SEARCHPROGRAMS"
+msgid "Program"
 msgstr "programa"
 
-msgid "LABEL_SEARCHNAME"
+msgid " Search by name"
 msgstr "Buscar por nombre"
 
-msgid "LABEL_SELECTGROUP"
+msgid " Select group"
 msgstr "Seleccione grupo"
 
-msgid "LABEL_SELECTDATASET"
+msgid " Select data set"
 msgstr "Seleccione set de datos"
 
-msgid "LABEL_SEARCHDATASET"
+msgid "Data Set"
 msgstr "Set de Datos"
 
-msgid "LABEL_SELECTPROGRAM"
+msgid " Select program"
 msgstr "Seleccione  programa"
 
-msgid "LABEL_SEARCHPROGRAM"
+msgid "Program"
 msgstr "Programas"
 
-msgid "LABEL_SEARCHPROGRAMSTAGE"
+msgid "Program Stage"
 msgstr "Etapas de programa"
 
-msgid "LABEL_SEARCHDATAELEMENTGROUP"
+msgid "DataElement Groups"
 msgstr "Grupos de Elementos"
 
-msgid "LABEL_SEARCHGROUP"
+msgid "group"
 msgstr "Grupo"
 
-msgid "LABEL_SEARCHCATEGORIES"
+msgid "categories"
 msgstr "categorias"
 
-msgid "LABEL_NORESULTSFOUND"
+msgid "NoRESULTSFOUND"
 msgstr "No hay resultados"
 
-msgid "LABEL_SEARCHBY"
+msgid "Search by"
 msgstr "Buscar por"
 
-msgid "LABEL_FINDOPTIONS"
+msgid "Filter"
 msgstr "Filtrar"
 
-msgid "LABEL_FINDOPTIONS_SUB"
+msgid "Filter objects according to the type selected"
 msgstr "Filtrar objetos de acuerdo con el tipo seleccionado"
 
-msgid "LABEL_UPDATE_TOGGLE"
+msgid "Update Mode"
 msgstr "Modo Actualización"
 
-msgid "BUTTON_CLEAR"
+msgid "Clear"
 msgstr "Limpiar"
 
-msgid "LABEL_KEEPPERMISSIONS"
+msgid "Keep permissions"
 msgstr "Mantener permisos"
 
-msgid "LABEL_UPDATEPERMISSIONS"
+msgid "Update permissions"
 msgstr "Actualizar permisos"
 
-msgid "TAB_WHATDOYOUWANTTODO"
+msgid "What do you want to do?"
 msgstr "¿Que desea hacer ? "
 
-msgid "LABEL_SELECTALL"
+msgid "Apply to all user Groups Firtered"
 msgstr "Aplicar a todos los grupos de usuarios Filtrados"
 
-msgid "LABEL_CODE"
+msgid "Code"
 msgstr "Codigo"
 
 msgid "MESSAGE"
@@ -255,242 +255,242 @@ msgstr "Este elemento(s) fue Actualizado"
 msgid "ERROR"
 msgstr "Este elemento tuvo error"
 
-msgid "BUTTON_CLEAR_ALL"
+msgid "Clear all"
 msgstr "Limpiar todo"
 
-msgid "BUTTON_DELETE_ALL"
+msgid "Delete all user groups"
 msgstr "Eliminar grupos de usuario"
 
-msgid "LABEL_SEARCHUSERGROUP"
+msgid "User groups"
 msgstr "Grupo de usuarios"
 
-msgid "LABEL_SEARCHUSERGROUP2"
+msgid "Name"
 msgstr "Nombre "
 
-msgid "OBJ_LEGENDSETS"
+msgid "Legend Sets"
 msgstr "Set de leyendas"
 
-msgid "OBJ_CONSTANTS"
+msgid "Constants"
 msgstr "Constantes "
 
-msgid "OBJ_TRKATTRIBUTES"
+msgid "Tracker Attributes"
 msgstr "Atributos "
 
-msgid "OBJ_PROGRAMS"
+msgid "Programs"
 msgstr "Programas "
 
 msgid "BJ_PROGRAMINDOCATORS"
 msgstr "Indicadores de programa "
 
-msgid "OBJ_DASHBOARDS"
+msgid "Dashboards"
 msgstr "Dashboards "
 
-msgid "OBJ_MAPS"
+msgid "Maps"
 msgstr "Mapas "
 
-msgid "OBJ_EVENTREPORTS"
+msgid "Events Reports"
 msgstr "Reporte de eventos "
 
-msgid "OBJ_EVENTCHARTS"
+msgid "Events charts"
 msgstr "Graficas de Eventos "
 
-msgid "OBJ_REPORTTABLES"
+msgid "Pivot Tables"
 msgstr "Tablas Povite "
 
-msgid "OBJ_CHARTS"
+msgid "Agreggate chart"
 msgstr "Graficas de agregados "
 
-msgid "OBJ_SQLVIEWS"
+msgid "SQL Viev"
 msgstr "Vistas SQL"
 
-msgid "OBJ_RELATIONSHIP"
+msgid "Relationship type"
 msgstr "Tipos de relaciones"
 
-msgid "OBJ_TRACKEDENTITYTYPES"
+msgid "Tracked entity type"
 msgstr "Tipos de entidades"
 
-msgid "OBJ_PROGRAMSTAGE"
+msgid "Program Stages"
 msgstr "Etapas de programas"
 
-msgid "TABLE_NAME"
+msgid "Name"
 msgstr "Nombre"
 
-msgid "TABLE_PUBLICACCESS"
+msgid "Public Access"
 msgstr "Acceso público"
 
-msgid "TABLE_EXTERNALACCESS"
+msgid "External Access"
 msgstr "Acceso Externo"
 
-msgid "TABLE_SHARINGGROUP"
+msgid "Groups"
 msgstr "Grupos"
 
-msgid "TABLE_SHARINGUSER"
+msgid "Users"
 msgstr "Usuarios"
 
-msgid "CAN_EDIT"
+msgid "Can find, view and edit"
 msgstr "Puede encontrar ver y editar"
 
-msgid "CAN_VIEW"
+msgid "Can find and view"
 msgstr "Puede encontrar y ver"
 
-msgid "NO_ACCESS"
+msgid "No Access"
 msgstr "No hay acceso"
 
-msgid "STEP_1"
+msgid "Select the Object"
 msgstr "seleccione los objetos"
 
-msgid "STEP_2"
+msgid "Select the user and/or groups"
 msgstr "Seleccione los grupos y/o usuarios"
 
-msgid "STEP_3"
+msgid "Define the strategy to setting"
 msgstr "Defina la estrategia a aplicar"
 
-msgid "STEP_4"
+msgid "Summary"
 msgstr "Resumen"
 
-msgid "BTN_ASIGN_ALL"
+msgid " ASING All"
 msgstr "ASIGNAR TODO"
 
-msgid "BTN_REMOVE_ALL"
+msgid " REMOVE All"
 msgstr "REMOVER TODO"
 
-msgid "TABLE_USER_NAME"
+msgid " User"
 msgstr "Usuario"
 
-msgid "TABLE_METADATA_ACCESS"
+msgid " METADATA"
 msgstr " METADATOS"
 
-msgid "TABLE_DATA_ACCESS"
+msgid " DATA"
 msgstr "DATOS"
 
-msgid "TITLE_SEARCH_GROUP"
+msgid "Add users and user groups"
 msgstr "Adicionar usuarios y grupos de usuarios"
 
-msgid "LABEL_NOVALUE"
+msgid "<No value>"
 msgstr "<Sin filtrar>"
 
-msgid "LABEL_NOVALUE_TTT"
+msgid "Select one filter option"
 msgstr "Seleccione una opción del filtro"
 
-msgid "LABEL_SEARCHDATASET_TTT"
+msgid "Write dataset name here"
 msgstr "Escriba el nombre del dataset aquí"
 
-msgid "LABEL_SEARCHPROGRAM_TTT"
+msgid " Write program name here"
 msgstr "Escriba el nombre del programa aquí"
 
-msgid "LABEL_SEARCHPROGRAMSTAGE_TTT"
+msgid " Write programStage name here"
 msgstr "Escriba el nombre de la etapa del programa aquí"
 
-msgid "LABEL_SEARCHDATAELEMENTGROUP_TTT"
+msgid "Write DataElement group name here"
 msgstr "Escriba el noombre del grupo de elementos de datos aquí"
 
-msgid "LABEL_SEARCHUSERGROUP_TTT"
+msgid "Write user group name here"
 msgstr "Escriba el nombre del grupo de usuarios aquí"
 
-msgid "LABEL_SEARCHUSER_TTT"
+msgid "write user name here"
 msgstr "Escriba el nombre del usuario aquí"
 
-msgid "LABEL_SEARCHUSER"
+msgid "Users"
 msgstr "Usuarios"
 
-msgid "LABEL_SEARCHINDICATOR"
+msgid "Program indicators"
 msgstr "Indicadores de programas"
 
-msgid "LABEL_SEARCHINDICATOR_TTT"
+msgid "Write program indicator name here"
 msgstr "Escriba el nombre del indicadores de programas aquí"
 
-msgid "LABEL_CATEGORY"
+msgid "Category"
 msgstr "Categorias"
 
-msgid "LABEL_CATEGORYCOMBO"
+msgid "Category Combo"
 msgstr "Combinación de Caterogoría"
 
-msgid "LABEL_CATEGORYOPGROUPSET"
+msgid "Category option group set"
 msgstr "Set de opciones de categoría"
 
-msgid "LABEL_CATEGORYOPTIONGROUP"
+msgid "Category option group"
 msgstr "Grupo de opciones de categoría"
 
-msgid "LABEL_INDICATORGROUPS"
+msgid "Indicator group"
 msgstr "Grupo de Indicadores"
 
-msgid "LABEL_OUGROUPSET"
+msgid "OU group set"
 msgstr "Set de grupos de OU"
 
-msgid "LABEL_CATEGORY_TTT"
+msgid "Write category name here"
 msgstr "Escriba el nombre de una categoría aquí"
 
-msgid "LABEL_CATEGORYCOMBO_TTT"
+msgid "Write category Combo name here"
 msgstr "Escriba el nombre de una combinación de categoría aquí"
 
-msgid "LABEL_CATEGORYOPGROUPSET_TTT"
+msgid "Write category option group set name here"
 msgstr "Escriba el nombre de un set de opciones de categoría aquí"
 
-msgid "LABEL_CATEGORYOPTIONGROUP_TTT"
+msgid "Write category option group name here"
 msgstr "Escriba el nombre de un grupo de opciones de categoría aquí"
 
-msgid "LABEL_OUGROUPSET_TTT"
+msgid "Write name here"
 msgstr "Escriba el nombre de un Set de grupos de OU aquí"
 
-msgid "LABEL_INDICATORGROUPS_TTT"
+msgid "Write indicator group here"
 msgstr "Escriba el nombre del grupo de indicadores aquí"
 
-msgid "CN_CLOSE"
+msgid "Close"
 msgstr "Cerrar"
 
-msgid "CN_TITLE"
+msgid "Conventions"
 msgstr "Convenciones"
 
-msgid "CN_SUBTITLE_METADATA"
+msgid "METADATA: privileges related to access"
 msgstr "METADATOS: privilegios relacionados con el acceso  "
 
-msgid "CN_SUBTITLE_DATA"
+msgid "DATA: Privileges related to data registration and access"
 msgstr "DATOS: Privilegios relacionados con el registro de datos y su acceso"
 
-msgid "BTN_BACK"
+msgid "BACK"
 msgstr "ATRAS"
 
-msgid "BTN_NEXT"
+msgid " NEXT"
 msgstr "SIGUIENTE"
 
-msgid "BTN_CANCEL"
+msgid "CANCEL"
 msgstr "CANCELAR"
 
-msgid "BTN_CLOSE"
+msgid "CLOSE"
 msgstr "CERRAR"
 
-msgid "BTN_FINISH"
+msgid "FINISH"
 msgstr "FINALIZAR"
 
-msgid "BTN_SAVE"
+msgid "SAVE SETTING"
 msgstr "GUARDAR CONFIGURACIÓN"
 
-msgid "OPTION_OVERWRITE"
+msgid "Overwrite Sharing settings"
 msgstr "Sobrescribir configuración de uso compartido "
 
-msgid "OPTION_KEEP"
+msgid "Merge with current Sharing settings"
 msgstr "Unir con configuración de uso compartido actual"
 
-msgid "OPTION_PUBLICACCESS"
+msgid "Setting public Access"
 msgstr "Configurar acceso público"
 
-msgid "OPTION_EXTERNALACCESS"
+msgid "Setting external Access"
 msgstr "Configurar acceso externo"
 
-msgid "SUBTITLE_STRATEGY"
+msgid "Strategy to save Sharing Setting to all object selected"
 msgstr "Estrategia para guardar configuración de uso compartido sobre los objetos seleccionados "
 
-msgid "SUBTITLE_PUBLIC"
+msgid "Setting public and external access to all object selected"
 msgstr "Configuración de acceso público y externo sobre el uso compartido en los objetos seleccionados "
 
-msgid "MESSAGE_ERROR_SELECT_OBJECT"
+msgid " Select at least one object, user or group"
 msgstr "Seleccione al menos un objeto, usuario o grupo"
 
-msgid "MESSAGE_DISABLED_DATABUTTON"
+msgid "Not available for this type of object"
 msgstr "No disponible para este tipo de objeto"
 
-msgid "LABEL_NUMBER_OBJECT_UPDATED"
+msgid "Number of objects updated"
 msgstr "Numero de objetos actualizados"
 
-msgid "LABEL_NUMBER_OBJECT_NOUPDATED"
+msgid "Number of objects don't updated"
 msgstr "Numero de objetos no actualizados"

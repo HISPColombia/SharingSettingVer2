@@ -5,101 +5,128 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-05-23T01:40:26.675Z\n"
-"PO-Revision-Date: 2022-05-23T01:40:26.675Z\n"
+"POT-Creation-Date: 2022-06-04T18:19:49.249Z\n"
+"PO-Revision-Date: 2022-06-04T18:19:49.249Z\n"
 
-msgctxt "CLOSE"
-msgid "CN"
-msgstr "CN_CLOSE"
+msgid "Select at least one object, user or group"
+msgstr "Select at least one object, user or group"
 
-msgctxt "CLOSE"
-msgid "BTN"
-msgstr "BTN_CLOSE"
+msgid " ASING All"
+msgstr " ASING All"
 
-msgctxt "TITLE"
-msgid "CN"
-msgstr "CN_TITLE"
+msgid " REMOVE All"
+msgstr " REMOVE All"
 
-msgctxt "METADATA"
-msgid "CN_SUBTITLE"
-msgstr "CN_SUBTITLE_METADATA"
+msgid "Strategy to save Sharing Setting to all object selected"
+msgstr "Strategy to save Sharing Setting to all object selected"
 
-msgctxt "ACCESS"
-msgid "NO"
-msgstr "NO_ACCESS"
+msgid "Overwrite Sharing settings"
+msgstr "Overwrite Sharing settings"
 
-msgctxt "ACCESS"
-msgid "TABLE_METADATA"
-msgstr "TABLE_METADATA_ACCESS"
+msgid "Merge with current Sharing settings"
+msgstr "Merge with current Sharing settings"
 
-msgctxt "ACCESS"
-msgid "TABLE_DATA"
-msgstr "TABLE_DATA_ACCESS"
+msgid "Setting public and external access to all object selected"
+msgstr "Setting public and external access to all object selected"
 
-msgctxt "VIEW"
-msgid "CAN"
-msgstr "CAN_VIEW"
+msgid "Setting public Access"
+msgstr "Setting public Access"
 
-msgctxt "EDIT"
-msgid "CAN"
-msgstr "CAN_EDIT"
+msgid "Setting external Access"
+msgstr "Setting external Access"
 
-msgctxt "DATA"
-msgid "CN_SUBTITLE"
-msgstr "CN_SUBTITLE_DATA"
+msgid "Select the Object"
+msgstr "Select the Object"
 
-msgctxt "MODE"
-msgid "TAB_VIEW"
-msgstr "TAB_VIEW_MODE"
+msgid "Select the user and/or groups"
+msgstr "Select the user and/or groups"
 
-msgctxt "MODE"
-msgid "TAB_EDIT"
-msgstr "TAB_EDIT_MODE"
+msgid "Define the strategy to setting"
+msgstr "Define the strategy to setting"
 
-msgctxt "SEARCHNAME"
-msgid "LABEL"
-msgstr "LABEL_SEARCHNAME"
+msgid "Summary"
+msgstr "Summary"
 
-msgctxt "SEARCHPROGRAMORDATASET"
-msgid "LABEL"
-msgstr "LABEL_SEARCHPROGRAMORDATASET"
+msgid "Number of objects updated"
+msgstr "Number of objects updated"
 
-msgctxt "NAME"
-msgid "TABLE"
-msgstr "TABLE_NAME"
+msgid "Number of objects don't updated"
+msgstr "Number of objects don't updated"
 
-msgctxt "NAME"
-msgid "TABLE_USER"
-msgstr "TABLE_USER_NAME"
+msgid "FINISH"
+msgstr "FINISH"
 
-msgctxt "PUBLICACCESS"
-msgid "TABLE"
-msgstr "TABLE_PUBLICACCESS"
+msgid "CANCEL"
+msgstr "CANCEL"
 
-msgctxt "EXTERNALACCESS"
-msgid "TABLE"
-msgstr "TABLE_EXTERNALACCESS"
+msgid "BACK"
+msgstr "BACK"
 
-msgctxt "SHARINGGROUP"
-msgid "TABLE"
-msgstr "TABLE_SHARINGGROUP"
+msgid "SAVE SETTING"
+msgstr "SAVE SETTING"
 
-msgctxt "SHARINGUSER"
-msgid "TABLE"
-msgstr "TABLE_SHARINGUSER"
+msgid " NEXT"
+msgstr " NEXT"
 
-msgctxt "DATABUTTON"
-msgid "MESSAGE_DISABLED"
-msgstr "MESSAGE_DISABLED_DATABUTTON"
+msgid "Close"
+msgstr "Close"
 
-msgctxt "GROUP"
-msgid "TITLE_SEARCH"
-msgstr "TITLE_SEARCH_GROUP"
+msgid "Conventions"
+msgstr "Conventions"
+
+msgid "No Access"
+msgstr "No Access"
+
+msgid "Can find and view"
+msgstr "Can find and view"
+
+msgid "Can find, view and edit"
+msgstr "Can find, view and edit"
+
+msgid "Individual mode"
+msgstr "Individual mode"
+
+msgid "Bulk mode"
+msgstr "Bulk mode"
+
+msgid " Search by name"
+msgstr " Search by name"
+
+msgid "<No value>"
+msgstr "<No value>"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Public Access"
+msgstr "Public Access"
+
+msgid "External Access"
+msgstr "External Access"
+
+msgid "Groups"
+msgstr "Groups"
+
+msgid "Users"
+msgstr "Users"
+
+msgid "CLOSE"
+msgstr "CLOSE"
+
+msgid " User"
+msgstr " User"
+
+msgid " METADATA"
+msgstr " METADATA"
+
+msgid " DATA"
+msgstr " DATA"
+
+msgid "Not available for this type of object"
+msgstr "Not available for this type of object"
+
+msgid "Add users and user groups"
+msgstr "Add users and user groups"
 
 msgid "search"
 msgstr "search"
-
-msgid "STEP"
-msgid_plural "STEP"
-msgstr[0] ""
-msgstr[1] "STEP_2"

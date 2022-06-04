@@ -1,100 +1,100 @@
 {
     "options":[
         {
-          "code":"LABEL_NOVALUE",
+          "code":"<No value>",
           "value":"",
           "disabled":true,
-          "tooltipText":"LABEL_NOVALUE_TTT"
+          "tooltipText":"Select one filter option"
         },
         {
-          "code":"LABEL_SEARCHDATASET",
+          "code":"Data Set",
           "value":"dataSets",
           "disabled":false,
-          "tooltipText":"LABEL_SEARCHDATASET_TTT",
+          "tooltipText":"Write dataset name here",
           "filter":"?fields=dataSetElements"
         },
         {
-            "code":"LABEL_SEARCHPROGRAM",
+            "code":"Program",
             "value":"programs",
             "disabled":false,
-            "tooltipText":"LABEL_SEARCHPROGRAM_TTT",
+            "tooltipText":" Write program name here",
             "filter":"?fields=programTrackedEntityAttributes[trackedEntityAttribute[id]],programIndicators,programStages[id,programStageDataElements[dataElement]]"
         },
         {
-            "code":"LABEL_SEARCHPROGRAMSTAGE",
+            "code":"Program Stage",
             "value":"programStages",
             "disabled":false,
-            "tooltipText":"LABEL_SEARCHPROGRAMSTAGE_TTT",
+            "tooltipText":" Write programStage name here",
             "filter":"?fields=programStageDataElements[dataElement]"
         },
         {
-            "code":"LABEL_SEARCHDATAELEMENTGROUP",
+            "code":"DataElement Groups",
             "value":"dataElementGroups",
             "disabled":false,
-            "tooltipText":"LABEL_SEARCHDATAELEMENTGROUP_TTT",
+            "tooltipText":"Write DataElement group name here",
             "filter":"?fields=id,name,dataElements[id]"
         },
         {
-          "code":"LABEL_SEARCHINDICATOR",
+          "code":"Program indicators",
           "value":"programIndicators",
           "disabled":false,
-          "tooltipText":"LABEL_SEARCHINDICATOR_TTT",
+          "tooltipText":"Write program indicator name here",
           "filter":"?fields=expression"
       }, 
         {
-            "code":"LABEL_SEARCHUSERGROUP",
+            "code":"User groups",
             "value":"userGroups",
             "disabled":false,
-            "tooltipText":"LABEL_SEARCHUSERGROUP_TTT",
+            "tooltipText":"Write user group name here",
             "filter":"?fields=*"
         },
         {
-            "code":"LABEL_SEARCHUSER",
+            "code":"Users",
             "value":"users",
             "disabled":false,
-            "tooltipText":"LABEL_SEARCHUSER_TTT",
+            "tooltipText":"write user name here",
             "filter":"?fields=*"
         },
         {
-            "code":"LABEL_OUGROUPSET",
+            "code":"OU group set",
             "value":"organisationUnitGroupSets",
             "disabled":false,
-            "tooltipText":"LABEL_OUGROUPSET_TTT",
+            "tooltipText":"Write name here",
             "filter":"?fields=*"
         },
         {
-            "code":"LABEL_INDICATORGROUPS",
+            "code":"Indicator group",
             "value":"indicatorGroups",
             "disabled":false,
-            "tooltipText":"LABEL_INDICATORGROUPS_TTT",
+            "tooltipText":"Write indicator group here",
             "filter":"?fields=*"
         },
         {
-            "code":"LABEL_CATEGORYOPGROUPSET",
+            "code":"Category option group set",
             "value":"categoryOptionGroupSets",
             "disabled":false,
-            "tooltipText":"LABEL_CATEGORYOPGROUPSET_TTT",
+            "tooltipText":"Write category option group set name here",
             "filter":"?fields=*"
         },
         {
-            "code":"LABEL_CATEGORY",
+            "code":"Category",
             "value":"categories",
             "disabled":false,
-            "tooltipText":"LABEL_CATEGORY_TTT",
+            "tooltipText":"Write category name here",
             "filter":"?fields=*"
         },
         {
-            "code":"LABEL_CATEGORYOPTIONGROUP",
+            "code":"Category option group",
             "value":"categoryOptionGroup",
             "disabled":false,
-            "tooltipText":"LABEL_CATEGORYOPTIONGROUP_TTT",
+            "tooltipText":"Write category option group name here",
             "filter":"?fields=*"
         },
         {
-            "code":"LABEL_CATEGORYCOMBO",
+            "code":"Category Combo",
             "value":"categoryCombo",
             "disabled":false,
-            "tooltipText":"LABEL_CATEGORYCOMBO_TTT",
+            "tooltipText":"Write category Combo name here",
             "filter":"?fields=*"
         }
        

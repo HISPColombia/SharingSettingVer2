@@ -171,7 +171,7 @@ class Content extends React.Component {
   render() {
     const actions = [
       <Button
-        label={i18n.t("CN_CLOSE")}
+        label={i18n.t("Close")}
         primary={true}
         onClick={this.handleClose.bind(this)}
       />];
@@ -189,41 +189,41 @@ class Content extends React.Component {
             />
 
             <Dialog
-              title={i18n.t("CN_TITLE")}
+              title={i18n.t("Conventions")}
               modal={false}
               open={this.state.open}
               onRequestClose={this.handleClose.bind(this)}
               actions={actions}
             >
               <div>
-              {i18n.t("CN_SUBTITLE_METADATA")}
+              {i18n.t("METADATA: privileges related to access")}
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
-                  {i18n.t("NO_ACCESS")}
+                  {i18n.t("No Access")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDone />} />
-                  {i18n.t("CAN_VIEW")}
+                  {i18n.t("Can find and view")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDoneAll />} />
-                  {i18n.t("CAN_EDIT")}
+                  {i18n.t("Can find, view and edit")}
                 </Chip>
 
               </div>
               <div>
-              {i18n.t("CN_SUBTITLE_DATA")}
+              {i18n.t("DATA: Privileges related to data registration and access")}
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
-                  {i18n.t("NO_ACCESS")}
+                  {i18n.t("No Access")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDone />} />
-                  {i18n.t("CAN_VIEW")}
+                  {i18n.t("Can find and view")}
                 </Chip>
                 <Chip backgroundColor={styles.chips.color}>
                   <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDoneAll />} />
-                  {i18n.t("CAN_EDIT")}
+                  {i18n.t("Can find, view and edit")}
                 </Chip>
 
               </div>
@@ -241,8 +241,8 @@ class Content extends React.Component {
             value={this.state.mode}
             onChange={this.handleChangeTabs.bind(this)}
           >
-            <Tab label={i18n.t("TAB_VIEW_MODE")} value="view"/>    
-            <Tab label={i18n.t("TAB_EDIT_MODE")} value="edit"/>              
+            <Tab label={i18n.t("Individual mode")} value="view"/>    
+            <Tab label={i18n.t("Bulk mode")} value="edit"/>              
           </Tabs>
           <Box>
             <TabPanel value={this.state.mode} index={"view"}>

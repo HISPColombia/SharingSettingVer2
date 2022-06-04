@@ -226,9 +226,9 @@ class ListGroups extends React.Component {
             <TableHead displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
 
-                <TableCell columnNumber={2} style={styles.columnForMain} >{i18n.t("TABLE_USER_NAME")}</TableCell>
-                <TableCell style={styles.columnForEditButton}>{i18n.t("TABLE_METADATA_ACCESS")}</TableCell>
-                <TableCell style={styles.columnForEditButton}> {i18n.t("TABLE_DATA_ACCESS")}</TableCell>
+                <TableCell columnNumber={2} style={styles.columnForMain} >{i18n.t(" User")}</TableCell>
+                <TableCell style={styles.columnForEditButton}>{i18n.t(" METADATA")}</TableCell>
+                <TableCell style={styles.columnForEditButton}> {i18n.t(" DATA")}</TableCell>
                 <TableCell style={styles.columnForEditButton}></TableCell>
               </TableRow>
             </TableHead>
@@ -246,7 +246,7 @@ class ListGroups extends React.Component {
                       <TableCell><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableCell>
                       <TableCell style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableCell>
                       <TableCell style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={i18n.t("MESSAGE_DISABLED_DATABUTTON")} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"USERDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={i18n.t("Not available for this type of object")} />
                       </TableCell>
                       <TableCell style={styles.columnForEditButton}>
                       <Button
@@ -269,7 +269,7 @@ class ListGroups extends React.Component {
                       <TableCell><span style={{ textColor: styles.iconColor }}>{option.displayName}</span></TableCell>
                       <TableCell style={styles.columnForEditButton}> <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPMETADATA"} enabled={true} defaultValue={AccessMetadata} /> </TableCell>
                       <TableCell style={styles.columnForEditButton}>
-                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={i18n.t("MESSAGE_DISABLED_DATABUTTON")} />
+                      <SpecialButton id={option.id} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"GROUPDATA"} enabled={this.props.resource.sharingData} defaultValue={AccessData} title={i18n.t("Not available for this type of object")} />
                       </TableCell>
                       <TableCell style={styles.columnForEditButton}>
                       <Button
@@ -286,7 +286,7 @@ class ListGroups extends React.Component {
           <div style={styles.textBox}>
         <SearchTextBox 
         source={this.searchUserGroups.bind(this)} 
-        title={i18n.t("TITLE_SEARCH_GROUP")} 
+        title={i18n.t("Add users and user groups")} 
         callBackSelected={this.SelectUserOrGroup.bind(this)} 
         color={styles.iconColor}
         showValueSelected={false}  

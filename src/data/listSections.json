@@ -3,7 +3,7 @@
         {
             "key": "dataElement",
             "resource": "dataElements",
-            "label": "OBJ_DATAELEMENT",
+            "label": "Data Elements",
             "filters": "programs,programStages,dataElementGroups,programIndicators",
             "sharingData":false
         },
@@ -11,210 +11,210 @@
             "key": "dataElementGroup",
             "resource": "dataElementGroups",
             "filters": "dataElementGroupSets",
-            "label": "OBJ_DATAELEMENTGROUP",
+            "label": "Data Element Groups",
             "sharingData":false
         },
         {
             "key": "dataElementGroupSet",
             "resource": "dataElementGroupSets",
             "filters": "",
-            "label": "OBJ_DATAELEMENTGROUPSETS",
+            "label": "Data Element Groups Sets",
             "sharingData":false
         },
         {
             "key": "category",
             "resource": "categories",
             "filters": "categoryCombo",
-            "label": "OBJ_CATEGORIES",
+            "label": "Categories",
             "sharingData":false
         },
         {
             "key": "categoryOption",
             "resource": "categoryOptions",
             "filters": "categories,categoryOptionGroup",
-            "label": "OBJ_CATEGORYOPTIONS",
+            "label": "Category options",
             "sharingData":true
         },
         {
             "key": "categoryCombo",
             "resource": "categoryCombos",
             "filters": "",
-            "label": "OBJ_CATEGORYCOMBO",
+            "label": "Category Combo",
             "sharingData":false
         },
         {
             "key": "categoryOptionGroup",
             "resource": "categoryOptionGroups",
             "filters": "categoryOptionGroupSets",
-            "label": "OBJ_CATEGORYOPTIONGROUPS",
+            "label": "Category Option Groups",
             "sharingData":false
         },
         {
             "key": "categoryOptionGroupSet",
             "resource": "categoryOptionGroupSets",
             "filters": "",
-            "label": "OBJ_CATEGORYOPTIONGROUPSETS",
+            "label": "Category option group sets",
             "sharingData":false
         },
         {
             "key": "indicator",
             "resource": "indicators",
             "filters": "indicatorGroups",
-            "label": "OBJ_INDICATORS",
+            "label": "Indicators",
             "sharingData":false
         },
         {
             "key": "indicatorGroup",
             "resource": "indicatorGroups",
             "filters": "",
-            "label": "OBJ_INDICATORSGROUPS",
+            "label": "Indicator groups",
             "sharingData":false
         },
         {
             "key": "dataSet",
             "resource": "dataSets",
             "filters": "",
-            "label": "OBJ_DATASETS",
+            "label": "Data sets",
             "sharingData":true
         },
         {
             "key": "organisationUnitGroup",
             "resource": "organisationUnitGroups",
             "filters": "organisationUnitGroupSets",
-            "label": "OBJ_ORGANISATIONUNITGROUPS",
+            "label": "Organisation unit groups",
             "sharingData":false
         },
         {
             "key": "organisationUnitGroupSet",
             "resource": "organisationUnitGroupSets",
             "filters": "",
-            "label": "OBJ_ORGANISATIONUNITGROUPSSETS",
+            "label": "Organisation unit groups sets",
             "sharingData":false
         },
         {
             "key": "optionSet",
             "resource": "optionSets",
             "filters": "",
-            "label": "OBJ_OPTIONSETS",
+            "label": "Option sets",
             "sharingData":false
         },
         {
             "key": "userGroup",
             "resource": "userGroups",
             "filters": "",
-            "label": "OBJ_USERGROUPS",
+            "label": "User Groups",
             "sharingData":false
         },
         {
             "key": "userRole",
             "resource": "userRoles",
             "filters": "",
-            "label": "OBJ_USERROLES",
+            "label": "User Roles",
             "sharingData":false
         },
         {
             "key": "legendSet",
             "resource": "legendSets",
             "filters": "",
-            "label": "OBJ_LEGENDSETS",
+            "label": "Legend Sets",
             "sharingData":false
         },
         {
             "key": "constant",
             "resource": "constants",
             "filters": "",
-            "label": "OBJ_CONSTANTS",
+            "label": "Constants",
             "sharingData":false
         },
         {
             "key": "trackedEntityAttribute",
             "resource": "trackedEntityAttributes",
             "filters": "programs",
-            "label": "OBJ_TRKATTRIBUTES",
+            "label": "Tracker Attributes",
             "sharingData":false
         },
         {
             "key": "program",
             "resource": "programs",
             "filters": "",
-            "label": "OBJ_PROGRAMS",
+            "label": "Programs",
             "sharingData":true
         },
         {
             "key": "programStage",
             "resource": "programStages",
             "filters": "programs",
-            "label": "OBJ_PROGRAMSTAGE",
+            "label": "Program Stages",
             "sharingData":true
         },
         {
             "key": "programIndicator",
             "resource": "programIndicators",
             "filters": "programs",
-            "label": "OBJ_PROGRAMINDOCATORS",
+            "label": "Programs Indicators",
             "sharingData":false
         },
         {
             "key":"relationshipType",
             "resource":"relationshipTypes",
             "filters": "",
-            "label": "OBJ_RELATIONSHIP",
+            "label": "Relationship type",
             "sharingData":true
         },
         {
             "key":"trackedEntityType",
             "resource":"trackedEntityTypes",
             "filters": "",
-            "label": "OBJ_TRACKEDENTITYTYPES",
+            "label": "Tracked entity type",
             "sharingData":true
         },
         {
             "key": "dashboard",
             "resource": "dashboards",
             "filters": "",
-            "label": "OBJ_DASHBOARDS",
+            "label": "Dashboards",
             "sharingData":false
         },
         {
             "key": "map",
             "resource": "maps",
             "filters": "",
-            "label": "OBJ_MAPS",
+            "label": "Maps",
             "sharingData":false
         },
         {
             "key": "eventReport",
             "resource": "eventReports",
             "filters": "",
-            "label": "OBJ_EVENTREPORTS",
+            "label": "Events Reports",
             "sharingData":false
         },
         {
             "key": "eventChart",
             "resource": "eventCharts",
             "filters": "",
-            "label": "OBJ_EVENTCHARTS",
+            "label": "Events charts",
             "sharingData":false
         },
         {
             "key": "reportTable",
             "resource": "reportTables",
             "filters": "",
-            "label": "OBJ_REPORTTABLES",
+            "label": "Pivot Tables",
             "sharingData":false
         },
         {
             "key": "chart",
             "resource": "charts",
             "filters": "",
-            "label": "OBJ_CHARTS",
+            "label": "Agreggate chart",
             "sharingData":false
         },
         {
             "key": "sqlView",
             "resource": "sqlViews",
             "filters": "",
-            "label": "OBJ_SQLVIEWS",
+            "label": "SQL Viev",
             "sharingData":false
         }
     ]

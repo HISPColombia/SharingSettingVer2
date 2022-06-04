@@ -141,9 +141,9 @@ class IndividualMode extends React.Component {
   //methods
   resolveAccessMessage(access, type) {
     const publicAccessStatus = {
-      "rw": "CAN_EDIT",
-      "r-": "CAN_VIEW",
-      "--": "NO_ACCESS",
+      "rw": "Can find, view and edit",
+      "r-": "Can find and view",
+      "--": "No Access",
     }
     try {
       let metaDataAccess = access[0] + access[1];
@@ -155,7 +155,7 @@ class IndividualMode extends React.Component {
         return publicAccessStatus[metaDataAccess];
       }
     } catch (er) {
-      return "NO_ACCESS"
+      return "No Access"
     }
   }
   renderResultInTable() {
@@ -180,7 +180,7 @@ class IndividualMode extends React.Component {
       if (((row.displayName.includes(this.props.searchByName) == true) && (this.props.filterString.includes(row.id) == true || this.props.filterString == "")))
         return (<TableRow key={keysCount}>
           <TableCell style={styles.tablerow}>{row.displayName}</TableCell >
-          <TableCell style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "CAN_EDIT" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "CAN_VIEW" ? <ActionDone /> : <None />}</TableCell >
+          <TableCell style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "Can find, view and edit" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "Can find and view" ? <ActionDone /> : <None />}</TableCell >
           <TableCell style={styles.tablerow}>{row.externalAccess ? <ActionDone /> : <None />}</TableCell >
           <TableCell style={styles.tablerow}>
 
@@ -246,11 +246,11 @@ class IndividualMode extends React.Component {
             
             <TableHead displaySelectAll={false} adjustForCheckbox={this.props.Enabledchecked}>
               <TableRow>
-                <TableCell >{i18n.t("TABLE_NAME")}</TableCell >
-                <TableCell >{i18n.t("TABLE_PUBLICACCESS")}</TableCell >
-                <TableCell >{i18n.t("TABLE_EXTERNALACCESS")}</TableCell >
-                <TableCell style={styles.buttonGroup}>{i18n.t("TABLE_SHARINGGROUP")}</TableCell >
-                <TableCell style={styles.buttonGroup}>{i18n.t("TABLE_SHARINGUSER")}</TableCell >
+                <TableCell >{i18n.t("Name")}</TableCell >
+                <TableCell >{i18n.t("Public Access")}</TableCell >
+                <TableCell >{i18n.t("External Access")}</TableCell >
+                <TableCell style={styles.buttonGroup}>{i18n.t("Groups")}</TableCell >
+                <TableCell style={styles.buttonGroup}>{i18n.t("Users")}</TableCell >
                 <TableCell style={styles.buttonMore}></TableCell >
               </TableRow>
             </TableHead >
@@ -274,7 +274,7 @@ class IndividualMode extends React.Component {
             onRequestClose={this.handleClose.bind(this)}
           >
             <DialogTitle id="alert-dialog-title">
-              {i18n.t("STEP_2")}
+              {i18n.t("Select the user and/or groups")}
             </DialogTitle>
             <DialogContent>
               <div style={{ marginTop: 12, textAlign: 'center', color: "Red", position: "relative" }}>
@@ -287,7 +287,7 @@ class IndividualMode extends React.Component {
               <Button
                 onClick={this.handleClose.bind(this)}
                 variant="contained"              >
-                {i18n.t("BTN_CLOSE")}
+                {i18n.t("CLOSE")}
                 </Button>
             </DialogActions>
           </Dialog>

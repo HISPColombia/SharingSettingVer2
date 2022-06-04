@@ -36,10 +36,10 @@ class Filter extends React.Component {
     super(props);
     this.state = {
       value: 'name', valueSelected: {
-        code: 'LABEL_NOVALUE',
+        code: '<No value>',
         value: '',
         disabled: true,
-        tooltipText: 'LABEL_NOVALUE_TTT'
+        tooltipText: 'Select one filter option'
       }
     };
     this.handleChange = this.handleChange.bind(this);
@@ -115,7 +115,7 @@ class Filter extends React.Component {
         <div style={styles.item}>
           <TextField
             fullWidth={true}
-            label={i18n.t('LABEL_SEARCHNAME')}
+            label={i18n.t(' Search by name')}
             variant="standard"
             onChange={this.handleChangeValue.bind(this)}
           />
@@ -124,16 +124,16 @@ class Filter extends React.Component {
         <Box sx={{ minWidth: 120 }}>
           <FormControl variant="standard" fullWidth>
             <InputLabel id="selectfilter">
-                {i18n.t('LABEL_SEARCHPROGRAMORDATASET')}
+                {i18n.t('Filter objects related with:')}
             </InputLabel>
             <SelectField
               labelId="selectfilter"
-              defaultValue={this.props.filterAvailable.filters === ""||this.props.filterAvailable.filters===undefined?i18n.t("LABEL_NOVALUE"):i18n.t(this.props.filterAvailable.filters.split(',')[0])}
+              defaultValue={this.props.filterAvailable.filters === ""||this.props.filterAvailable.filters===undefined?i18n.t("<No value>"):i18n.t(this.props.filterAvailable.filters.split(',')[0])}
               value={this.state.value}
               onChange={this.handleChange}              
               disabled={this.props.filterAvailable.filters == "" ? true : false}
               inputProps={{
-                name: i18n.t('LABEL_SEARCHPROGRAMORDATASET'),
+                name: i18n.t('Filter objects related with:'),
                 id: 'uncontrolled-native',
               }}
             >

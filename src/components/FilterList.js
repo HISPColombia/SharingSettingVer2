@@ -51,7 +51,7 @@ class Filter extends React.Component {
     return (
       <section style={styles.container}>
         <div style={styles.item}>
-          {this.props.d2.i18n.getTranslation('LABEL_SEARCHNAME')}
+          {this.props.d2.i18n.getTranslation(' Search by name')}
         </div>
 
         <div style={styles.icon}>

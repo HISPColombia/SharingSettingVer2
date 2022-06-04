@@ -221,7 +221,7 @@ class BulkMode extends React.Component {
       });
     }
     else {
-      this.setState({ messajeError: i18n.t("MESSAGE_ERROR_SELECT_OBJECT") });
+      this.setState({ messajeError: i18n.t("Select at least one object, user or group") });
     }
   };
 
@@ -426,11 +426,11 @@ class BulkMode extends React.Component {
             <div style={styles.containterList}>
 
               <div style={styles.ButtonLeftAling}>
-                <Button onClick={this.handleSelectAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}  variant="outlined">{i18n.t("BTN_ASIGN_ALL") + "→"}</Button>
+                <Button onClick={this.handleSelectAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}  variant="outlined">{i18n.t(" ASING All") + "→"}</Button>
               </div>
               <div style={styles.ItemMiddleButton}>  </div>
               <div style={styles.ButtonRightAling}>
-                <Button onClick={this.handleRemoveAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} variant="outlined">{i18n.t("BTN_REMOVE_ALL") + "←"}</Button>
+                <Button onClick={this.handleRemoveAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} variant="outlined">{i18n.t(" REMOVE All") + "←"}</Button>
               </div>
               <div style={styles.ItemMiddleButton}></div>
             </div>
@@ -451,17 +451,17 @@ class BulkMode extends React.Component {
               </div>
               <div style={styles.ItemsStrategy}>
                 <Paper style={styles.papers}>
-                  <div style={styles.subtitles}>{i18n.t("SUBTITLE_STRATEGY")}</div>
+                  <div style={styles.subtitles}>{i18n.t("Strategy to save Sharing Setting to all object selected")}</div>
                   <Divider />
                   <div style={styles.bodypaper}>
                     <Switch
-                      label={i18n.t("OPTION_OVERWRITE")}
+                      label={i18n.t("Overwrite Sharing settings")}
                       defaultchecked={true}
                       onChange={() => this.handleTogle("overwrite")}
                       checked={(this.state.togSelected == "overwrite" ? true : false)}
                     />
                     <Switch
-                      label={i18n.t("OPTION_KEEP")}
+                      label={i18n.t("Merge with current Sharing settings")}
                       onChange={() => this.handleTogle("keep")}
                       checked={(this.state.togSelected == "keep" ? true : false)}
                     />
@@ -469,11 +469,11 @@ class BulkMode extends React.Component {
                 </Paper>
               </div>
               <Paper style={styles.papers}>
-                <div style={styles.subtitles}>{i18n.t("SUBTITLE_PUBLIC")}</div>
+                <div style={styles.subtitles}>{i18n.t("Setting public and external access to all object selected")}</div>
                 <Divider />
                 <div style={styles.ItemsStrategy}>
                   <div style={styles.bodypaper2}>
-                    <div style={styles.ItemsStrategy}>{i18n.t("OPTION_PUBLICACCESS")}</div>
+                    <div style={styles.ItemsStrategy}>{i18n.t("Setting public Access")}</div>
 
                     <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
                   </div>
@@ -481,7 +481,7 @@ class BulkMode extends React.Component {
                 <div style={styles.SwitchExternal}>
 
                   <Switch
-                    label={i18n.t("OPTION_EXTERNALACCESS")}
+                    label={i18n.t("Setting external Access")}
                     onChange={() => this.handleExternalAccess()}
                     checked={(this.state.ExternalAccess)}
                   />
@@ -512,24 +512,24 @@ class BulkMode extends React.Component {
       <div style={{ width: '100%', maxWidth: '90%', margin: 'auto' }}>
         <Stepper activeStep={stepIndex}>
           <Step>
-            <StepLabel>{i18n.t("STEP_1")}</StepLabel>
+            <StepLabel>{i18n.t("Select the Object")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{i18n.t("STEP_2")}</StepLabel>
+            <StepLabel>{i18n.t("Select the user and/or groups")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{i18n.t("STEP_3")}</StepLabel>
+            <StepLabel>{i18n.t("Define the strategy to setting")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{i18n.t("STEP_4")}</StepLabel>
+            <StepLabel>{i18n.t("Summary")}</StepLabel>
           </Step>
         </Stepper>
         <div style={contentStyle}>
           {finished ? (
             <div>
-              {i18n.t("LABEL_NUMBER_OBJECT_UPDATED")} : <span style={{ "fontWeight": "bold" }}><Avatar>{this.state.messajeSuccessful.numImported}</Avatar></span>
+              {i18n.t("Number of objects updated")} : <span style={{ "fontWeight": "bold" }}><Avatar>{this.state.messajeSuccessful.numImported}</Avatar></span>
               <br />
-              {i18n.t("LABEL_NUMBER_OBJECT_NOUPDATED")} : <span style={{ "fontWeight": "bold" }}> <Avatar  backgroundColor={styles.errorMessaje.color}>{this.state.messajeSuccessful.numNoImported}</Avatar></span>
+              {i18n.t("Number of objects don't updated")} : <span style={{ "fontWeight": "bold" }}> <Avatar  backgroundColor={styles.errorMessaje.color}>{this.state.messajeSuccessful.numNoImported}</Avatar></span>
            
               <br />
               <div style={styles.divConcentTable}>
@@ -551,7 +551,7 @@ class BulkMode extends React.Component {
                   primary={true}
                   onClick={this.exitEditMode.bind(this)}
                 >
-                  {i18n.t("BTN_FINISH")}
+                  {i18n.t("FINISH")}
                 </Button>
               </div>
 
@@ -569,14 +569,14 @@ class BulkMode extends React.Component {
                     disabled={stepIndex === 3}
                     onClick={() => this.exitEditMode()}
                   >
-                    {i18n.t("BTN_CANCEL")}
+                    {i18n.t("CANCEL")}
                     </Button>
                   <Button
                     disabled={stepIndex === 0 || stepIndex === 3}
                     onClick={this.handlePrev.bind(this)}
                     style={{ marginRight: 12 }}
                   >
-                    {i18n.t("BTN_BACK")}
+                    {i18n.t("BACK")}
                   </Button>
                   <Button
                     primary={true}
@@ -584,7 +584,7 @@ class BulkMode extends React.Component {
                     onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
                     variant="contained"
                   >
-                    {stepIndex === 2 ? i18n.t("BTN_SAVE") : i18n.t("BTN_NEXT")}
+                    {stepIndex === 2 ? i18n.t("SAVE SETTING") : i18n.t(" NEXT")}
                     </Button>
                 </div>
               </div>
