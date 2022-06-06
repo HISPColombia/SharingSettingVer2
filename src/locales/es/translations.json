@@ -153,5 +153,7 @@
     " Select at least one object, user or group": "Seleccione al menos un objeto, usuario o grupo",
     "Not available for this type of object": "No disponible para este tipo de objeto",
     "Number of objects updated": "Numero de objetos actualizados",
-    "Number of objects don't updated": "Numero de objetos no actualizados"
+    "Number of objects don't updated": "Numero de objetos no actualizados",
+    "METADATA - privileges related to access": "METADATA - privilegios relacionados con el acceso",
+    "DATA - Privileges related to data registration and access": "DATA - privilegios relacionados con el registro y acceso de datos"
 }

@@ -1,4 +1,4 @@
-const DHIS2_URL = window.location.origin.split(":")[2] === '3000' ? "http://localhost/api" : window.location.href.split("/apps")[0] + "/"
+const DHIS2_URL = window.location.origin.split(":")[2] === '3000' ? "http://localhost/api" : window.location.href.split("/apps")[0]
 
 
 export function post(url, body){

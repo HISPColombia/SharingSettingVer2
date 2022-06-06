@@ -76,7 +76,7 @@ class Content extends React.Component {
     let result = {};
 
      try {
-      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&page="+page);
+      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&page="+page+(this.state.searchByName===""?"":"&filter=displayName:like:"+this.state.searchByName));
       if (res.hasOwnProperty(urlAPI)) {
         return res;
       }
@@ -149,8 +149,8 @@ class Content extends React.Component {
   //handle filter
     //handler
     handlefilterTextChange(textSearch) {
-      this.setState({ searchByName: textSearch });
-  
+      this.setState({ searchByName: textSearch }); 
+      this.handleChangeTabs(undefined,this.state.mode) 
     }
     getFilterSelected(filterValue){
       if(Object.keys(filterValue).length!=0)
