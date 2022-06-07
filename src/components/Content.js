@@ -9,7 +9,7 @@ import {get} from '../API/Dhis2.js';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/system';
+import { Box } from '@mui/system';Filter
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
@@ -23,6 +23,8 @@ import Help from '@mui/icons-material/Help';
 
 //dhis2
 import i18n from '../locales/index.js' 
+
+import jsonpath from 'jsonpath';
 
 // Styles
 require('../scss/app.scss');
@@ -66,7 +68,7 @@ class Content extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { searchByName:"",filterString:"",open: false, mode: "view", listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, currentPage: 1 }
+    this.state = { searchByName:"",filterids:"",filterString:"",open: false, mode: "view", listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, currentPage: 1 }
   }
 
   //API Query
@@ -76,7 +78,7 @@ class Content extends React.Component {
     let result = {};
 
      try {
-      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&page="+page+(this.state.searchByName===""?"":"&filter=displayName:like:"+this.state.searchByName));
+      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&page="+page+(this.state.searchByName===""?"":"&filter=displayName:like:"+this.state.searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
       if (res.hasOwnProperty(urlAPI)) {
         return res;
       }
@@ -152,9 +154,12 @@ class Content extends React.Component {
       this.setState({ searchByName: textSearch }); 
       this.handleChangeTabs(undefined,this.state.mode) 
     }
-    getFilterSelected(filterValue){
-      if(Object.keys(filterValue).length!=0)
-        this.setState({filterString:JSON.stringify(filterValue)})
+    getFilterSelected(filterValue, filter){
+      if(Object.keys(filterValue).length!=0){
+        let arrid=jsonpath.query(filterValue,filter.expression);
+        this.setState({filterString:JSON.stringify(filterValue),filterids:JSON.stringify(arrid).replace(/['"]+/g, '')})
+        this.handleChangeTabs(undefined,this.state.mode);
+      }
       else  
         this.setState({filterString:""})
     }

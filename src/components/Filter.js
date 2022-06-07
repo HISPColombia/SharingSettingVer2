@@ -119,7 +119,7 @@ class Filter extends React.Component {
 
   selectOption(valueSelected) {
     this.filterOption(this.state.valueSelected.filter, this.state.valueSelected.value, valueSelected.id).then(rawData => {
-      this.props.handleReturnFilterSelected(rawData)
+      this.props.handleReturnFilterSelected(rawData,this.state.valueSelected)
     })
   }
   handleChangeValue(event) {
