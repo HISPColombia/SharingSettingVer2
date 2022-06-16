@@ -78,7 +78,7 @@ class Content extends React.Component {
     let result = {};
 
      try {
-      let res = await get('/' + urlAPI + "?fields=id,code,displayName,externalAccess,publicAccess,userGroupAccesses,userAccesses&page="+page+(this.state.searchByName===""?"":"&filter=displayName:like:"+this.state.searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
+      let res = await get('/' + urlAPI + "?fields=id,code,name,displayName,externalAccess,publicAccess,userGroupAccesses[id,access,displayName~rename(name),userGroupUid],userAccesses[id,access,displayName~rename(name),userUid]&page="+page+(this.state.searchByName===""?"":"&filter=identifiable:token:"+this.state.searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
       if (res.hasOwnProperty(urlAPI)) {
         return res;
       }

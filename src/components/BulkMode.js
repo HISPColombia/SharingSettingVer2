@@ -22,7 +22,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 //Component
 import ListSelect from './ListSelect.component';
 import appTheme from '../theme';
-import ListGroups from './ListGroups';
+import IndividualSharingSetting from './IndividualSharingSetting';
 import SpecialButton from './SpecialButton';
 //dhis2
 import i18n from '../locales/index.js'
@@ -439,7 +439,7 @@ class BulkMode extends React.Component {
         )
       case 1:
         return (
-          <ListGroups d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
+          <IndividualSharingSetting d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
         )
 
       case 2:

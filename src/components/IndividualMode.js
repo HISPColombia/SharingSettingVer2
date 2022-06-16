@@ -23,7 +23,11 @@ import appTheme from '../theme';
 import i18n from '../locales/index.js'
 import { post } from '../API/Dhis2.js';
 
-import ListGroups from './ListGroups';
+import IndividualSharingSetting from './IndividualSharingSetting';
+import {SharingDialog} from '@dhis2-ui/sharing-dialog'
+
+import {CustomDataProvider} from '@dhis2/app-runtime';
+
 const styles = {
   header: {
     fontSize: 24,
@@ -108,8 +112,7 @@ class IndividualMode extends React.Component {
   }
 
   handleOpen(data) {
-
-    this.setState({ openModal: true, userAndGroupsSelected: data });
+     this.setState({ openModal: true, userAndGroupsSelected: data });
   };
 
   handleClose() {
@@ -177,7 +180,7 @@ class IndividualMode extends React.Component {
       else
         var lastUS = "";
       //filter by name ir by filter selected
-      if (((row.displayName.includes(this.props.searchByName) == true) && (this.props.filterString.includes(row.id) == true || this.props.filterString == "")))
+      //if (((row.displayName.includes(this.props.searchByName) == true) && (this.props.filterString.includes(row.id) == true || this.props.filterString == "")))
         return (<TableRow key={keysCount}>
           <TableCell style={styles.tablerow}>{row.displayName}</TableCell >
           <TableCell style={styles.tablerow}>{funResolvMessage(row.publicAccess, "metadata") == "Can find, view and edit" ? <ActionDoneAll /> : funResolvMessage(row.publicAccess, "metadata") == "Can find and view" ? <ActionDone /> : <None />}</TableCell >
@@ -194,7 +197,7 @@ class IndividualMode extends React.Component {
                     {ug.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
                     {ug.access[3] == "w" ? <ActionDoneAll /> : ug.access[2] == "r" ? <ActionDone /> : <None />}
                   </div>
-                  <div>{ug.displayName}</div>
+                  <div>{ug.name}</div>
                   {lastUG != ug.id ? <Divider /> : ""}
                 </div>)
             })
@@ -211,7 +214,7 @@ class IndividualMode extends React.Component {
                     {us.access[1] == "w" ? <ActionDoneAll /> : <ActionDone />}
                     {us.access[3] == "w" ? <ActionDoneAll /> : us.access[2] == "r" ? <ActionDone /> : <None />}
                   </div>
-                  <div>{us.displayName}</div>
+                  <div>{us.name}</div>
                   {lastUS != us.id ? <Divider /> : ""}
                 </div>)
             })
@@ -226,6 +229,7 @@ class IndividualMode extends React.Component {
 
 
   }
+
   render() {
     return (
       <div>
@@ -268,21 +272,20 @@ class IndividualMode extends React.Component {
             onPageChange={this.handleChangePage}
             onRowsPerPageChange={this.handleChangeRowsPerPage}
           />
-          <Dialog
+           {/* <Dialog
             modal={false}
             open={this.state.openModal}
             onRequestClose={this.handleClose.bind(this)}
-          >
-            <DialogTitle id="alert-dialog-title">
+          > 
+             <DialogTitle id="alert-dialog-title">
               {i18n.t("Select the user and/or groups")}
-            </DialogTitle>
-            <DialogContent>
-              <div style={{ marginTop: 12, textAlign: 'center', color: "Red", position: "relative" }}>
+            </DialogTitle> 
+            <DialogContent> 
+               <div style={{ marginTop: 12, textAlign: 'center', color: "Red", position: "relative" }}>
                 <p>{this.state.messajeError}</p>
-              </div>
-              <ListGroups GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
-
-            </DialogContent>
+              </div> 
+               <IndividualSharingSetting GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} /> 
+                           </DialogContent>
             <DialogActions>
               <Button
                 onClick={this.handleClose.bind(this)}
@@ -290,7 +293,83 @@ class IndividualMode extends React.Component {
                 {i18n.t("CLOSE")}
                 </Button>
             </DialogActions>
-          </Dialog>
+          </Dialog>  */}
+              <CustomDataProvider
+              data={{
+                  sharing: {
+                      meta: {
+                          allowExternalAccess: true,
+                          allowPublicAccess: true
+                      },
+                      object: {
+                          displayName: this.state.userAndGroupsSelected.displayName,
+                          externalAccess: this.state.userAndGroupsSelected.externalAccess,
+                          id: this.state.userAndGroupsSelected.id,
+                          name: this.state.userAndGroupsSelected.name,
+                          publicAccess: this.state.userAndGroupsSelected.publicAccess,
+                          userAccesses: [
+                              {
+                                  access: 'rw------',
+                                  id: 'user-1',
+                                  name: 'Kvist'
+                              }
+                          ],
+                          userGroupAccesses: [
+                              {
+                                  access: 'r-------',
+                                  id: 'group-1',
+                                  name: 'Trolls'
+                              }
+                          ]
+                      }                     
+                  },
+                  'sharing/search': {
+                      userGroups: [
+                          {
+                              displayName: 'Administrators',
+                              id: 'wl5cDMuUhmF',
+                              name: 'Administrators'
+                          },
+                          {
+                              displayName: 'System administrators',
+                              id: 'lFHP5lLkzVr',
+                              name: 'System administrators'
+                          },
+                          {
+                              displayName: '_DATASET_System administrator (ALL)',
+                              id: 'zz6XckBrLlj',
+                              name: '_DATASET_System administrator (ALL)'
+                          },
+                          {
+                              displayName: '_PROGRAM_MNCH / PNC (Adult Woman) program',
+                              id: 'vRoAruMnNpB',
+                              name: '_PROGRAM_MNCH / PNC (Adult Woman) program'
+                          },
+                          {
+                              displayName: '_PROGRAM_System administrator (ALL)',
+                              id: 'pBnkuih0c1K',
+                              name: '_PROGRAM_System administrator (ALL)'
+                          }
+                      ],
+                      users: [
+                          {
+                              displayName: 'John Traore',
+                              id: 'xE7jOejl9FI',
+                              name: 'John Traore'
+                          }
+                      ]
+                  }
+              }}
+          >
+          {this.state.userAndGroupsSelected.id !== undefined && this.state.openModal && (
+                          <SharingDialog id="sharing-test" onClose={()=>this.handleClose()} show={false} type="visualization" />
+
+            )}
+        </CustomDataProvider>
+              
+               
+              
+
 
         </div>
       </div>

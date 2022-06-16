@@ -10,7 +10,7 @@ export default function ListSelect(props) {
         }
     }
     var options = props.source.map(function (item) {
-        if (((item.label.includes(props.searchByName) == true) && (props.filterString.includes(item.value)==true || props.filterString=="")))
+        //if (((item.label.includes(props.searchByName) == true) && (props.filterString.includes(item.value)==true || props.filterString=="")))
             return React.createElement(
                 'option',
                 {
