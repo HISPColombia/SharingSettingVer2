@@ -9,7 +9,7 @@ import {get} from '../API/Dhis2.js';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import { Box } from '@mui/system';Filter
+import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
 import Dialog from '@mui/material/Dialog';
@@ -252,25 +252,26 @@ class Content extends React.Component {
           <Box>
             <TabPanel value={this.state.mode} index={"view"}>
                  <IndividualMode 
-              resource={this.props.informationResource} 
-              Enabledchecked={false}
-              listObject={this.state.listObject}
-              pager={this.state.pager}
-              currentPage={this.state.currentPage}
-              handleChangeTabs={this.handleChangeTabs.bind(this)}
-              searchByName={this.state.searchByName}
-              filterString={this.state.filterString}
+                  resource={this.props.informationResource} 
+                  Enabledchecked={false}
+                  listObject={this.state.listObject}
+                  pager={this.state.pager}
+                  currentPage={this.state.currentPage}
+                  handleChangeTabs={this.handleChangeTabs.bind(this)}
+                  searchByName={this.state.searchByName}
+                  filterString={this.state.filterString}
 
               />
             </TabPanel>
             <TabPanel value={this.state.mode} index={"edit"}>
               <BulkMode 
-              resource={this.props.informationResource} 
-              listObject={this.state.listObject}
-              pager={this.state.pager}
-              searchByName={this.state.searchByName}
-              filterString={this.state.filterString}
-              handleChangeTabs={this.handleChangeTabs.bind(this)}
+                resource={this.props.informationResource} 
+                listObject={this.state.listObject}
+                pager={this.state.pager}
+                currentPage={this.state.currentPage}
+                searchByName={this.state.searchByName}
+                filterString={this.state.filterString}
+                handleChangeTabs={this.handleChangeTabs.bind(this)}
               />
             </TabPanel>
             

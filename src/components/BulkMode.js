@@ -3,6 +3,8 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Switch from '@mui/material/Switch';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -13,7 +15,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-
+//dhis2
+import {CustomDataProvider} from '@dhis2/app-runtime';
+import { Transfer } from '@dhis2-ui/transfer';
+import {SharingDialog} from './sharing-dialog';
 
 import Avatar from '@mui/material/Avatar';
 
@@ -25,7 +30,7 @@ import appTheme from '../theme';
 import IndividualSharingSetting from './IndividualSharingSetting';
 import SpecialButton from './SpecialButton';
 //dhis2
-import i18n from '../locales/index.js'
+import i18n from '../locales/index.js';
 import { post } from '../API/Dhis2.js';
 
 
@@ -41,14 +46,21 @@ const styles = {
     overflowX: 'auto'
   },
   containterList: {
+    margin:20,
+    display: 'grid',
+    gridTemplateColumns: '100%',
+    gridTemplateRows: 'auto'
+  },
+  containterBtnAcction: {
     display: 'grid',
     gridTemplateColumns: '42% 10% 42% 6%',
     gridTemplateRows: 'auto'
   },
   containterStrategy: {
     display: 'grid',
-    gridTemplateColumns: '10% 40% 40% 10%',
-    gridTemplateRows: 'auto'
+    gridTemplateColumns: '100%',
+    gridTemplateRows: 'auto',
+    height:500
   },
   ItemsStrategy: {
     alignSelf: 'left',
@@ -78,8 +90,8 @@ const styles = {
   },
   iconColor: appTheme.palette.primary.settingOptions.icon,
   papers: {
-    height: 200,
-    width: 400,
+    height: 250,
+    width: '90%',
     margin: 20,
     padding: 30,
     textAlign: 'left',
@@ -121,6 +133,7 @@ class BulkMode extends React.Component {
       stepIndex: 0,
       objectAvailable: [],
       objectSelected: [],
+      objectSelectedview: [],
       togSelected: "overwrite",
       messajeError: "",
       messajeSuccessful: {},
@@ -129,7 +142,8 @@ class BulkMode extends React.Component {
         userGroupAccesses: []
       },
       PublicAccess: 0,
-      ExternalAccess: false
+      ExternalAccess: false,
+      openModal:false
     }
   };
 
@@ -269,6 +283,7 @@ class BulkMode extends React.Component {
   }
 
   handleList(val) {
+
     let obSelected = {
       label: this.props.listObject[val].displayName,
       value: this.props.listObject[val].id,
@@ -279,9 +294,12 @@ class BulkMode extends React.Component {
     };
     //Add Object Selected
     let nList = this.state.objectSelected;
+    let nListview=this.state.objectSelectedview;
     nList.push(obSelected);
+    nList.push(nListview);
     this.setState(
       {
+        objectSelectedview:nListview,
         objectSelected: nList,
         messajeError: ""
       });
@@ -344,6 +362,12 @@ class BulkMode extends React.Component {
     let access = { "--": 0, "r-": 1, "rw": 2 }
     this.setState({ PublicAccess: data.value });
   }
+  handleClose() {
+    this.setState({ openModal: false });
+  };
+  handleOpen() {
+    this.setState({ openModal: true });
+  };
   fillListObject(listObject) {
     //convert object to array
     const rowRaw = Object.values(listObject);
@@ -401,15 +425,19 @@ class BulkMode extends React.Component {
   GroupSelected(selected) {
     this.setState({ userAndGroupsSelected: selected });
   }
+  onChangeTransfer(value) {
+    
+
+  }
+  onEndReachedTransfer(){}
   getStepContent(stepIndex) {
-    const d2 = this.props.d2;
     switch (stepIndex) {
       case 0:
         return (
           <div>
             <div style={styles.containterList}>
 
-              <div style={styles.ItemsList}>
+              {/* <div style={styles.ItemsList}>
                 <ListSelect id={"ListAvailable"} filterString={this.props.filterString} searchByName={this.props.searchByName} source={this.state.objectAvailable.filter((obj) => obj.visible == true)} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10} />
               </div>
               <div style={styles.ItemMiddleButton}>
@@ -420,13 +448,18 @@ class BulkMode extends React.Component {
                 <ListSelect id={"ListSelected"} filterString={""} searchByName={""} source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10} />
               </div>
               <div style={styles.ItemMiddleButton}>
-              </div>
-
+              </div> */}
+              <Transfer
+                  onChange={(values)=>values.selected.forEach(value=>this.handleList(value))}//
+                  onEndReached={this.onEndReachedTransfer}
+                  options={this.state.objectAvailable.filter((obj) => obj.visible == true)}
+                  selected={this.state.objectSelectedview}
+              />
             </div>
-            <div style={styles.containterList}>
+            <div style={styles.containterBtnAcction}>
 
               <div style={styles.ButtonLeftAling}>
-                <Button onClick={this.handleSelectAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}  variant="outlined">{i18n.t(" ASING All") + "→"}</Button>
+                <Button onClick={this.handleSelectAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}  variant="outlined">{i18n.t(" ASSING All (")+ this.props.pager.total + ") →"}</Button>
               </div>
               <div style={styles.ItemMiddleButton}>  </div>
               <div style={styles.ButtonRightAling}>
@@ -439,61 +472,85 @@ class BulkMode extends React.Component {
         )
       case 1:
         return (
-          <IndividualSharingSetting d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} />
-        )
 
-      case 2:
-        return (
-          <div>
-            <div style={styles.containterStrategy}>
-              <div style={styles.ItemsStrategy}>
-
-              </div>
-              <div style={styles.ItemsStrategy}>
+            <div style={styles.containterStrategy}>              
+             
                 <Paper style={styles.papers}>
                   <div style={styles.subtitles}>{i18n.t("Strategy to save Sharing Setting to all object selected")}</div>
                   <Divider />
                   <div style={styles.bodypaper}>
-                    <Switch
-                      label={i18n.t("Overwrite Sharing settings")}
-                      defaultchecked={true}
-                      onChange={() => this.handleTogle("overwrite")}
-                      checked={(this.state.togSelected == "overwrite" ? true : false)}
-                    />
-                    <Switch
-                      label={i18n.t("Merge with current Sharing settings")}
-                      onChange={() => this.handleTogle("keep")}
-                      checked={(this.state.togSelected == "keep" ? true : false)}
-                    />
+                  <CustomDataProvider
+              data={{
+                  sharing: {
+                      meta: {
+                          allowExternalAccess: true,
+                          allowPublicAccess: true
+                      },
+                      object: this.state.userAndGroupsSelected                     
+                  },
+                  'sharing/search': {
+                      userGroups: [
+                          {
+                              displayName: 'Administrators',
+                              id: 'wl5cDMuUhmF',
+                              name: 'Administrators'
+                          },
+                          {
+                              displayName: 'System administrators',
+                              id: 'lFHP5lLkzVr',
+                              name: 'System administrators'
+                          },
+                          {
+                              displayName: '_DATASET_System administrator (ALL)',
+                              id: 'zz6XckBrLlj',
+                              name: '_DATASET_System administrator (ALL)'
+                          },
+                          {
+                              displayName: '_PROGRAM_MNCH / PNC (Adult Woman) program',
+                              id: 'vRoAruMnNpB',
+                              name: '_PROGRAM_MNCH / PNC (Adult Woman) program'
+                          },
+                          {
+                              displayName: '_PROGRAM_System administrator (ALL)',
+                              id: 'pBnkuih0c1K',
+                              name: '_PROGRAM_System administrator (ALL)'
+                          }
+                      ],
+                      users: [
+                          {
+                              displayName: 'John Traore',
+                              id: 'xE7jOejl9FI',
+                              name: 'John Traore'
+                          }
+                      ]
+                  }
+              }}
+          >
+          {/* <IndividualSharingSetting d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} /> */}
+            
+            <SharingDialog id="dBduvfRBM6C" onClose={()=>this.handleClose()} type="dataElement" onSave={()=>console.log("TErminó")} modal={false} />            
+        </CustomDataProvider>
+          <FormGroup>
+              <FormControlLabel control={<Switch
+                    defaultchecked={true}
+                    onChange={() => this.handleTogle("overwrite")}
+                    checked={(this.state.togSelected == "overwrite" ? true : false)}
+                  />} label={i18n.t("Overwrite Sharing settings")} />
+              <FormControlLabel control={<Switch
+                    onChange={() => this.handleTogle("keep")}
+                    checked={(this.state.togSelected == "keep" ? true : false)}
+                  />} label={i18n.t("Merge with current Sharing settings")} />
+          </FormGroup>
+                    
+                    
                   </div>
                 </Paper>
-              </div>
-              <Paper style={styles.papers}>
-                <div style={styles.subtitles}>{i18n.t("Setting public and external access to all object selected")}</div>
-                <Divider />
-                <div style={styles.ItemsStrategy}>
-                  <div style={styles.bodypaper2}>
-                    <div style={styles.ItemsStrategy}>{i18n.t("Setting public Access")}</div>
 
-                    <SpecialButton id={"PUB01"} color={styles.iconColor} callBackHandleClick={this.HandleClickButton.bind(this)} type={"PUBLICACCESS"} enabled={true} defaultValue={this.state.PublicAccess} />
-                  </div>
-                </div>
-                <div style={styles.SwitchExternal}>
-
-                  <Switch
-                    label={i18n.t("Setting external Access")}
-                    onChange={() => this.handleExternalAccess()}
-                    checked={(this.state.ExternalAccess)}
-                  />
-
-                </div>
-              </Paper>
             </div>
 
-          </div>
 
         );
-      case 3:
+      case 2:
         return (
           <div style={{textAlign:"center"}}>
             <CircularProgress size={80} thickness={5} />
@@ -506,8 +563,7 @@ class BulkMode extends React.Component {
 
   render() {
     const { finished, stepIndex } = this.state;
-    const contentStyle = { margin: '0 16px' };
-    const d2 = this.props.d2;
+    const contentStyle = { height:400, margin: '0 16px' };
     return (
       <div style={{ width: '100%', maxWidth: '90%', margin: 'auto' }}>
         <Stepper activeStep={stepIndex}>
@@ -515,10 +571,7 @@ class BulkMode extends React.Component {
             <StepLabel>{i18n.t("Select the Object")}</StepLabel>
           </Step>
           <Step>
-            <StepLabel>{i18n.t("Select the user and/or groups")}</StepLabel>
-          </Step>
-          <Step>
-            <StepLabel>{i18n.t("Define the strategy to setting")}</StepLabel>
+            <StepLabel>{i18n.t("Define sharing and access options")}</StepLabel>
           </Step>
           <Step>
             <StepLabel>{i18n.t("Summary")}</StepLabel>

@@ -5,125 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-06-20T13:47:08.396Z\n"
-"PO-Revision-Date: 2022-06-20T13:47:08.396Z\n"
-
-msgid "Select at least one object, user or group"
-msgstr "Select at least one object, user or group"
-
-msgid " ASSING All ("
-msgstr " ASSING All ("
-
-msgid " REMOVE All"
-msgstr " REMOVE All"
-
-msgid "Strategy to save Sharing Setting to all object selected"
-msgstr "Strategy to save Sharing Setting to all object selected"
-
-msgid "Overwrite Sharing settings"
-msgstr "Overwrite Sharing settings"
-
-msgid "Merge with current Sharing settings"
-msgstr "Merge with current Sharing settings"
-
-msgid "Select the Object"
-msgstr "Select the Object"
-
-msgid "Define sharing and access options"
-msgstr "Define sharing and access options"
-
-msgid "Summary"
-msgstr "Summary"
-
-msgid "Number of objects updated"
-msgstr "Number of objects updated"
-
-msgid "Number of objects don't updated"
-msgstr "Number of objects don't updated"
-
-msgid "FINISH"
-msgstr "FINISH"
-
-msgid "CANCEL"
-msgstr "CANCEL"
-
-msgid "BACK"
-msgstr "BACK"
-
-msgid "SAVE SETTING"
-msgstr "SAVE SETTING"
-
-msgid " NEXT"
-msgstr " NEXT"
-
-msgid "Close"
-msgstr "Close"
-
-msgid "Conventions"
-msgstr "Conventions"
-
-msgid "METADATA - privileges related to access"
-msgstr "METADATA - privileges related to access"
-
-msgid "No Access"
-msgstr "No Access"
-
-msgid "Can find and view"
-msgstr "Can find and view"
-
-msgid "Can find, view and edit"
-msgstr "Can find, view and edit"
-
-msgid "DATA - Privileges related to data registration and access"
-msgstr "DATA - Privileges related to data registration and access"
-
-msgid "Individual mode"
-msgstr "Individual mode"
-
-msgid "Bulk mode"
-msgstr "Bulk mode"
-
-msgid " Search by name"
-msgstr " Search by name"
-
-msgid "<No value>"
-msgstr "<No value>"
-
-msgid "Name"
-msgstr "Name"
-
-msgid "Public Access"
-msgstr "Public Access"
-
-msgid "External Access"
-msgstr "External Access"
-
-msgid "Groups"
-msgstr "Groups"
-
-msgid "Users"
-msgstr "Users"
-
-msgid "Select the user and/or groups"
-msgstr "Select the user and/or groups"
-
-msgid "CLOSE"
-msgstr "CLOSE"
-
-msgid " User"
-msgstr " User"
-
-msgid " METADATA"
-msgstr " METADATA"
-
-msgid " DATA"
-msgstr " DATA"
-
-msgid "Not available for this type of object"
-msgstr "Not available for this type of object"
-
-msgid "Add users and user groups"
-msgstr "Add users and user groups"
+"POT-Creation-Date: 2021-11-25T09:59:40.995Z\n"
+"PO-Revision-Date: 2021-11-25T09:59:40.995Z\n"
 
 msgid "View only"
 msgstr "View only"
@@ -263,8 +146,8 @@ msgstr "Sharing and access: {{- objectName}}"
 msgid "Sharing and access"
 msgstr "Sharing and access"
 
+msgid "Close"
+msgstr "Close"
+
 msgid "Dashboard sharing"
 msgstr "Dashboard sharing"
-
-msgid "search"
-msgstr "search"

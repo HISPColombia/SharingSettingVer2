@@ -24,7 +24,8 @@ import i18n from '../locales/index.js'
 import { post } from '../API/Dhis2.js';
 
 import IndividualSharingSetting from './IndividualSharingSetting';
-import {SharingDialog} from '@dhis2-ui/sharing-dialog'
+//import {SharingDialog} from '@dhis2-ui/sharing-dialog'
+import {SharingDialog} from './sharing-dialog';
 
 import {CustomDataProvider} from '@dhis2/app-runtime';
 
@@ -112,6 +113,20 @@ class IndividualMode extends React.Component {
   }
 
   handleOpen(data) {
+
+    //fix error
+    data.userAccesses=data.userAccesses.map(ua=>{
+      if(ua.access==="--------"){
+        ua.access="r-------";
+      }
+      return ua;
+    })
+    data.userGroupAccesses=data.userGroupAccesses.map(ug=>{
+      if(ug.access==="--------"){
+        ug.access="r-------";
+      }
+      return ug;
+    })
      this.setState({ openModal: true, userAndGroupsSelected: data });
   };
 
@@ -223,13 +238,13 @@ class IndividualMode extends React.Component {
           </TableCell >
           <TableCell style={styles.buttonMore}>
             <IconButton onClick={() => this.handleOpen(row)}><More />   </IconButton>
-          </TableCell >
+          </TableCell>
         </TableRow>)
     })
 
 
   }
-
+  
   render() {
     return (
       <div>
@@ -294,6 +309,7 @@ class IndividualMode extends React.Component {
                 </Button>
             </DialogActions>
           </Dialog>  */}
+   
               <CustomDataProvider
               data={{
                   sharing: {
@@ -301,27 +317,7 @@ class IndividualMode extends React.Component {
                           allowExternalAccess: true,
                           allowPublicAccess: true
                       },
-                      object: {
-                          displayName: this.state.userAndGroupsSelected.displayName,
-                          externalAccess: this.state.userAndGroupsSelected.externalAccess,
-                          id: this.state.userAndGroupsSelected.id,
-                          name: this.state.userAndGroupsSelected.name,
-                          publicAccess: this.state.userAndGroupsSelected.publicAccess,
-                          userAccesses: [
-                              {
-                                  access: 'rw------',
-                                  id: 'user-1',
-                                  name: 'Kvist'
-                              }
-                          ],
-                          userGroupAccesses: [
-                              {
-                                  access: 'r-------',
-                                  id: 'group-1',
-                                  name: 'Trolls'
-                              }
-                          ]
-                      }                     
+                      object: this.state.userAndGroupsSelected                     
                   },
                   'sharing/search': {
                       userGroups: [
@@ -362,7 +358,7 @@ class IndividualMode extends React.Component {
               }}
           >
           {this.state.userAndGroupsSelected.id !== undefined && this.state.openModal && (
-                          <SharingDialog id="sharing-test" onClose={()=>this.handleClose()} show={false} type="visualization" />
+                          <SharingDialog id={this.state.userAndGroupsSelected.id} onClose={()=>this.handleClose()} onSave={()=>console.log("Terminó")} type="dataElement" modal={true} />
 
             )}
         </CustomDataProvider>
