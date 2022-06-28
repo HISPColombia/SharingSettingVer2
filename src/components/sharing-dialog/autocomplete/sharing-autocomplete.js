@@ -13,9 +13,9 @@ const query = {
         }),
     },
 }
-
 export const SharingAutocomplete = ({ selected, onSelection }) => {
     const [search, setSearch] = useState('')
+    const [listSelected, setListSelected] = useState([])
     const [showResults, setShowResults] = useState(false)
     const { data, refetch, fetching } = useDataQuery(query, {
         lazy: true,
@@ -48,10 +48,15 @@ export const SharingAutocomplete = ({ selected, onSelection }) => {
             setShowResults(false)
         }
     }, [search])
-
+    //list uoser and group selected 
+    useEffect(()=>{
+        if(data!==undefined) {
+            let list=data.search.userAccesses.map(u=>u.id).concat(data.search.userGroupAccesses.map(ug=>ug.id));
+            setListSelected(list);
+        }
+    },[data])
     // Concatenate all the results
     let results = []
-
     if (data?.search?.users) {
         const mapped = data.search.users.map((user) => ({
             ...user,
@@ -67,7 +72,11 @@ export const SharingAutocomplete = ({ selected, onSelection }) => {
         }))
         results = results.concat(mapped)
     }
-
+   //filters
+    if (search!==undefined){ 
+           results = results.filter((r)=>r.displayName.toUpperCase().includes(search.toUpperCase()))
+           results = results.filter((r)=>!listSelected.includes(r.id))
+    }
     return (
         <Autocomplete
             inputWidth="400px"

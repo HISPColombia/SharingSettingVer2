@@ -30,22 +30,7 @@ const query = {
         }),
     },
 }
-const queryUsers = {
-    sharing: {
-        resource: 'users',
-        params: {
-            fields: ['id', 'displayName','name'],
-        }
-    },
-}
-const queryUserGroups = {
-    sharing: {
-        resource: 'userGroups',
-        params: {
-            fields: ['id', 'displayName','name'],
-        }
-    },
-}
+
 const mutation = {
     resource: 'sharing',
     params: ({ type, id }) => ({
@@ -73,21 +58,6 @@ export const SharingDialog = ({
      * Data fetching usergroups and user
      */
 
- const { dataUsers, refetchUsers, loadingUsers, fetchingUsers } = useDataQuery(queryUsers, {
-    variables: { id, type },
-    onError: (error) => {
-        showError(error)
-        onError(error)
-    },
-})
-
-const { dataUsersGroups, refetchUserGroups, loadingUserGroups, fetchingUserGroups } = useDataQuery(queryUserGroups, {
-    variables: { id, type },
-    onError: (error) => {
-        showError(error)
-        onError(error)
-    },
-})
 
 
     /**
@@ -168,7 +138,6 @@ const { dataUsersGroups, refetchUserGroups, loadingUserGroups, fetchingUserGroup
     const publicAccess = convertAccessToConstant(object.publicAccess)
     const users = object.userAccesses.map(replaceAccessWithConstant)
     const groups = object.userGroupAccesses.map(replaceAccessWithConstant)
-
     /**
      * Handlers
      */
@@ -205,16 +174,16 @@ const { dataUsersGroups, refetchUserGroups, loadingUserGroups, fetchingUserGroup
         //mutate({ data, type, id })
     }
     let SharingSettingsComponent=<TabbedContent
-    id={id}
-    users={users}
-    groups={groups}
-    publicAccess={publicAccess}
-    allowPublicAccess={meta.allowPublicAccess}
-    type={type}
-    onAdd={onAdd}
-    onChange={onChange}
-    onRemove={onRemove}
-/>
+        id={id}
+        users={users}
+        groups={groups}
+        publicAccess={publicAccess}
+        allowPublicAccess={meta.allowPublicAccess}
+        type={type}
+        onAdd={onAdd}
+        onChange={onChange}
+        onRemove={onRemove}
+    />
     if(modal===true)
         return (
             <FetchingContext.Provider value={mutating || fetching}>

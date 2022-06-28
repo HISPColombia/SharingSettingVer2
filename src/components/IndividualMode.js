@@ -21,7 +21,7 @@ import TableRow from '@mui/material/TableRow';
 import appTheme from '../theme';
 //dhis2
 import i18n from '../locales/index.js'
-import { post } from '../API/Dhis2.js';
+import { post,get } from '../API/Dhis2.js';
 
 import IndividualSharingSetting from './IndividualSharingSetting';
 //import {SharingDialog} from '@dhis2-ui/sharing-dialog'
@@ -75,7 +75,7 @@ class IndividualMode extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0, openModal: false, userAndGroupsSelected: {}, messajeError: "mensaje de error",rowsPerPage:50,page:1,rowlength:0 }
+    this.state = { currentPage: 0, openModal: false, userAndGroupsSelected: {}, messajeError: "mensaje de error",rowsPerPage:50,page:1,rowlength:0,usersAndgroups:{}}
   }
   //query resource Selected
   async setResourceSelected(urlAPI, Payload) {
@@ -89,6 +89,24 @@ class IndividualMode extends React.Component {
       return e;
     }
   }
+    //query resource Selected
+  async getUsersandGroups() {
+     let api_users="/users?fields=id,name,displayName&paging=false"
+     let api_usersgroups="/userGroups?fields=id,name,displayName&paging=false"
+     let result={users:[],userGroups:[]};
+      try {
+        let result_users = await get(api_users);
+        if(result_users.users.length>0)
+          result.users=result_users.users;
+        let result_groups = await get(api_usersgroups);
+        if(result_groups.userGroups.length>0)
+          result.userGroups=result_groups.userGroups;
+        return result;       
+      }
+      catch (e) {
+        return e;
+      }
+    }
   SendInformationAPI(obj, userAccesses, userGroupAccesses) {
     let valToSave = {
       meta: {
@@ -136,8 +154,10 @@ class IndividualMode extends React.Component {
   GroupSelected(selected) {
     this.SendInformationAPI(this.state.userAndGroupsSelected, selected.userAccesses, selected.userGroupAccesses);
   }
-  componentDidMount() {
-    this.state = { currentPage: this.props.currentPage, openModal: false, userAndGroupsSelected: {}, messajeError: "" };
+  async componentDidMount() {
+   
+    this.state = { currentPage: this.props.currentPage, openModal: false, userAndGroupsSelected: {}, messajeError: ""};
+    this.setState({usersAndgroups: await  this.getUsersandGroups()});
   }
   handleChangeRowsPerPage = (event) => {
     this.setState({rowsPerPage:parseInt(event.target.value, 10),page:0});
@@ -319,47 +339,11 @@ class IndividualMode extends React.Component {
                       },
                       object: this.state.userAndGroupsSelected                     
                   },
-                  'sharing/search': {
-                      userGroups: [
-                          {
-                              displayName: 'Administrators',
-                              id: 'wl5cDMuUhmF',
-                              name: 'Administrators'
-                          },
-                          {
-                              displayName: 'System administrators',
-                              id: 'lFHP5lLkzVr',
-                              name: 'System administrators'
-                          },
-                          {
-                              displayName: '_DATASET_System administrator (ALL)',
-                              id: 'zz6XckBrLlj',
-                              name: '_DATASET_System administrator (ALL)'
-                          },
-                          {
-                              displayName: '_PROGRAM_MNCH / PNC (Adult Woman) program',
-                              id: 'vRoAruMnNpB',
-                              name: '_PROGRAM_MNCH / PNC (Adult Woman) program'
-                          },
-                          {
-                              displayName: '_PROGRAM_System administrator (ALL)',
-                              id: 'pBnkuih0c1K',
-                              name: '_PROGRAM_System administrator (ALL)'
-                          }
-                      ],
-                      users: [
-                          {
-                              displayName: 'John Traore',
-                              id: 'xE7jOejl9FI',
-                              name: 'John Traore'
-                          }
-                      ]
-                  }
+                  'sharing/search':Object.assign({}, this.state.usersAndgroups, this.state.userAndGroupsSelected)                 
               }}
           >
           {this.state.userAndGroupsSelected.id !== undefined && this.state.openModal && (
                           <SharingDialog id={this.state.userAndGroupsSelected.id} onClose={()=>this.handleClose()} onSave={()=>console.log("Terminó")} type="dataElement" modal={true} />
-
             )}
         </CustomDataProvider>
               
