@@ -5,12 +5,8 @@ import ActionDoneAll from '@mui/icons-material/DoneAll';
 import LinearProgress from '@mui/material/LinearProgress';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
 import More from '@mui/icons-material/MoreVert';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
+
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,9 +18,6 @@ import appTheme from '../theme';
 //dhis2
 import i18n from '../locales/index.js'
 import { post,get } from '../API/Dhis2.js';
-
-import IndividualSharingSetting from './IndividualSharingSetting';
-//import {SharingDialog} from '@dhis2-ui/sharing-dialog'
 import {SharingDialog} from './sharing-dialog';
 
 import {CustomDataProvider} from '@dhis2/app-runtime';
@@ -107,29 +100,33 @@ class IndividualMode extends React.Component {
         return e;
       }
     }
-  SendInformationAPI(obj, userAccesses, userGroupAccesses) {
+  
+  setObjectSetting(info){
     let valToSave = {
       meta: {
-        allowPublicAccess: (this.state.PublicAccess == 0 ? false : true),
-        allowExternalAccess: this.state.ExternalAccess
+        allowPublicAccess: (info.data.object.publicAccess === '--------' ? false : true),
+        allowExternalAccess: info.data.object.externalAccess
       },
       object: {
-        id: obj.id,
-        displayName: obj.displayName,
-        externalAccess: obj.externalAccess,
-        name: obj.name,
-        publicAccess: obj.publicAccess,
-        userAccesses,
-        userGroupAccesses,
+        id: info.data.object.id,
+        displayName: info.data.object.displayName,
+        externalAccess: info.data.object.externalAccess,
+        name: info.data.object.name,
+        publicAccess: info.data.object.publicAccess,
+        userAccesses:info.data.object.userAccesses,
+        userGroupAccesses:info.data.object.userGroupAccesses,
       }
 
     }
-    // this.setResourceSelected("/sharing?type=" + this.props.resource.key + "&id=" + obj.id, valToSave).then(res => {
-    //   if (res.status != "OK")
-    //     this.setState({ messajeError: res.message })
-    // })
+    
+    this.setResourceSelected("/sharing?type=" + this.props.resource.key + "&id=" + this.state.userAndGroupsSelected.id, valToSave).then(res => {
+      if (res.status != "OK")
+        this.setState({ messajeError: res.message })
+        this.handleOpen(valToSave.object);
+        
+    })
   }
-
+  
   handleOpen(data) {
 
     //fix error
@@ -151,9 +148,6 @@ class IndividualMode extends React.Component {
   handleClose() {
     this.setState({ openModal: false });
   };
-  GroupSelected(selected) {
-    this.SendInformationAPI(this.state.userAndGroupsSelected, selected.userAccesses, selected.userGroupAccesses);
-  }
   async componentDidMount() {
    
     this.state = { currentPage: this.props.currentPage, openModal: false, userAndGroupsSelected: {}, messajeError: ""};
@@ -307,30 +301,7 @@ class IndividualMode extends React.Component {
             onPageChange={this.handleChangePage}
             onRowsPerPageChange={this.handleChangeRowsPerPage}
           />
-           {/* <Dialog
-            modal={false}
-            open={this.state.openModal}
-            onRequestClose={this.handleClose.bind(this)}
-          > 
-             <DialogTitle id="alert-dialog-title">
-              {i18n.t("Select the user and/or groups")}
-            </DialogTitle> 
-            <DialogContent> 
-               <div style={{ marginTop: 12, textAlign: 'center', color: "Red", position: "relative" }}>
-                <p>{this.state.messajeError}</p>
-              </div> 
-               <IndividualSharingSetting GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} /> 
-                           </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={this.handleClose.bind(this)}
-                variant="contained"              >
-                {i18n.t("CLOSE")}
-                </Button>
-            </DialogActions>
-          </Dialog>  */}
-   
-              <CustomDataProvider
+          <CustomDataProvider
               data={{
                   sharing: {
                       meta: {
@@ -343,7 +314,7 @@ class IndividualMode extends React.Component {
               }}
           >
           {this.state.userAndGroupsSelected.id !== undefined && this.state.openModal && (
-                          <SharingDialog id={this.state.userAndGroupsSelected.id} onClose={()=>this.handleClose()} onSave={()=>console.log("Terminó")} type="dataElement" modal={true} />
+                          <SharingDialog id={this.state.userAndGroupsSelected.id} onClose={()=>this.handleClose()} onSave={()=>console.log("Terminó")} type="dataElement" modal={true} callback={this.setObjectSetting.bind(this)}/>
             )}
         </CustomDataProvider>
               

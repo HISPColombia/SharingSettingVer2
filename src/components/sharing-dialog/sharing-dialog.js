@@ -50,7 +50,8 @@ export const SharingDialog = ({
     onError,
     onSave,
     initialSharingSettings,
-    modal
+    modal,
+    callback
 }) => {
     const { show: showError } = useAlert((error) => error, { critical: true })
 
@@ -151,8 +152,7 @@ export const SharingDialog = ({
             id: newId,
             name,
         });
-        console.log({ data,type: newType, id: newId, access, name })
-        //mutate({ data, type, id })
+        callback({data,action:'create' })
     }
 
     const onChange = ({ type: changedType, id: changedId, access }) => {
@@ -162,7 +162,7 @@ export const SharingDialog = ({
             access,
             id: changedId,
         })
-        //mutate({ data, type, id })
+        callback({ data,action:'update' })
     }
 
     const onRemove = ({ type: removedType, id: removedId }) => {
@@ -171,7 +171,8 @@ export const SharingDialog = ({
             type: removedType,
             id: removedId,
         })
-        //mutate({ data, type, id })
+        callback({ data, action:'delete' })
+
     }
     let SharingSettingsComponent=<TabbedContent
         id={id}
