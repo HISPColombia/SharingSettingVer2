@@ -42,6 +42,7 @@ export const AccessList = ({
                     onChange({ type: 'public', access: newAccess })
                 }
             />
+            {console.log(groups,users)}
             {groups.map(({ id, name, access }) => (
                 <ListItem
                     key={id}

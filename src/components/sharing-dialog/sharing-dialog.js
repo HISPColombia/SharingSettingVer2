@@ -51,7 +51,8 @@ export const SharingDialog = ({
     onSave,
     initialSharingSettings,
     modal,
-    callback
+    callback,
+    sharingSettingObject,
 }) => {
     const { show: showError } = useAlert((error) => error, { critical: true })
 
@@ -136,17 +137,16 @@ export const SharingDialog = ({
     }
 
     const { object, meta } = data.sharing
-    const publicAccess = convertAccessToConstant(object.publicAccess)
-    const users = object.userAccesses.map(replaceAccessWithConstant)
-    const groups = object.userGroupAccesses.map(replaceAccessWithConstant)
+    const publicAccess = convertAccessToConstant(sharingSettingObject.publicAccess)
+    const users = sharingSettingObject.userAccesses.map(replaceAccessWithConstant)
+    const groups = sharingSettingObject.userGroupAccesses.map(replaceAccessWithConstant)
     /**
      * Handlers
      */
-
+   
     const onAdd = ({ type: newType, id: newId, access, name }) => {
-        
         const data = createOnAddPayload({
-            object,
+            object:sharingSettingObject,
             type: newType,
             access,
             id: newId,
@@ -157,7 +157,7 @@ export const SharingDialog = ({
 
     const onChange = ({ type: changedType, id: changedId, access }) => {
         const data = createOnChangePayload({
-            object,
+            object:sharingSettingObject,
             type: changedType,
             access,
             id: changedId,
@@ -167,7 +167,7 @@ export const SharingDialog = ({
 
     const onRemove = ({ type: removedType, id: removedId }) => {
         const data = createOnRemovePayload({
-            object,
+            object:sharingSettingObject,
             type: removedType,
             id: removedId,
         })
@@ -188,7 +188,7 @@ export const SharingDialog = ({
     if(modal===true)
         return (
             <FetchingContext.Provider value={mutating || fetching}>
-                <Modal onClose={onClose} name={object.displayName || object.name}>{SharingSettingsComponent}</Modal>
+                <Modal onClose={onClose} name={sharingSettingObject.displayName || sharingSettingObject.name}>{SharingSettingsComponent}</Modal>
             </FetchingContext.Provider>
         )
     else

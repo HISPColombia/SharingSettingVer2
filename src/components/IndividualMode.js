@@ -118,7 +118,7 @@ class IndividualMode extends React.Component {
       }
 
     }
-    
+    this.setState({userAndGroupsSelected:valToSave.object})
     this.setResourceSelected("/sharing?type=" + this.props.resource.key + "&id=" + this.state.userAndGroupsSelected.id, valToSave).then(res => {
       if (res.status != "OK")
         this.setState({ messajeError: res.message })
@@ -301,6 +301,7 @@ class IndividualMode extends React.Component {
             onPageChange={this.handleChangePage}
             onRowsPerPageChange={this.handleChangeRowsPerPage}
           />
+         
           <CustomDataProvider
               data={{
                   sharing: {
@@ -314,7 +315,7 @@ class IndividualMode extends React.Component {
               }}
           >
           {this.state.userAndGroupsSelected.id !== undefined && this.state.openModal && (
-                          <SharingDialog id={this.state.userAndGroupsSelected.id} onClose={()=>this.handleClose()} onSave={()=>console.log("Terminó")} type="dataElement" modal={true} callback={this.setObjectSetting.bind(this)}/>
+                          <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={true} callback={this.setObjectSetting.bind(this)}/>
             )}
         </CustomDataProvider>
               

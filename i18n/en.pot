@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-06-20T13:47:08.396Z\n"
-"PO-Revision-Date: 2022-06-20T13:47:08.396Z\n"
+"POT-Creation-Date: 2022-06-29T15:05:48.200Z\n"
+"PO-Revision-Date: 2022-06-29T15:05:48.200Z\n"
 
 msgid "Select at least one object, user or group"
 msgstr "Select at least one object, user or group"
@@ -103,12 +103,6 @@ msgstr "Groups"
 
 msgid "Users"
 msgstr "Users"
-
-msgid "Select the user and/or groups"
-msgstr "Select the user and/or groups"
-
-msgid "CLOSE"
-msgstr "CLOSE"
 
 msgid " User"
 msgstr " User"

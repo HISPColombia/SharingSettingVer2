@@ -31,7 +31,7 @@ import IndividualSharingSetting from './IndividualSharingSetting';
 import SpecialButton from './SpecialButton';
 //dhis2
 import i18n from '../locales/index.js';
-import { post } from '../API/Dhis2.js';
+import { post,get } from '../API/Dhis2.js';
 
 
 const styles = {
@@ -90,7 +90,7 @@ const styles = {
   },
   iconColor: appTheme.palette.primary.settingOptions.icon,
   papers: {
-    height: 250,
+    height: 480,
     width: '90%',
     margin: 20,
     padding: 30,
@@ -157,6 +157,29 @@ class BulkMode extends React.Component {
       return (e)
     }
   }
+
+  setObjectSetting(){
+    
+  }
+  //query resource Selected
+  async getUsersandGroups() {
+    let api_users="/users?fields=id,name,displayName&paging=false"
+    let api_usersgroups="/userGroups?fields=id,name,displayName&paging=false"
+    let result={users:[],userGroups:[]};
+      try {
+        let result_users = await get(api_users);
+        if(result_users.users.length>0)
+          result.users=result_users.users;
+        let result_groups = await get(api_usersgroups);
+        if(result_groups.userGroups.length>0)
+          result.userGroups=result_groups.userGroups;
+        return result;       
+      }
+      catch (e) {
+        return e;
+      }
+    }
+
   saveSetting(){
     var { stepIndex } = this.state;
     stepIndex = stepIndex + 1;
@@ -282,74 +305,28 @@ class BulkMode extends React.Component {
       });
   }
 
-  handleList(val) {
-
-    let obSelected = {
-      label: this.props.listObject[val].displayName,
-      value: this.props.listObject[val].id,
-      externalAccess:this.props.listObject[val].externalAccess,
-      publicAccess:this.props.listObject[val].publicAccess,
-      userAccesses:this.props.listObject[val].userAccesses,
-      userGroupAccesses:this.props.listObject[val].userGroupAccesses
-    };
-    //Add Object Selected
-    let nList = this.state.objectSelected;
-    let nListview=this.state.objectSelectedview;
-    nList.push(obSelected);
-    nList.push(nListview);
-    this.setState(
-      {
-        objectSelectedview:nListview,
-        objectSelected: nList,
-        messajeError: ""
-      });
-    //Remove Object Selected
-    let aList = this.state.objectAvailable;
-    for (var k = 0; k < aList.length; k++) {
-      if (aList[k].value === val) {
-        aList[k].visible = false;
+  handleList(values) {   
+    //Add or remove Object Selected
+    let nList = [];
+    values.selected.forEach((val,inx) => {
+        let obSelected = {
+        label: this.props.listObject[val].displayName,
+        value: this.props.listObject[val].id,
+        externalAccess:this.props.listObject[val].externalAccess,
+        publicAccess:this.props.listObject[val].publicAccess,
+        userAccesses:this.props.listObject[val].userAccesses,
+        userGroupAccesses:this.props.listObject[val].userGroupAccesses
+      };
+      nList.push(obSelected);
+      if(inx===values.selected.length-1){
+       this.setState(
+       {
+         objectSelectedview:values.selected,
+         objectSelected: nList,
+         messajeError: ""
+       });
       }
-    }
-    this.setState(
-      {
-        objectAvailable: aList
-      });
-
-  }
-  handleDesSelect(val) {
-    let obSelected = {
-      label: this.props.listObject[val].displayName,
-      value: this.props.listObject[val].id,
-      externalAccess:this.props.listObject[val].externalAccess,
-      publicAccess:this.props.listObject[val].publicAccess,
-      userAccesses:this.props.listObject[val].userAccesses,
-      userGroupAccesses:this.props.listObject[val].userGroupAccesses
-    };
-    //Add Object Selected
-    let nList = this.state.objectAvailable;
-    for (var k = 0; k < nList.length; k++) {
-      if (nList[k].value === val) {
-        nList[k].visible = true;
-      }
-    }
-    this.setState(
-      {
-        objectAvailable: nList,
-        messajeError: ""
-
-      });
-    //Remove Object Selected
-    let aList = this.state.objectSelected;
-    for (var k = 0; k < aList.length; k++) {
-      if (aList[k].value === val) {
-        aList.splice(k, 1);
-      }
-    }
-    this.setState(
-      {
-        objectSelected: aList
-      });
-
+    })
   }
 
   handleListSelected(list, CallBackFnSelected) {
@@ -385,10 +362,7 @@ class BulkMode extends React.Component {
     })
 
   }
-  componentDidUpdate(prevProps, prevState) {
-    if (prevProps.listObject != this.props.listObject)
-      this.setState({ objectAvailable: this.fillListObject(this.props.listObject) });
-  }
+
   handleTogle(event) {
     if (event == this.state.togSelected)
       if (event == 'keep')
@@ -437,22 +411,10 @@ class BulkMode extends React.Component {
           <div>
             <div style={styles.containterList}>
 
-              {/* <div style={styles.ItemsList}>
-                <ListSelect id={"ListAvailable"} filterString={this.props.filterString} searchByName={this.props.searchByName} source={this.state.objectAvailable.filter((obj) => obj.visible == true)} onItemDoubleClick={this.handleList.bind(this)} listStyle={styles.list} size={10} />
-              </div>
-              <div style={styles.ItemMiddleButton}>
-                <Button onClick={() => this.handleListSelected('ListAvailable', this.handleList.bind(this))} style={styles.ButtonSelect} variant="outlined">→</Button>
-                <Button onClick={() => this.handleListSelected('ListSelected', this.handleDesSelect.bind(this))} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} variant="outlined" >←</Button>
-              </div>
-              <div style={styles.ItemsList}>
-                <ListSelect id={"ListSelected"} filterString={""} searchByName={""} source={this.state.objectSelected} onItemDoubleClick={this.handleDesSelect.bind(this)} listStyle={styles.list} size={10} />
-              </div>
-              <div style={styles.ItemMiddleButton}>
-              </div> */}
               <Transfer
-                  onChange={(values)=>values.selected.forEach(value=>this.handleList(value))}//
+                  onChange={this.handleList.bind(this)}
                   onEndReached={this.onEndReachedTransfer}
-                  options={this.state.objectAvailable.filter((obj) => obj.visible == true)}
+                  options={this.state.objectAvailable}
                   selected={this.state.objectSelectedview}
               />
             </div>
@@ -479,69 +441,32 @@ class BulkMode extends React.Component {
                   <div style={styles.subtitles}>{i18n.t("Strategy to save Sharing Setting to all object selected")}</div>
                   <Divider />
                   <div style={styles.bodypaper}>
-                  <CustomDataProvider
-              data={{
-                  sharing: {
-                      meta: {
-                          allowExternalAccess: true,
-                          allowPublicAccess: true
-                      },
-                      object: this.state.userAndGroupsSelected                     
-                  },
-                  'sharing/search': {
-                      userGroups: [
-                          {
-                              displayName: 'Administrators',
-                              id: 'wl5cDMuUhmF',
-                              name: 'Administrators'
-                          },
-                          {
-                              displayName: 'System administrators',
-                              id: 'lFHP5lLkzVr',
-                              name: 'System administrators'
-                          },
-                          {
-                              displayName: '_DATASET_System administrator (ALL)',
-                              id: 'zz6XckBrLlj',
-                              name: '_DATASET_System administrator (ALL)'
-                          },
-                          {
-                              displayName: '_PROGRAM_MNCH / PNC (Adult Woman) program',
-                              id: 'vRoAruMnNpB',
-                              name: '_PROGRAM_MNCH / PNC (Adult Woman) program'
-                          },
-                          {
-                              displayName: '_PROGRAM_System administrator (ALL)',
-                              id: 'pBnkuih0c1K',
-                              name: '_PROGRAM_System administrator (ALL)'
-                          }
-                      ],
-                      users: [
-                          {
-                              displayName: 'John Traore',
-                              id: 'xE7jOejl9FI',
-                              name: 'John Traore'
-                          }
-                      ]
-                  }
-              }}
-          >
-          {/* <IndividualSharingSetting d2={d2} GroupSelected={this.GroupSelected.bind(this)} resource={this.props.resource} currentSelected={this.state.userAndGroupsSelected} /> */}
-            
-            <SharingDialog id="dBduvfRBM6C" onClose={()=>this.handleClose()} type="dataElement" onSave={()=>console.log("TErminó")} modal={false} />            
-        </CustomDataProvider>
-          <FormGroup>
-              <FormControlLabel control={<Switch
-                    defaultchecked={true}
-                    onChange={() => this.handleTogle("overwrite")}
-                    checked={(this.state.togSelected == "overwrite" ? true : false)}
-                  />} label={i18n.t("Overwrite Sharing settings")} />
-              <FormControlLabel control={<Switch
-                    onChange={() => this.handleTogle("keep")}
-                    checked={(this.state.togSelected == "keep" ? true : false)}
-                  />} label={i18n.t("Merge with current Sharing settings")} />
-          </FormGroup>
-                    
+                    <CustomDataProvider
+                          data={{
+                              sharing: {
+                                  meta: {
+                                      allowExternalAccess: true,
+                                      allowPublicAccess: true
+                                  },
+                                  object: this.state.userAndGroupsSelected                     
+                              },
+                              'sharing/search':Object.assign({}, this.state.usersAndgroups, this.state.userAndGroupsSelected)                 
+                          }}
+                      >
+                      <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={false} callback={this.setObjectSetting.bind(this)}/>
+
+                    </CustomDataProvider>
+                    <FormGroup>
+                        <FormControlLabel control={<Switch
+                              defaultchecked={true}
+                              onChange={() => this.handleTogle("overwrite")}
+                              checked={(this.state.togSelected == "overwrite" ? true : false)}
+                            />} label={i18n.t("Overwrite Sharing settings")} />
+                        <FormControlLabel control={<Switch
+                              onChange={() => this.handleTogle("keep")}
+                              checked={(this.state.togSelected == "keep" ? true : false)}
+                            />} label={i18n.t("Merge with current Sharing settings")} />
+                    </FormGroup>                     
                     
                   </div>
                 </Paper>
@@ -560,7 +485,13 @@ class BulkMode extends React.Component {
         return 'Write to hispColombia heldersoft@gmail.com';
     }
   }
-
+  async componentDidMount() { 
+    this.setState({usersAndgroups: await  this.getUsersandGroups()});
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.listObject != this.props.listObject)
+      this.setState({ objectAvailable: this.fillListObject(this.props.listObject) });
+  }
   render() {
     const { finished, stepIndex } = this.state;
     const contentStyle = { height:400, margin: '0 16px' };
