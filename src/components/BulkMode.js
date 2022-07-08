@@ -143,7 +143,9 @@ class BulkMode extends React.Component {
       },
       PublicAccess: 0,
       ExternalAccess: false,
-      openModal:false
+      openModal:false,
+      page: 1,
+      loading:false
     }
   };
 
@@ -403,7 +405,10 @@ class BulkMode extends React.Component {
     
 
   }
-  onEndReachedTransfer(){}
+  onEndReachedTransfer(){
+    this.setState({loading:true});
+    this.props.handleChangeTabs(undefined,"edit",this.state.page);
+  }
   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
@@ -413,9 +418,10 @@ class BulkMode extends React.Component {
 
               <Transfer
                   onChange={this.handleList.bind(this)}
-                  onEndReached={this.onEndReachedTransfer}
+                  onEndReached={this.onEndReachedTransfer.bind(this)}
                   options={this.state.objectAvailable}
                   selected={this.state.objectSelectedview}
+                  loading={this.state.loading}
               />
             </div>
             <div style={styles.containterBtnAcction}>
@@ -489,8 +495,11 @@ class BulkMode extends React.Component {
     this.setState({usersAndgroups: await  this.getUsersandGroups()});
   }
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.listObject != this.props.listObject)
-      this.setState({ objectAvailable: this.fillListObject(this.props.listObject) });
+    if (prevProps.listObject != this.props.listObject && Object.values(this.props.listObject).length > 0) {
+      let nvalue=this.fillListObject(this.props.listObject);
+      let objectAvailable=this.state.objectAvailable.concat(nvalue);
+      this.setState({ objectAvailable,page:this.state.page+1,loading:false });
+    }
   }
   render() {
     const { finished, stepIndex } = this.state;
