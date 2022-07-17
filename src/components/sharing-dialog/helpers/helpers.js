@@ -107,6 +107,15 @@ export const createOnChangePayload = ({ object, type, access, id }) => {
             }
             return data
         }
+        case 'external': {
+            const data = {
+                object: {
+                    ...object,
+                    externalAccess: convertConstantToAccess(access,true),
+                },
+            }
+            return data
+        }
         case 'group': {
             const userGroupAccesses = object.userGroupAccesses.map((group) => {
                 if (group.id !== id) {

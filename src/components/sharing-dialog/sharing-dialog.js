@@ -53,6 +53,7 @@ export const SharingDialog = ({
     modal,
     callback,
     sharingSettingObject,
+    allowExternalAccess
 }) => {
     const { show: showError } = useAlert((error) => error, { critical: true })
 
@@ -120,6 +121,8 @@ export const SharingDialog = ({
         onAdd={() => {}}
         onChange={() => {}}
         onRemove={() => {}}
+        externalAccess={false}
+        allowExternalAccess={allowExternalAccess}
     />
         if(modal===true)
             return (
@@ -138,6 +141,7 @@ export const SharingDialog = ({
 
     const { object, meta } = data.sharing
     const publicAccess = convertAccessToConstant(sharingSettingObject.publicAccess)
+    const externalAccess = convertAccessToConstant(sharingSettingObject.externalAccess)
     const users = sharingSettingObject.userAccesses.map(replaceAccessWithConstant)
     const groups = sharingSettingObject.userGroupAccesses.map(replaceAccessWithConstant)
     /**
@@ -184,6 +188,9 @@ export const SharingDialog = ({
         onAdd={onAdd}
         onChange={onChange}
         onRemove={onRemove}
+        externalAccess={externalAccess}
+        allowExternalAccess={allowExternalAccess}
+        
     />
     if(modal===true)
         return (

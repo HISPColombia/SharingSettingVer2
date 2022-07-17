@@ -68,11 +68,22 @@ class Content extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { searchByName:"",filterids:"",filterString:"",open: false, mode: "view", listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, originSearch: false }
+    this.state = {resource:{}, searchByName:"",filterids:"",filterString:"",open: false, mode: "view", listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, originSearch: false }
   }
 
   //API Query
-
+  //query resource Selected
+  async getInformationResourceSelected(resource) {
+    let result = {};
+    try {
+          let res = await get("/schemas/"+resource.key);
+          return res;
+      }
+    catch (e) {
+      console.error('Could not access to API Resource');
+    }
+    return result;
+    }
   //query resource Selected
   async getResourceSelected(urlAPI,page=1,searchByName="") {
         let result = {};
@@ -88,6 +99,7 @@ class Content extends React.Component {
     return result;
   }
   // life cycle
+
   componentDidUpdate(prevProps, prevState) {
     try {
       if (this.props.title != prevProps.title && this.props.informationResource.resource != undefined) {
@@ -105,6 +117,11 @@ class Content extends React.Component {
             pager: res.pager
           });
         });
+
+        ///get information resource
+        this.getInformationResourceSelected(this.props.informationResource).then(res => {
+          this.setState({ resource: res });
+        })
       }
     } catch (err) {
       console.log(err);
@@ -114,11 +131,11 @@ class Content extends React.Component {
 
 
 
-  getChildContext() {
-    return {
-      muiTheme: appTheme
-    };
-  }
+  // getChildContext() {
+  //   return {
+  //     muiTheme: appTheme
+  //   };
+  // }
 
 
   //tabs handle
@@ -269,6 +286,7 @@ class Content extends React.Component {
                   handleChangeTabs={this.handleChangeTabs.bind(this)}
                   searchByName={this.state.searchByName}
                   filterString={this.state.filterString}
+                  informationResource={this.state.resource}
 
               />
             </TabPanel>
@@ -282,6 +300,7 @@ class Content extends React.Component {
                 filterString={this.state.filterString}
                 handleChangeTabs={this.handleChangeTabs.bind(this)}
                 reloadData={this.reloadData.bind(this)}
+                informationResource={this.state.resource}
               />
             </TabPanel>
             

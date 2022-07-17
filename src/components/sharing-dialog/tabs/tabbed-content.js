@@ -25,6 +25,8 @@ export const TabbedContent = ({
     onAdd,
     onChange,
     onRemove,
+    externalAccess,
+    allowExternalAccess
 }) => {
     const [activeTabIndex, setActiveTabIndex] = useState(0)
 
@@ -50,6 +52,8 @@ export const TabbedContent = ({
                         <>
                             <AccessAdd onAdd={onAdd} />
                             <AccessList
+                               externalAccess={externalAccess}
+                               allowExternalAccess={allowExternalAccess}
                                 users={users}
                                 groups={groups}
                                 publicAccess={publicAccess}
@@ -74,6 +78,8 @@ export const TabbedContent = ({
         <>
             <AccessAdd onAdd={onAdd} />
             <AccessList
+                externalAccess={externalAccess}
+                allowExternalAccess={allowExternalAccess}
                 users={users}
                 groups={groups}
                 publicAccess={publicAccess}

@@ -315,7 +315,7 @@ class IndividualMode extends React.Component {
               }}
           >
           {this.state.userAndGroupsSelected.id !== undefined && this.state.openModal && (
-                          <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={true} callback={this.setObjectSetting.bind(this)}/>
+                          <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={true} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false} />
             )}
         </CustomDataProvider>
               

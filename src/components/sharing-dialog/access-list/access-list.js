@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {
     SHARE_TARGET_PUBLIC,
+    SHARE_TARGET_EXTERNAL,
     SHARE_TARGET_GROUP,
     SHARE_TARGET_USER,
     ACCESS_NONE,
@@ -20,6 +21,8 @@ export const AccessList = ({
     allowPublicAccess,
     users,
     groups,
+    externalAccess,
+    allowExternalAccess
 }) => (
     <>
         <Title>{i18n.t('Users and groups that currently have access')}</Title>
@@ -42,7 +45,19 @@ export const AccessList = ({
                     onChange({ type: 'public', access: newAccess })
                 }
             />
-            {console.log(groups,users)}
+             <ListItem
+                name={i18n.t('External access')}
+                target={SHARE_TARGET_EXTERNAL}
+                access={externalAccess}
+                accessOptions={[
+                    ACCESS_NONE,
+                    ACCESS_VIEW_ONLY
+                ]}
+                disabled={!allowExternalAccess}
+                onChange={(newAccess) =>
+                    onChange({ type: 'external', access: newAccess })
+                }
+            />
             {groups.map(({ id, name, access }) => (
                 <ListItem
                     key={id}
