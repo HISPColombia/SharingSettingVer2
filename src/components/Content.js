@@ -68,17 +68,16 @@ class Content extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { searchByName:"",filterids:"",filterString:"",open: false, mode: "view", listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, currentPage: 1 }
+    this.state = { searchByName:"",filterids:"",filterString:"",open: false, mode: "view", listObject: {}, pager: { page: 0, pageCount: 0, pageSize: 0, total: 0 }, originSearch: false }
   }
 
   //API Query
 
   //query resource Selected
-  async getResourceSelected(urlAPI,page=1) {
-    let result = {};
-
+  async getResourceSelected(urlAPI,page=1,searchByName="") {
+        let result = {};
      try {
-      let res = await get('/' + urlAPI + "?fields=id,code,name,displayName,externalAccess,publicAccess,userGroupAccesses[id,access,displayName~rename(name),userGroupUid],userAccesses[id,access,displayName~rename(name),userUid]&page="+page+(this.state.searchByName===""?"":"&filter=identifiable:token:"+this.state.searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
+      let res = await get('/' + urlAPI + "?fields=id,code,name,displayName,externalAccess,publicAccess,userGroupAccesses[id,access,displayName~rename(name),userGroupUid],userAccesses[id,access,displayName~rename(name),userUid]&page="+page+(searchByName===""?"":"&filter=identifiable:token:"+searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
       if (res.hasOwnProperty(urlAPI)) {
         return res;
       }
@@ -91,10 +90,10 @@ class Content extends React.Component {
   // life cycle
   componentDidUpdate(prevProps, prevState) {
     try {
-      if ((this.props.title != prevProps.title || this.state.currentPage != prevState.currentPage) && this.props.informationResource.resource != undefined) {
+      if (this.props.title != prevProps.title && this.props.informationResource.resource != undefined) {
         //reset count of pages
         if (this.props.title != prevProps.title) {
-          this.setState({ currentPage: 1 })
+          this.setState({ originSearch: true })
         }
         this.getResourceSelected(this.props.informationResource.resource).then(res => {
           let dataResult = {}
@@ -121,16 +120,11 @@ class Content extends React.Component {
     };
   }
 
-  //methods
-  updateParams(currentPage) {
-    this.setState({ currentPage });
-  }
-  //Handles
 
   //tabs handle
-  handleChangeTabs(event,value,page=1) {
+  handleChangeTabs(textSearch,value,page=1) {
     //refresh List
-    this.getResourceSelected(this.props.informationResource.resource,page).then(res => {
+    this.getResourceSelected(this.props.informationResource.resource,page,textSearch).then(res => {
       let dataResult = {}
       for (let g of res[this.props.informationResource.resource]) {
         dataResult[g.id] = g;
@@ -140,24 +134,39 @@ class Content extends React.Component {
         pager: res.pager
       });
     });
-    //update state
+   // update state
     this.setState({
       mode: value,
     });
 
     this.props.disableSlide(value)
   };
+    //tabs handle
+    reloadData(page=1) {
+      //refresh List
+      this.getResourceSelected(this.props.informationResource.resource,page).then(res => {
+        let dataResult = {}
+        for (let g of res[this.props.informationResource.resource]) {
+          dataResult[g.id] = g;
+        }
+        this.setState({
+          listObject: dataResult,
+          originSearch:"bulklist"
+        });
+      });
+
+    };
 
   //handle filter
     //handler
     handlefilterTextChange(textSearch) {
-      this.setState({ searchByName: textSearch }); 
-      this.handleChangeTabs(undefined,this.state.mode) 
+      this.setState({ searchByName: textSearch, originSearch:"search" }); 
+      this.handleChangeTabs(textSearch,this.state.mode) 
     }
     getFilterSelected(filterValue, filter){
       if(Object.keys(filterValue).length!=0){
         let arrid=jsonpath.query(filterValue,filter.expression);
-        this.setState({filterString:JSON.stringify(filterValue),filterids:JSON.stringify(arrid).replace(/['"]+/g, '')})
+        this.setState({originSearch:"search",filterString:JSON.stringify(filterValue),filterids:JSON.stringify(arrid).replace(/['"]+/g, '')})
         this.handleChangeTabs(undefined,this.state.mode);
       }
       else  
@@ -256,7 +265,7 @@ class Content extends React.Component {
                   Enabledchecked={false}
                   listObject={this.state.listObject}
                   pager={this.state.pager}
-                  currentPage={this.state.currentPage}
+                  originSearch={this.state.originSearch}
                   handleChangeTabs={this.handleChangeTabs.bind(this)}
                   searchByName={this.state.searchByName}
                   filterString={this.state.filterString}
@@ -268,10 +277,11 @@ class Content extends React.Component {
                 resource={this.props.informationResource} 
                 listObject={this.state.listObject}
                 pager={this.state.pager}
-                currentPage={this.state.currentPage}
+                originSearch={this.state.originSearch}
                 searchByName={this.state.searchByName}
                 filterString={this.state.filterString}
                 handleChangeTabs={this.handleChangeTabs.bind(this)}
+                reloadData={this.reloadData.bind(this)}
               />
             </TabPanel>
             

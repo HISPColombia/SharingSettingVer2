@@ -311,14 +311,23 @@ class BulkMode extends React.Component {
     //Add or remove Object Selected
     let nList = [];
     values.selected.forEach((val,inx) => {
-        let obSelected = {
-        label: this.props.listObject[val].displayName,
-        value: this.props.listObject[val].id,
-        externalAccess:this.props.listObject[val].externalAccess,
-        publicAccess:this.props.listObject[val].publicAccess,
-        userAccesses:this.props.listObject[val].userAccesses,
-        userGroupAccesses:this.props.listObject[val].userGroupAccesses
-      };
+      try{
+      let obSelected=this.state.objectAvailable.find(x => x.value === val);
+      //add access to all object selected in the list, only one for user or group
+      let users=obSelected.userAccesses;
+      let groups=obSelected.userGroupAccesses;
+      //    userAndGroupsSelected: {
+      //  userAccesses: [],
+       userGroupAccesses: []
+      //}
+      users.forEach((user)=>{
+        this.state.userAndGroupsSelected.userAccesses.forEach((userSelected)=>{
+          if(userSelected.id==user.id){
+            user.access=userSelected.access;
+          }
+        })
+      })
+
       nList.push(obSelected);
       if(inx===values.selected.length-1){
        this.setState(
@@ -328,6 +337,9 @@ class BulkMode extends React.Component {
          messajeError: ""
        });
       }
+     }catch(e){
+       console.log(e);
+     }
     })
   }
 
@@ -407,7 +419,8 @@ class BulkMode extends React.Component {
   }
   onEndReachedTransfer(){
     this.setState({loading:true});
-    this.props.handleChangeTabs(undefined,"edit",this.state.page);
+    this.props.reloadData(this.state.page);
+    
   }
   getStepContent(stepIndex) {
     switch (stepIndex) {
@@ -418,9 +431,9 @@ class BulkMode extends React.Component {
 
               <Transfer
                   onChange={this.handleList.bind(this)}
-                  onEndReached={this.onEndReachedTransfer.bind(this)}
                   options={this.state.objectAvailable}
                   selected={this.state.objectSelectedview}
+                  onEndReached={this.onEndReachedTransfer.bind(this)}
                   loading={this.state.loading}
               />
             </div>
@@ -438,7 +451,7 @@ class BulkMode extends React.Component {
 
           </div>
         )
-      case 1:
+      case 1:       
         return (
 
             <div style={styles.containterStrategy}>              
@@ -496,9 +509,34 @@ class BulkMode extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.listObject != this.props.listObject && Object.values(this.props.listObject).length > 0) {
+      let tempObjectAvailable=this.state.objectAvailable;
       let nvalue=this.fillListObject(this.props.listObject);
-      let objectAvailable=this.state.objectAvailable.concat(nvalue);
-      this.setState({ objectAvailable,page:this.state.page+1,loading:false });
+      let foundOb=tempObjectAvailable.find(x => x.value === nvalue[0].value);
+
+
+
+      if( foundOb === undefined && this.props.originSearch ==="bulklist"){
+        //include object selected in list
+        this.state.objectSelected.forEach((obj)=>{
+          if(tempObjectAvailable.find(x => x.value === obj.value)===undefined){
+            tempObjectAvailable.push(obj);
+          }
+        })
+        let objectAvailable=tempObjectAvailable.concat(nvalue);
+        this.setState({ objectAvailable,page:this.state.page+1,loading:false });
+
+      }
+      else{
+        //include object selected in list
+        this.state.objectSelected.forEach((obj)=>{
+          if(nvalue.find(x => x.value === obj.value)===undefined){
+            nvalue.push(obj);
+          }
+        })
+
+        this.setState({objectAvailable:nvalue,page:this.state.page+1,loading:false });
+      }     
+      
     }
   }
   render() {

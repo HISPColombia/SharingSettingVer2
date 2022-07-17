@@ -68,7 +68,7 @@ class IndividualMode extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { currentPage: 0, openModal: false, userAndGroupsSelected: {}, messajeError: "mensaje de error",rowsPerPage:50,page:1,rowlength:0,usersAndgroups:{}}
+    this.state = {openModal: false, userAndGroupsSelected: {}, messajeError: "mensaje de error",rowsPerPage:50,page:1,rowlength:0,usersAndgroups:{}}
   }
   //query resource Selected
   async setResourceSelected(urlAPI, Payload) {
@@ -150,7 +150,7 @@ class IndividualMode extends React.Component {
   };
   async componentDidMount() {
    
-    this.state = { currentPage: this.props.currentPage, openModal: false, userAndGroupsSelected: {}, messajeError: ""};
+    this.state = {openModal: false, userAndGroupsSelected: {}, messajeError: ""};
     this.setState({usersAndgroups: await  this.getUsersandGroups()});
   }
   handleChangeRowsPerPage = (event) => {
