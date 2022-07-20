@@ -310,23 +310,48 @@ class BulkMode extends React.Component {
   handleList(values) {   
     //Add or remove Object Selected
     let nList = [];
+    let userAndGroupsSelected= {
+      userAccesses: [],
+      userGroupAccesses: []
+    }
     values.selected.forEach((val,inx) => {
       try{
       let obSelected=this.state.objectAvailable.find(x => x.value === val);
       //add access to all object selected in the list, only one for user or group
       let users=obSelected.userAccesses;
-      let groups=obSelected.userGroupAccesses;
-      //    userAndGroupsSelected: {
-      //  userAccesses: [],
-       userGroupAccesses: []
-      //}
+      let groups=obSelected.userGroupAccesses;      
       users.forEach((user)=>{
-        this.state.userAndGroupsSelected.userAccesses.forEach((userSelected)=>{
-          if(userSelected.id==user.id){
-            user.access=userSelected.access;
+        let _user=userAndGroupsSelected.userAccesses.map(u=>u.id).indexOf(user.id);
+        if(_user===-1){
+          //fix error in legacy data
+          if (user.access==="--------") {
+            user.access ="r-------";
           }
-        })
+          userAndGroupsSelected.userAccesses.push(user);
+        }
+        else{
+          if (userAndGroupsSelected.userAccesses[_user].access==="r-------") {
+            userAndGroupsSelected.userAccesses[_user].access ="r-------";
+          }
+        }
       })
+
+      groups.forEach((group)=>{
+        let _group=userAndGroupsSelected.userGroupAccesses.map(g=>g.id).indexOf(group.id);
+        if(_group===-1){
+          //fix error in legacy data
+          if (group.access==="--------") {
+            group.access ="r-------";
+          }
+          userAndGroupsSelected.userGroupAccesses.push(group);
+        }
+        else{
+          if (userAndGroupsSelected.userGroupAccesses[_group].access==="r-------") {
+            userAndGroupsSelected.userGroupAccesses[_group].access ="r-------";
+          }
+        }
+      })
+
 
       nList.push(obSelected);
       if(inx===values.selected.length-1){
@@ -334,7 +359,8 @@ class BulkMode extends React.Component {
        {
          objectSelectedview:values.selected,
          objectSelected: nList,
-         messajeError: ""
+         messajeError: "",
+         userAndGroupsSelected:userAndGroupsSelected
        });
       }
      }catch(e){
@@ -472,7 +498,7 @@ class BulkMode extends React.Component {
                               'sharing/search':Object.assign({}, this.state.usersAndgroups, this.state.userAndGroupsSelected)                 
                           }}
                       >
-                      <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={false} callback={this.setObjectSetting.bind(this)}/>
+                      <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={false} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false}/>
 
                     </CustomDataProvider>
                     <FormGroup>
