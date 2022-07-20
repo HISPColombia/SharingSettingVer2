@@ -20,7 +20,7 @@ import {get,post} from '../API/Dhis2.js';
 const styles = {
   container: {
     display: 'grid',
-    gridTemplateColumns: '20% 30% 50%',
+    gridTemplateColumns: '30% 30% 40%',
   },
   item: {
     padding: 5

@@ -12,8 +12,9 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
 import Chip from '@mui/material/Chip';
-import Dialog from '@mui/material/Dialog';
+import {Dialog,DialogTitle,DialogContent,DialogActions} from '@mui/material';
 import Button from '@mui/material/Button';
+import IconButton  from '@mui/material/IconButton';
 
 
 import None from '@mui/icons-material/NotInterested';
@@ -86,7 +87,7 @@ class Content extends React.Component {
     }
   //query resource Selected
   async getResourceSelected(urlAPI,page=1,searchByName="") {
-        let result = {};
+     let result = {};
      try {
       let res = await get('/' + urlAPI + "?fields=id,code,name,displayName,externalAccess,publicAccess,userGroupAccesses[id,access,displayName~rename(name),userGroupUid],userAccesses[id,access,displayName~rename(name),userUid]&page="+page+(searchByName===""?"":"&filter=identifiable:token:"+searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
       if (res.hasOwnProperty(urlAPI)) {
@@ -129,17 +130,12 @@ class Content extends React.Component {
 
   }
 
-
-
-  // getChildContext() {
-  //   return {
-  //     muiTheme: appTheme
-  //   };
-  // }
-
-
   //tabs handle
   handleChangeTabs(textSearch,value,page=1) {
+
+    if(typeof(textSearch)!=="string"){
+      textSearch = "";
+    }
     //refresh List
     this.getResourceSelected(this.props.informationResource.resource,page,textSearch).then(res => {
       let dataResult = {}
@@ -200,12 +196,6 @@ class Content extends React.Component {
   };
 
   render() {
-    const actions = [
-      <Button
-        label={i18n.t("Close")}
-        primary={true}
-        onClick={this.handleClose.bind(this)}
-      />];
     return (
 
       <div className="app">
@@ -214,54 +204,58 @@ class Content extends React.Component {
             Sharing Setting for:  <span style={{"fontWeight": "bold"}}>{i18n.t(this.props.title)}</span>
           </div>
           <div style={{textAlign:'right'}}>
-          <Button
-              icon={<Help/>}
-               onClick={this.handleOpen.bind(this)}
-            />
+          <IconButton onClick={this.handleOpen.bind(this)}><Help/> </IconButton>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose.bind(this)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+          <DialogTitle id="alert-dialog-title">
+            {i18n.t("Conventions")}
+          </DialogTitle>
+          <DialogContent>
+            <div>
+            <div>{i18n.t("METADATA - privileges related to access")}</div>
+              <Chip backgroundColor={styles.chips.color}
+                 avatar={<Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor}><None /></Avatar>} 
+                 label={i18n.t("No Access")}
+                />
+              <Chip backgroundColor={styles.chips.color}
+                avatar={<Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor}><ActionDone /></Avatar>}
+                label={i18n.t("Can find and view")}
+                />
+              <Chip backgroundColor={styles.chips.color}
+                avatar={<Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor}><ActionDoneAll /></Avatar> }
+                label={i18n.t("Can find, view and edit")}
+              />
 
-            <Dialog
-              title={i18n.t("Conventions")}
-              modal={false}
-              open={this.state.open}
-              onRequestClose={this.handleClose.bind(this)}
-              actions={actions}
-            >
-              <div>
-              {i18n.t("METADATA - privileges related to access")}
-                <Chip backgroundColor={styles.chips.color}>
-                  <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
-                  {i18n.t("No Access")}
-                </Chip>
-                <Chip backgroundColor={styles.chips.color}>
-                  <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDone />} />
-                  {i18n.t("Can find and view")}
-                </Chip>
-                <Chip backgroundColor={styles.chips.color}>
-                  <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDoneAll />} />
-                  {i18n.t("Can find, view and edit")}
-                </Chip>
+            </div>
+            <div>
+            <div>{i18n.t("DATA - Privileges related to data registration and access")}</div>
+              <Chip backgroundColor={styles.chips.color}
+                avatar={<Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor}><None /></Avatar>}
+                label={i18n.t("No Access")}
+              />
+              <Chip backgroundColor={styles.chips.color}
+                avatar={<Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor}><ActionDone /></Avatar>}
+                label={i18n.t("Can register")}
+              />
+              <Chip backgroundColor={styles.chips.color}
+                avatar={<Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor}><ActionDoneAll /></Avatar>}
+                label={i18n.t("Can find, view and edit")}
+              />
 
-              </div>
-              <div>
-              {i18n.t("DATA - Privileges related to data registration and access")}
-                <Chip backgroundColor={styles.chips.color}>
-                  <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<None />} />
-                  {i18n.t("No Access")}
-                </Chip>
-                <Chip backgroundColor={styles.chips.color}>
-                  <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDone />} />
-                  {i18n.t("Can find and view")}
-                </Chip>
-                <Chip backgroundColor={styles.chips.color}>
-                  <Avatar backgroundColor={styles.chips.avatarColor} color={styles.chips.iconColor} icon={<ActionDoneAll />} />
-                  {i18n.t("Can find, view and edit")}
-                </Chip>
+            </div>
 
-              </div>
+          </DialogContent>
+          <DialogActions>
 
-            </Dialog>
-
-
+            <Button onClick={this.handleClose.bind(this)} autoFocus>
+            {i18n.t("Close")}
+            </Button>
+          </DialogActions>
+        </Dialog>
           </div>
           <Filter  
           handlefilterTextChange={this.handlefilterTextChange.bind(this)} 

@@ -543,7 +543,7 @@ class BulkMode extends React.Component {
     const { finished, stepIndex } = this.state;
     const contentStyle = { height:400, margin: '0 16px' };
     return (
-      <div style={{ width: '100%', maxWidth: '90%', margin: 'auto' }}>
+      <div>
         <Stepper activeStep={stepIndex}>
           <Step>
             <StepLabel>{i18n.t("Select the Object")}</StepLabel>
