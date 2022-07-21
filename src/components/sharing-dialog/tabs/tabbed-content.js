@@ -26,7 +26,8 @@ export const TabbedContent = ({
     onChange,
     onRemove,
     externalAccess,
-    allowExternalAccess
+    allowExternalAccess,
+    removeAll
 }) => {
     const [activeTabIndex, setActiveTabIndex] = useState(0)
 
@@ -60,6 +61,7 @@ export const TabbedContent = ({
                                 allowPublicAccess={allowPublicAccess}
                                 onChange={onChange}
                                 onRemove={onRemove}
+                                removeAll={removeAll}
                             />
                         </>
                     )}
@@ -86,6 +88,7 @@ export const TabbedContent = ({
                 allowPublicAccess={allowPublicAccess}
                 onChange={onChange}
                 onRemove={onRemove}
+                removeAll={removeAll}
             />
         </>
     )

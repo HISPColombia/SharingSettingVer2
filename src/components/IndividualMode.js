@@ -170,6 +170,13 @@ class IndividualMode extends React.Component {
       </div>
     )
   }
+  removeAll(){
+    let userAndGroupsSelected= {
+      userAccesses: [],
+      userGroupAccesses: []
+    }
+    this.setState({userAndGroupsSelected:userAndGroupsSelected});
+  }
   //methods
   resolveAccessMessage(access, type) {
     const publicAccessStatus = {
@@ -315,7 +322,7 @@ class IndividualMode extends React.Component {
               }}
           >
           {this.state.userAndGroupsSelected.id !== undefined && this.state.openModal && (
-                          <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={true} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false} />
+                          <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={true} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false} removeAll={this.removeAll.bind(this)} />
             )}
         </CustomDataProvider>
               

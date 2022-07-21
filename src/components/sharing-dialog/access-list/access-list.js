@@ -13,6 +13,10 @@ import {
 import i18n from '../../../locales/index.js'
 import { Title } from '../text/index.js'
 import { ListItem } from './list-item.js'
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
+import Tooltip from '@mui/material/Tooltip';
 
 export const AccessList = ({
     onChange,
@@ -22,10 +26,20 @@ export const AccessList = ({
     users,
     groups,
     externalAccess,
-    allowExternalAccess
+    allowExternalAccess,
+    removeAll
 }) => (
     <>
-        <Title>{i18n.t('Users and groups that currently have access')}</Title>
+        <div style={{display:'grid',gridTemplateColumns:'90% 10%'}}>
+             <Title>{i18n.t('Users and groups that currently have access')}</Title>
+             <Tooltip title={i18n.t('Clean list')}>
+                <IconButton aria-label="close" size="small" onClick={()=>removeAll()}>
+                    <ClearAllIcon fontSize="inherit" />
+                </IconButton>
+            </Tooltip>
+        </div>
+       
+        
         <div className="header">
             <div className="header-left-column">{i18n.t('User / Group')}</div>
             <div className="header-right-column">{i18n.t('Access level')}</div>

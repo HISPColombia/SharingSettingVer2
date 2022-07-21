@@ -53,7 +53,8 @@ export const SharingDialog = ({
     modal,
     callback,
     sharingSettingObject,
-    allowExternalAccess
+    allowExternalAccess,
+    removeAll
 }) => {
     const { show: showError } = useAlert((error) => error, { critical: true })
 
@@ -123,6 +124,7 @@ export const SharingDialog = ({
         onRemove={() => {}}
         externalAccess={false}
         allowExternalAccess={allowExternalAccess}
+        removeAll={removeAll}
     />
         if(modal===true)
             return (
@@ -190,6 +192,7 @@ export const SharingDialog = ({
         onRemove={onRemove}
         externalAccess={externalAccess}
         allowExternalAccess={allowExternalAccess}
+        removeAll={removeAll}
         
     />
     if(modal===true)

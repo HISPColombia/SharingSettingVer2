@@ -160,7 +160,13 @@ class BulkMode extends React.Component {
       return (e)
     }
   }
-
+  removeAll(){
+    let userAndGroupsSelected= {
+      userAccesses: [],
+      userGroupAccesses: []
+    }
+    this.setState({userAndGroupsSelected:userAndGroupsSelected});
+  }
   setObjectSetting(){
     
   }
@@ -500,7 +506,7 @@ class BulkMode extends React.Component {
                           }}
                       >
                       <div style={{height:400,maxHeight:400,overflowX: 'hidden',overflowY: 'auto'}}>
-                        <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={false} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false}/>
+                        <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={false} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false} removeAll={this.removeAll.bind(this)}/>
                       </div>
                     </CustomDataProvider>
                     <FormGroup>
