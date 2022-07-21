@@ -96,6 +96,7 @@ const styles = {
     padding: 30,
     textAlign: 'left',
     display: 'inline-block',
+    paddingBottom:100
   },
   subtitles: {
     fontSize: '100%',
@@ -498,8 +499,9 @@ class BulkMode extends React.Component {
                               'sharing/search':Object.assign({}, this.state.usersAndgroups, this.state.userAndGroupsSelected)                 
                           }}
                       >
-                      <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={false} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false}/>
-
+                      <div style={{height:400,maxHeight:400,overflowX: 'hidden',overflowY: 'auto'}}>
+                        <SharingDialog id={this.state.userAndGroupsSelected.id} sharingSettingObject={this.state.userAndGroupsSelected} onClose={()=>this.handleClose()} type={this.props.resource.resource} modal={false} callback={this.setObjectSetting.bind(this)} allowExternalAccess={this.props.informationResource.authorities.find(a=>a.type==="EXTERNALIZE")!==undefined?true:false}/>
+                      </div>
                     </CustomDataProvider>
                     <FormGroup>
                         <FormControlLabel control={<Switch
