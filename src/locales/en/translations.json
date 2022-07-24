@@ -1,7 +1,6 @@
 {
     "Select at least one object, user or group": "Select at least one object, user or group",
     " ASSING All (": " ASSING All (",
-    " REMOVE All": " REMOVE All",
     "Strategy to save Sharing Setting to all object selected": "Strategy to save Sharing Setting to all object selected",
     "Overwrite Sharing settings": "Overwrite Sharing settings",
     "Merge with current Sharing settings": "Merge with current Sharing settings",
@@ -45,6 +44,7 @@
     "Not available offline": "Not available offline",
     "Give access": "Give access",
     "Users and groups that currently have access": "Users and groups that currently have access",
+    "Clean list": "Clean list",
     "User / Group": "User / Group",
     "All users": "All users",
     "External access": "External access",

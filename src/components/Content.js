@@ -88,14 +88,19 @@ class Content extends React.Component {
   //query resource Selected
   async getResourceSelected(urlAPI,page=1,searchByName="") {
      let result = {};
+     let res={};
      try {
-      let res = await get('/' + urlAPI + "?fields=id,code,name,displayName,externalAccess,publicAccess,userGroupAccesses[id,access,displayName~rename(name),userGroupUid],userAccesses[id,access,displayName~rename(name),userUid]&page="+page+(searchByName===""?"":"&filter=identifiable:token:"+searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
+      if(page=="all"){
+        res = await get('/' + urlAPI + "?fields=id,code,name,displayName,externalAccess,publicAccess,userGroupAccesses[id,access,displayName~rename(name),userGroupUid],userAccesses[id,access,displayName~rename(name),userUid]&paging=false&"+(searchByName===""?"":"&filter=identifiable:token:"+searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));      
+      }else{
+        res = await get('/' + urlAPI + "?fields=id,code,name,displayName,externalAccess,publicAccess,userGroupAccesses[id,access,displayName~rename(name),userGroupUid],userAccesses[id,access,displayName~rename(name),userUid]&page="+page+(searchByName===""?"":"&filter=identifiable:token:"+searchByName)+(this.state.filterids===""?"":"&filter=id:in:"+this.state.filterids));
+      }
       if (res.hasOwnProperty(urlAPI)) {
         return res;
       }
      }
     catch (e) {
-      console.error('Could not access to API Resource');
+      console.error('Could not access to API Resource',e);
     }
     return result;
   }

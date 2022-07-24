@@ -32,6 +32,7 @@ import SpecialButton from './SpecialButton';
 //dhis2
 import i18n from '../locales/index.js';
 import { post,get } from '../API/Dhis2.js';
+import { value } from 'jsonpath';
 
 
 const styles = {
@@ -146,7 +147,8 @@ class BulkMode extends React.Component {
       ExternalAccess: false,
       openModal:false,
       page: 1,
-      loading:false
+      loading:false,
+      assingall: false,
     }
   };
 
@@ -167,8 +169,8 @@ class BulkMode extends React.Component {
     }
     this.setState({userAndGroupsSelected:userAndGroupsSelected});
   }
-  setObjectSetting(){
-    
+  setObjectSetting({data}){
+    this.setState({ userAndGroupsSelected: data.object})
   }
   //query resource Selected
   async getUsersandGroups() {
@@ -289,29 +291,9 @@ class BulkMode extends React.Component {
       });
   }
   handleSelectAll() {
-       //filter only visible true
-    let NewObSelected=this.state.objectAvailable.filter((obj)=>{
-      if (((obj.label.includes(this.props.searchByName) == true) && (this.props.filterString.includes(obj.value)==true || this.props.filterString=="")))
-        return true
-      else
-        return false
+    this.setState({loading:true,assingall:true});
+    this.props.reloadData("all");
 
-    });
-    let currentSelected=this.state.objectSelected;
-    NewObSelected=NewObSelected.concat(currentSelected);
-    let aList = this.state.objectAvailable;
-
-    //change visible false to all object
-    for (var k = 0; k < aList.length; k++) {
-      aList[k].visible = false;
-    }
-    this.setState(
-      {
-        
-        objectAvailable: aList,
-        objectSelected:NewObSelected,
-        messajeError: ""
-      });
   }
 
   handleList(values) {   
@@ -321,59 +303,79 @@ class BulkMode extends React.Component {
       userAccesses: [],
       userGroupAccesses: []
     }
-    values.selected.forEach((val,inx) => {
-      try{
-      let obSelected=this.state.objectAvailable.find(x => x.value === val);
-      //add access to all object selected in the list, only one for user or group
-      let users=obSelected.userAccesses;
-      let groups=obSelected.userGroupAccesses;      
-      users.forEach((user)=>{
-        let _user=userAndGroupsSelected.userAccesses.map(u=>u.id).indexOf(user.id);
-        if(_user===-1){
-          //fix error in legacy data
-          if (user.access==="--------") {
-            user.access ="r-------";
-          }
-          userAndGroupsSelected.userAccesses.push(user);
-        }
-        else{
-          if (userAndGroupsSelected.userAccesses[_user].access==="r-------") {
-            userAndGroupsSelected.userAccesses[_user].access ="r-------";
-          }
-        }
-      })
-
-      groups.forEach((group)=>{
-        let _group=userAndGroupsSelected.userGroupAccesses.map(g=>g.id).indexOf(group.id);
-        if(_group===-1){
-          //fix error in legacy data
-          if (group.access==="--------") {
-            group.access ="r-------";
-          }
-          userAndGroupsSelected.userGroupAccesses.push(group);
-        }
-        else{
-          if (userAndGroupsSelected.userGroupAccesses[_group].access==="r-------") {
-            userAndGroupsSelected.userGroupAccesses[_group].access ="r-------";
-          }
-        }
-      })
-
-
-      nList.push(obSelected);
-      if(inx===values.selected.length-1){
-       this.setState(
-       {
-         objectSelectedview:values.selected,
-         objectSelected: nList,
-         messajeError: "",
-         userAndGroupsSelected:userAndGroupsSelected
-       });
+    if(values.objectAvailable==undefined) {
+      values.objectAvailable=this.state.objectAvailable;
+    }
+    else{
+      if(values.objectAvailable.length<this.state.objectAvailable.length){
+        values.objectAvailable=this.state.objectAvailable;
       }
-     }catch(e){
-       console.log(e);
-     }
-    })
+    }
+    if(values.selected.length>0){
+      values.selected.forEach((val,inx) => {
+        try{
+        let obSelected=values.objectAvailable.find(x => x.value === val);
+        //add access to all object selected in the list, only one for user or group
+        let users=obSelected.userAccesses;
+        let groups=obSelected.userGroupAccesses;  
+
+        users.forEach((user)=>{
+          let _user=userAndGroupsSelected.userAccesses.map(u=>u.id).indexOf(user.id);
+          if(_user===-1){
+            //fix error in legacy data
+            if (user.access==="--------") {
+              user.access ="r-------";
+            }
+            userAndGroupsSelected.userAccesses.push(user);
+          }
+          else{
+            if (userAndGroupsSelected.userAccesses[_user].access==="r-------") {
+              userAndGroupsSelected.userAccesses[_user].access ="r-------";
+            }
+          }
+        })
+
+        groups.forEach((group)=>{
+          let _group=userAndGroupsSelected.userGroupAccesses.map(g=>g.id).indexOf(group.id);
+          if(_group===-1){
+            //fix error in legacy data
+            if (group.access==="--------") {
+              group.access ="r-------";
+            }
+            userAndGroupsSelected.userGroupAccesses.push(group);
+          }
+          else{
+            if (userAndGroupsSelected.userGroupAccesses[_group].access==="r-------") {
+              userAndGroupsSelected.userGroupAccesses[_group].access ="r-------";
+            }
+          }
+        })
+
+
+        nList.push(obSelected);
+        if(inx===values.selected.length-1){
+        this.setState(
+        {
+          objectSelectedview:values.selected,
+          objectSelected: nList,
+          messajeError: "",
+          userAndGroupsSelected:userAndGroupsSelected
+        });
+        }
+      }catch(e){
+        console.log(e);
+      }
+      })
+    }
+  else{
+    this.setState(
+      {
+        objectSelectedview:values.selected,
+        objectSelected: nList,
+        messajeError: "",
+        userAndGroupsSelected:userAndGroupsSelected
+      });
+  }
   }
 
   handleListSelected(list, CallBackFnSelected) {
@@ -471,15 +473,9 @@ class BulkMode extends React.Component {
               />
             </div>
             <div style={styles.containterBtnAcction}>
-
               <div style={styles.ButtonLeftAling}>
                 <Button onClick={this.handleSelectAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect}  variant="outlined">{i18n.t(" ASSING All (")+ this.props.pager.total + ") →"}</Button>
               </div>
-              <div style={styles.ItemMiddleButton}>  </div>
-              <div style={styles.ButtonRightAling}>
-                <Button onClick={this.handleRemoveAll.bind(this)} labelColor={styles.ButtonActived.textColor} backgroundColor={styles.ButtonActived.backgroundColor} style={styles.ButtonSelect} variant="outlined">{i18n.t(" REMOVE All") + "←"}</Button>
-              </div>
-              <div style={styles.ItemMiddleButton}></div>
             </div>
 
           </div>
@@ -547,7 +543,11 @@ class BulkMode extends React.Component {
       let nvalue=this.fillListObject(this.props.listObject);
       let foundOb=tempObjectAvailable.find(x => x.value === nvalue[0].value);
 
-
+      if(this.state.assingall==true){
+        let objectAvailable=tempObjectAvailable.concat(nvalue);
+         let selected=nvalue.map(n=>n.value);
+        this.handleList({selected,objectAvailable});
+      }
 
       if( foundOb === undefined && this.props.originSearch ==="bulklist"){
         //include object selected in list
@@ -557,7 +557,7 @@ class BulkMode extends React.Component {
           }
         })
         let objectAvailable=tempObjectAvailable.concat(nvalue);
-        this.setState({ objectAvailable,page:this.state.page+1,loading:false });
+        this.setState({ objectAvailable,page:this.state.page+1,loading:false,assingall:false });
 
       }
       else{
@@ -568,7 +568,7 @@ class BulkMode extends React.Component {
           }
         })
 
-        this.setState({objectAvailable:nvalue,page:this.state.page+1,loading:false });
+        this.setState({objectAvailable:nvalue,page:this.state.page+1,loading:false,assingall:false});
       }     
       
     }

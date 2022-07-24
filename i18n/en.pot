@@ -5,17 +5,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2022-07-20T16:35:04.592Z\n"
-"PO-Revision-Date: 2022-07-20T16:35:04.592Z\n"
+"POT-Creation-Date: 2022-07-24T21:29:08.728Z\n"
+"PO-Revision-Date: 2022-07-24T21:29:08.728Z\n"
 
 msgid "Select at least one object, user or group"
 msgstr "Select at least one object, user or group"
 
 msgid " ASSING All ("
 msgstr " ASSING All ("
-
-msgid " REMOVE All"
-msgstr " REMOVE All"
 
 msgid "Strategy to save Sharing Setting to all object selected"
 msgstr "Strategy to save Sharing Setting to all object selected"
@@ -145,6 +142,9 @@ msgstr "Give access"
 
 msgid "Users and groups that currently have access"
 msgstr "Users and groups that currently have access"
+
+msgid "Clean list"
+msgstr "Clean list"
 
 msgid "User / Group"
 msgstr "User / Group"
