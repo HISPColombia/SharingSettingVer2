@@ -7,13 +7,10 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Paper from '@mui/material/Paper';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 //dhis2
 import {CustomDataProvider} from '@dhis2/app-runtime';
@@ -23,6 +20,9 @@ import {SharingDialog} from './sharing-dialog';
 import Avatar from '@mui/material/Avatar';
 
 import CircularProgress from '@mui/material/CircularProgress';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 //Component
 import ListSelect from './ListSelect.component';
@@ -149,6 +149,7 @@ class BulkMode extends React.Component {
       page: 1,
       loading:false,
       assingall: false,
+      progress:0
     }
   };
 
@@ -195,17 +196,18 @@ class BulkMode extends React.Component {
     var { stepIndex } = this.state;
     stepIndex = stepIndex + 1;
     this.setState({stepIndex});
-    setTimeout(()=>{ this.SendInformationAPI() }, 3000);
+    this.SendInformationAPI(0,[],0,0)
+    //setTimeout(()=>{this.SendInformationAPI()  }, 3000);
   }
-  SendInformationAPI() {
+  SendInformationAPI(index,obImported,Imported,noImported) {
     var access = { 0: "--", 1: "r-", 2: "rw" };
-    var obImported = [];
-    var Imported=0;
-    var noImported=0;
+    // var obImported = [];
+    // var Imported=0;
+    // var noImported=0;
     var { stepIndex } = this.state;
-    this.state.objectSelected.forEach((obj, index) => {
+    let  obj=this.state.objectSelected[index];
+    //this.state.objectSelected.forEach((obj, index) => {
       let stringUserPublicAccess = access[this.state.PublicAccess] + "------";
-     
       var userAccesses=this.state.userAndGroupsSelected.userAccesses;
       var userGroupAccesses=this.state.userAndGroupsSelected.userGroupAccesses;
       //Merge the current setting ---
@@ -229,8 +231,8 @@ class BulkMode extends React.Component {
           userGroupAccesses
         }
 
-      }      
-      this.setResourceSelected("sharing?type=" + this.props.resource.key + "&id=" + obj.value, valToSave).then(res => {
+      } 
+      this.setResourceSelected("/sharing?type=" + this.props.resource.key + "&id=" + obj.value, valToSave).then(res => {
         if(res.status=="OK"){
             Imported++;
         }
@@ -248,14 +250,20 @@ class BulkMode extends React.Component {
                 obImported
               },
               stepIndex: stepIndex + 1,
-              finished: stepIndex >= 3
+              finished: stepIndex >= 2
             }
           );
         }
+        else{
+          this.setState({progress:index});
+        }
+        this.SendInformationAPI(index+1,obImported,Imported,noImported);
+      }).catch(er=>{
+        noImported++;
+        console.log("Error Interno >",er)
+    });
 
-      })
-
-    })
+    //})
 
   }
 
@@ -525,9 +533,21 @@ class BulkMode extends React.Component {
 
         );
       case 2:
+        const normalise = (value) => ((value - 0) * 100) / (this.state.objectSelected.length - 1);
         return (
           <div style={{textAlign:"center"}}>
-            <CircularProgress size={80} thickness={5} />
+            {/* <CircularProgress size={80} thickness={5} /> */}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box sx={{ width: '100%', mr: 1 }}>
+                <LinearProgress variant="determinate" value={normalise(this.state.progress)} />
+              </Box>
+              <Box sx={{ minWidth: 35 }}>
+                <Typography variant="body2" color="success">{`${Math.round(
+                  normalise(this.state.progress)
+                )}%`}</Typography>
+              </Box>
+            </Box>
+            
           </div>
         )
       default:
@@ -645,11 +665,11 @@ class BulkMode extends React.Component {
                   </Button>
                   <Button
                     primary={true}
-                    disabled={stepIndex === 3}
-                    onClick={stepIndex === 2 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
+                    disabled={stepIndex === 2}
+                    onClick={stepIndex === 1 ? this.saveSetting.bind(this) : this.handleNext.bind(this)}
                     variant="contained"
                   >
-                    {stepIndex === 2 ? i18n.t("SAVE SETTING") : i18n.t(" NEXT")}
+                    {stepIndex === 1 ? i18n.t("SAVE SETTING") : i18n.t(" NEXT")}
                     </Button>
                 </div>
               </div>
